@@ -117,7 +117,7 @@ const SideBarComponenent: React.FC<Props> = ({
   classes,
 }: Props) => {
   const { t } = useTranslation();
-   console.log('les annotations:', annotations)
+   console.log(' dans sidebar les annotations:', annotations[0])
   return (
     <>
       {user && isOwner(project, user) ? (

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="356c6e36-c04d-4473-9101-99f766f78290" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/packages/client/src/i18n/en.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/i18n/en.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/i18n/fr.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/i18n/fr.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/SideBarComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/SideBarComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/SideBarContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/SideBarContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/components/CSVAnnotationExport.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/components/CSVAnnotationExport.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/scenes/Project/components/SideBar/components/ShareDialog/CSVAnnotationExport.tsx" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MmL4IL261LCynwxeWqrxfZ3alk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/larbi/fev-celluloid/celluloid"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="356c6e36-c04d-4473-9101-99f766f78290" name="Changes" comment="" />
+      <created>1678367617650</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678367617650</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,4 +1,4 @@
-import { ProjectGraphRecord, UserRecord } from "@celluloid/types";
+import { ProjectGraphRecord, UserRecord, AnnotationRecord } from "@celluloid/types";
 import {
   deleteProjectThunk,
   openShareProject,
@@ -29,6 +29,7 @@ interface Props {
   deleteError?: string;
   performance_mode: boolean;
   sequencing: boolean;
+  annotations: AnnotationRecord[];
   onClickSetPublic(
     projectId: string,
     value: boolean
@@ -56,6 +57,7 @@ const mapStateToProps = (state: AppState) => ({
   user: state.user,
   performance_mode: state.project.player.performance_mode,
   sequencing: state.project.player.sequencing,
+  annotations: state.project.video.annotations
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

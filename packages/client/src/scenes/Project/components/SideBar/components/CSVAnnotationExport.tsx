@@ -12,17 +12,18 @@ interface Props  {
 export default (
       (
         class extends React.Component<Props> {
-         // constructor(props:any){
-           // super(props)
-            // this.getData= this.getData.bind(this)           
-         // }
-          // getData(d:any){
-          //   this.setState({dat:d})
-          //   return this.state
-          // } 
+          constructor(props:any){
+            super(props)
+            this.state={
+              dat : 'projectName, startTime, stopTime, user, sequecing, text, ontology,subConcept1,subConcept2,subConcept3' + '\n'
+            }
+                    
+          }
+         
           render() {
 
            const {annotations, project } = this.props;
+          
            return (
             <ButtonProgress
                 variant="contained"
@@ -31,12 +32,12 @@ export default (
                 onClick={async() => {
                  // const p = Promise.resolve('Hello World');
                   let data = 'projectName, startTime, stopTime, user, text, ontology,subConcept1,subConcept2,subConcept3, relationConcept' + '\n';
-                  console.log('id project; ', project.id)
+              
                   let subConcept1= ''
                   let subConcept2= ''
                   let subConcept3= ''
                   let relationConcept=''
-                 await Promise.all(annotations.map(async (item) => {
+                  await Promise.all(annotations.map(async (item) => {
                   //  let res= await getConcept(item.id)
                   //  console.log('list des concept',res)
                   //  let ontology=res[0]
@@ -74,9 +75,12 @@ export default (
                    + '   , ' + ontologyData + '   , ' + subConcept1
                    + '    , '+ subConcept2 +'    , ' + subConcept3+'    , ' + relationConcept+'\n'; 
                     // this.setState({dat:data})
+               
+                    this.setState({dat:data})
                     return this.state
                     } ))
                   let dublinCore='-------------------------------------------------------------Metadata-----------------------------------------------------------\n';
+             
                   let resultat=dublinCore+Object.values(this.state)
                
                   var blob = new Blob([resultat.toString()], {type: 'text/csv'});

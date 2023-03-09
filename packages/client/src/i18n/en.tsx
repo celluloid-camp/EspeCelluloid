@@ -107,6 +107,7 @@ export default {
     analyze: 'Analyze',
     sequencing:'Sequencing',
     shared: 'Share',
+    exportButton: 'EXPORT',
     members: '{{ count }} attendees',
     members_plural: '{{ count }} attendees',
     URL_title: 'Video URL',

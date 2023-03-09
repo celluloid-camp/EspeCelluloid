@@ -110,6 +110,7 @@ export default {
     analyze: 'Analyse',
     sequencing:'Sequencing',
     shared: 'Partage',
+    exportButton: 'EXPORTER',
     members: '{{ count }} participant',
     members_plural: '{{ count }} participants',
     URL_title: 'URL de la vidéo',
