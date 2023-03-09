@@ -13,6 +13,7 @@ export interface ProjectCreateData {
   levelEnd: number;
   public: boolean;
   collaborative: boolean;
+
 }
 
 export interface ProjectUpdateData {

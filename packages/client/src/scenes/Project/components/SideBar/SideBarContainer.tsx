@@ -12,9 +12,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { AsyncAction, EmptyAction } from "types/ActionTypes";
 import { AppState } from "types/StateTypes";
-
+import { playerSwitchMode } from 'actions/PlayerActions';
+import { triggerCancelAnnotation } from 'actions/AnnotationsActions';
 import SideBarComponent from "./SideBarComponent";
-
+import { playerSwitchSequencing } from '../../../../actions/PlayerActions';
 interface Props {
   user?: UserRecord;
   project: ProjectGraphRecord;
@@ -26,6 +27,8 @@ interface Props {
   setCollaborativeError?: string;
   unshareError?: string;
   deleteError?: string;
+  performance_mode: boolean;
+  sequencing: boolean;
   onClickSetPublic(
     projectId: string,
     value: boolean
@@ -37,6 +40,8 @@ interface Props {
   openShareDialog(): EmptyAction;
   unshareProject(projectId: string): AsyncAction<ProjectGraphRecord, string>;
   onClickDelete(projectId: string): AsyncAction<null, string>;
+  onClickSwitchPlayerMode(): void;
+  onClickSwitchSequencing(): void;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -49,6 +54,8 @@ const mapStateToProps = (state: AppState) => ({
   unshareError: state.project.details.unshareError,
   deleteError: state.project.details.deleteError,
   user: state.user,
+  performance_mode: state.project.player.performance_mode,
+  sequencing: state.project.player.sequencing,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -60,6 +67,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     setProjectPublicThunk(projectId, value)(dispatch),
   onClickSetCollaborative: (projectId: string, value: boolean) =>
     setProjectCollaborativeThunk(projectId, value)(dispatch),
+  onClickSwitchPlayerMode: () =>
+    dispatch(playerSwitchMode()) && dispatch(triggerCancelAnnotation()),
+  onClickSwitchSequencing: () =>
+    dispatch(playerSwitchSequencing()) && dispatch(triggerCancelAnnotation()),
 });
 
 const SideBarContainer: React.FC<Props> = (props) => {

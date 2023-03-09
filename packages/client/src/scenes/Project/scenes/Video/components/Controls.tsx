@@ -63,11 +63,12 @@ interface Props extends WithStyles<typeof styles> {
   position: number;
   fullscreen: boolean;
   muted: boolean;
+  performance_mode: boolean;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
   onTogglePlayPause(): void;
   onToggleFullscreen(): void;
   onToggleHints(): void;
-  onToggleMuted(): void;
+  // onToggleMuted(): void;
 }
 
 interface State {
@@ -77,6 +78,8 @@ interface State {
 const mapStateToProps = (state: AppState) => ({
   seeking: state.project.player.seeking,
   seekTarget: state.project.player.seekTarget,
+  performance_mode: state.project.player.performance_mode
+  
 });
 
 export default connect(mapStateToProps)(
@@ -95,12 +98,12 @@ export default connect(mapStateToProps)(
           onToggleFullscreen,
           onToggleHints,
           onSeek,
-          onToggleMuted,
+          // onToggleMuted,
           seeking,
           seekTarget,
           classes,
+          performance_mode,
         } = this.props;
-
         return (
           <Grid
             container={true}
@@ -111,13 +114,37 @@ export default connect(mapStateToProps)(
             className={classes.controls}
           >
             <Grid item={true}>
+{/*           
               <IconButton
                 color="inherit"
                 onClick={() => onTogglePlayPause()}
                 classes={{ root: classes.icon }}
               >
-                {playing ? <PauseIcon /> : <PlayIcon />}
-              </IconButton>
+                {!performance_mode || playing ? <PauseIcon /> : <PlayIcon />}
+              </IconButton> */}
+              {/* { !performance_mode ?
+                <IconButton
+                  color="inherit"
+                  onClick={() => onTogglePlayPause()}
+                  classes={{ root: classes.icon }}
+                >
+                
+                </IconButton> :
+                <></>
+              } */}
+               {!playing || !performance_mode ?
+                <IconButton
+                  color="inherit"
+                  onClick={() => onTogglePlayPause()}
+                  classes={{ root: classes.icon }}
+                >
+                  {playing ?
+                    <PauseIcon /> :
+                    <PlayIcon />
+                  }
+                </IconButton> :
+                <></>
+              }
             </Grid>
             <Grid item={true}>
               <Typography style={{ color: "white" }} variant="caption">
@@ -164,13 +191,13 @@ export default connect(mapStateToProps)(
                   </IconButton>
                 )}
 
-                <IconButton
+                {/* <IconButton
                   color="inherit"
                   onClick={() => onToggleMuted()}
                   classes={{ root: classes.icon }}
                 >
                   {muted ? <VolumeOffIcon /> : <VolumeUpIcon />}
-                </IconButton>
+                </IconButton> */}
                 <IconButton
                   color="inherit"
                   onClick={() => onToggleFullscreen()}

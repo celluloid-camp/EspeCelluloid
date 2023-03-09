@@ -51,6 +51,8 @@ export interface ProjectDetailsState {
 export interface PlayerState {
   seeking: boolean;
   seekTarget: number;
+  performance_mode: boolean;
+  sequencing: boolean;
 }
 
 export interface ProjectState {

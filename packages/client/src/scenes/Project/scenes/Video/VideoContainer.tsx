@@ -30,6 +30,8 @@ interface Props {
   project: ProjectGraphRecord;
   seeking: boolean;
   focusedAnnotation?: AnnotationRecord;
+  performance_mode: boolean;
+  sequencing_mode: boolean;
   load(projectId: string): AsyncAction<AnnotationRecord[], string>;
   notifySeek(): EmptyAction;
   requestSeek(seekTarget: number): Action<number>;
@@ -45,6 +47,7 @@ interface State {
   showControls: boolean;
   showHints: boolean;
   visibleAnnotations: AnnotationRecord[];
+  performance_mode: boolean;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -52,6 +55,8 @@ const mapStateToProps = (state: AppState) => ({
   annotations: state.project.video.annotations,
   seeking: state.project.player.seeking,
   focusedAnnotation: state.project.video.focusedAnnotation,
+  performance_mode: state.project.player.performance_mode,
+  sequencing_mode: state.project.player.sequencing
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -69,7 +74,7 @@ export default connect(
     fadeoutTimer = -1;
     refreshTimer = -1;
     state = {
-      playing: false,
+      playing: true,
       position: 0,
       duration: 0,
       fullscreen: false,
@@ -77,6 +82,7 @@ export default connect(
       showHints: false,
       visibleAnnotations: [],
       annotating: false,
+      performance_mode:false,
     } as State;
 
     componentDidMount() {
@@ -156,6 +162,7 @@ export default connect(
     seek(value: number, pause: boolean, seekAhead: boolean) {
       this.setState({ position: value });
       const player = this.state.player;
+      if (!this.props.performance_mode) {
       if (player) {
         if (pause) {
           // player.pauseVideo();
@@ -167,6 +174,13 @@ export default connect(
         player.seekTo(value, "seconds");
         // this.props.requestSeek(value);
       }
+    }else{
+      if(player){
+        this.setState({
+          playing: false,
+        });
+        player.seekTo(value, "seconds");
+    }}
     }
 
     render() {
@@ -211,8 +225,10 @@ export default connect(
       };
 
       const onPlayerStateChange = (event: PlayerEvent, data: number) => {
+        console.log('hhhhhhhhhhhhhh')
         switch (event) {
           case PlayerEvent.PLAYING:
+            console.log('WE ARE PLAYING')
             this.setState({ playing: true });
             this.props.notifySeek();
             break;
@@ -220,17 +236,20 @@ export default connect(
           case PlayerEvent.ENDED:
           case PlayerEvent.PAUSED:
           default:
+            console.log('WE ARE PAUSED')
             this.setState({ playing: false });
         }
       };
 
       const onFullscreenChange = (newFullscreen: boolean) =>
         this.setState({ fullscreen: newFullscreen });
-
+      const performance_mode= this.props.performance_mode;
       const onTogglePlayPause = () => {
+    
         onUserAction();
         if (player) {
-          if (playing) {
+      
+          if (playing && !this.props.performance_mode) {
             this.setState({ playing: false });
             // player.pauseVideo();
           } else {
@@ -238,6 +257,7 @@ export default connect(
             this.setState({ playing: true });
           }
         }
+        return playing;
       };
 
       const onToggleFullscreen = () =>
@@ -285,6 +305,7 @@ export default connect(
           onToggleHints={onToggleHints}
           onClickHint={onClickHint}
           onSeek={onSeek}
+          performance_mode={performance_mode}
         />
       );
     }

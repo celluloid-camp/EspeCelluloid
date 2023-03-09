@@ -43,6 +43,7 @@ import VideoApi from "services/VideoService";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import get from "lodash/get";
+import { F } from "ramda";
 
 const Zoom: React.FC<React.PropsWithChildren & ZoomProps> = (props) => (
   <ZoomMUI {...props} />
@@ -51,8 +52,6 @@ const Zoom: React.FC<React.PropsWithChildren & ZoomProps> = (props) => (
 const Grow: React.FC<React.PropsWithChildren & GrowProps> = (props) => (
   <GrowMUI {...props} />
 );
-
-
 const Player: React.FC<ReactPlayerProps> = (props) => {
   const playerRef = React.useRef<ReactPlayer>(null);
 
@@ -77,10 +76,11 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
       onError={(error, data, hlsInstance) => {
         console.log({ error, data, hlsInstance });
       }}
+      controls={false}
       config={{
         peertube: {
-          controls: 1,
-          controlBar: 1,
+          // controls: 1,
+          // controlBar: 1,
           peertubeLink: 0,
           title: 0,
           warningTitle: 0,
@@ -90,6 +90,7 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
       }}
       {...props}
     />
+   
   );
 };
 
@@ -125,12 +126,13 @@ interface Props extends WithStyles<typeof styles> {
   onPlayerStateChange(event: PlayerEvent, data: number): void;
   onDuration(duration: number): void;
   onFullscreenChange(newState: boolean): void;
-  onTogglePlayPause(): void;
+  onTogglePlayPause(): boolean;
   onToggleFullscreen(): void;
   onToggleHints(): void;
   onClickHint(annotation: AnnotationRecord): void;
   onClickAnnotate(): EmptyAction;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
+  performance_mode:boolean;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -172,7 +174,9 @@ export default connect(
       onClickHint,
       onClickAnnotate,
       onSeek,
+      performance_mode,
       classes,
+      
     }: Props) => {
       const [isReady, setIsReady] = useState(false);
 
@@ -196,7 +200,9 @@ export default connect(
         onPlayerReady(player);
         setIsReady(true);
       };
-
+    
+     
+     
       useEffect(() => {
         if (project) {
           setUrl(`https://${project.host}/w/${project.videoId}`);
@@ -236,6 +242,10 @@ export default connect(
       };
 
       return (
+        <Fullscreen
+        enabled={fullscreen}
+        onChange={onFullscreenChange}
+         >
         <div
           onMouseMove={onUserAction}
           className={classnames("full-screenable-node", classes.videoWrapper)}
@@ -251,12 +261,13 @@ export default connect(
               height="100%"
               playing={playing}
               muted={muted}
+              controls={false}
             />
-
+             
             <div
               className={classes.glassPane}
               onMouseMove={onUserAction}
-              // onClick={onTogglePlayPause}
+              // onClick={}
             />
 
             {!showHints && (
@@ -345,7 +356,7 @@ export default connect(
               </Fab>
             </Zoom>
 
-            {/* {isReady ? (
+            {isReady ? (
                 <div
                   onMouseMove={onUserAction}
                   className={classnames([
@@ -365,7 +376,7 @@ export default connect(
                     onToggleFullscreen={onToggleFullscreen}
                     onTogglePlayPause={onTogglePlayPause}
                     onToggleHints={onToggleHints}
-                    onToggleMuted={handleToggleMute}
+                    // onToggleMuted={handleToggleMute}
                   />
                 </div>
               ) : (
@@ -377,9 +388,10 @@ export default connect(
                     }}
                   />
                 </div>
-              )} */}
+              )}
           </div>
         </div>
+        </Fullscreen>
       );
     }
   )

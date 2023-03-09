@@ -9,3 +9,8 @@ export const playerRequestSeek = (seekTarget: number) =>
 
 export const playerNotifySeek = () =>
   createEmptyAction(ActionType.PLAYER_NOTIFY_SEEK);
+  export const playerSwitchMode = () =>
+  createEmptyAction(ActionType.PLAYER_SWITCH_MODE);
+
+export const playerSwitchSequencing = () => 
+  createEmptyAction(ActionType.PLAYER_SWITCH_SEQUENCING);

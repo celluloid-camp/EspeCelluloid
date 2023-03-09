@@ -1,4 +1,4 @@
-import { ProjectGraphRecord, UserRecord } from "@celluloid/types";
+import { AnnotationRecord, ProjectGraphRecord, UserRecord } from "@celluloid/types";
 import {
   createStyles,
   List,
@@ -19,6 +19,7 @@ import VisibilityChip from "components/VisibilityChip";
 import * as React from "react";
 import { AsyncAction } from "types/ActionTypes";
 import { isOwner, isAdmin } from "utils/ProjectUtils";
+import CSVAnnotationExport from './components/CSVAnnotationExport';
 
 import ShareCredentials from "components/ShareCredentials";
 
@@ -74,6 +75,9 @@ interface Props extends WithStyles<typeof styles> {
   setCollaborativeError?: string;
   unshareError?: string;
   deleteError?: string;
+  performance_mode: boolean;
+  sequencing: boolean;
+  annotations: AnnotationRecord[];
   onClickSetPublic(
     projectId: string,
     value: boolean
@@ -84,6 +88,8 @@ interface Props extends WithStyles<typeof styles> {
   ): AsyncAction<ProjectGraphRecord, string>;
   onClickShare(): void;
   onClickDelete(projectId: string): AsyncAction<null, string>;
+  onClickSwitchPlayerMode(): void;
+  onClickSwitchSequencing(): void;
 }
 
 const SideBarComponenent: React.FC<Props> = ({
@@ -98,14 +104,20 @@ const SideBarComponenent: React.FC<Props> = ({
   setCollaborativeError,
   unshareError,
   deleteError,
+  performance_mode,
+  sequencing,
+  annotations,
   onClickSetPublic,
   onClickSetCollaborative,
   onClickShare,
   onClickDelete,
+  onClickSwitchSequencing,
+  onClickSwitchPlayerMode,
+
   classes,
 }: Props) => {
   const { t } = useTranslation();
-
+   console.log('les annotations:', annotations)
   return (
     <>
       {user && isOwner(project, user) ? (
@@ -126,6 +138,45 @@ const SideBarComponenent: React.FC<Props> = ({
               onClickSetCollaborative(project.id, !project.collaborative)
             }
           />
+             {user &&
+                <LabeledProgressSwitch
+                  label={t('project.sequencing')}
+                  checked={sequencing}
+                  loading={false}
+                  onChange={() => {
+                    onClickSwitchSequencing();
+                    if (performance_mode === true) {
+                      onClickSwitchPlayerMode();
+                    }
+                  }
+                  }
+                />
+              }
+              <LabeledProgressSwitch
+                label={t('project.analyze')}
+                checked={!performance_mode}
+                loading={false}
+                onChange={() => {
+                  if (performance_mode === false && sequencing === true) {
+                    onClickSwitchSequencing();
+                  }
+                  onClickSwitchPlayerMode();
+                }
+                  
+                }
+              />
+              <LabeledProgressSwitch
+                label={t('project.performance')}
+                checked={performance_mode}
+                loading={false}
+                onChange={() => {
+                  onClickSwitchPlayerMode();
+                  if (sequencing === true) {
+                    onClickSwitchSequencing();
+                  }
+                }
+                }
+              />
         </>
       ) : (
         <div className={classes.chips}>
@@ -168,6 +219,13 @@ const SideBarComponenent: React.FC<Props> = ({
           )}
         </>
       )}
+       <div className={classes.chips}>
+          <CSVAnnotationExport
+            annotations={annotations}
+            project={project}
+            buttonName={t('project.exportButton')}
+          />
+      </div>
       {/*{((user && !isOwner(project, user)) && (user && !isMember(project, user))
       && (user && !isAdmin(user)) && project.shared) &&
         <div className={classes.button}>

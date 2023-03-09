@@ -3,7 +3,9 @@ import { ActionType } from 'types/ActionTypes';
 import { PlayerState } from 'types/StateTypes';
 
 const initialState = {
+  performance_mode: false,
   seeking: false,
+  sequencing: false
 } as PlayerState;
 
 export default (state = initialState, { type, payload }: AnyAction): PlayerState => {
@@ -15,9 +17,20 @@ export default (state = initialState, { type, payload }: AnyAction): PlayerState
       };
     case ActionType.PLAYER_REQUEST_SEEK:
       return {
+        ...state,
         seeking: true,
         seekTarget: payload
       };
+    case ActionType.PLAYER_SWITCH_MODE:
+      return {
+        ...state,
+        performance_mode: !state.performance_mode 
+      };
+    case ActionType.PLAYER_SWITCH_SEQUENCING:
+        return {
+          ...state,
+          sequencing: !state.sequencing
+        };
     default:
       return state;
   }
