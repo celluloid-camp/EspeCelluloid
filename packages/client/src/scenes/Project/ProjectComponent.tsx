@@ -3,7 +3,8 @@ import {
   Grid,
   MuiThemeProvider,
   WithStyles,
-  withStyles
+  withStyles,
+  Divider
 } from '@material-ui/core';
 import ProjectSummary from 'components/ProjectSummary';
 import * as React from 'react';
@@ -12,7 +13,7 @@ import { Dark } from 'utils/ThemeUtils';
 import SideBar from './components/SideBar';
 import { styles } from './ProjectStyles';
 import Video from './scenes/Video';
-
+import  Metadatacomponent from './components/MetaData/Metadatacomponent';
 interface Props extends WithStyles<typeof styles> {
   project?: ProjectGraphRecord;
   onVideoChange(): void;
@@ -38,6 +39,7 @@ export default withStyles(styles)(({
         className={classes.content}
       >
         {project &&
+        <div>
           <Grid
             container={true}
             direction="row"
@@ -59,6 +61,11 @@ export default withStyles(styles)(({
               />
             </Grid>
           </Grid>
+          <Divider 
+              className={classes.divider}
+            />
+          <Metadatacomponent project={project}/>
+      </div>
         }
       </div>
     </div>
