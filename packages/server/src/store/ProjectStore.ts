@@ -3,6 +3,8 @@ import {
   ProjectRecord,
   ProjectShareData,
   UserRecord,
+  VideoUpdateData,
+  VideoData
 } from "@celluloid/types";
 import { Knex } from "knex";
 
@@ -51,6 +53,13 @@ export function isOwnerOrCollaborativeMember(
   ]).then(([owner, member]: boolean[]) => owner || member);
 }
 
+export function updataMetaData(projectId: string, props: VideoUpdateData) {
+  return database('Video')
+    .update(props)
+    .returning('*')
+    .where('id', projectId)
+    .then(getExactlyOne);
+}
 export function isOwner(projectId: string, user: UserRecord) {
   return database
     .first("id")
@@ -152,10 +161,35 @@ export function selectOne(projectId: string, user: Partial<UserRecord>) {
       });
     });
 }
+function insertVideo(project:any) {
+  const query = () =>
+    database("Video")
+      .insert({
+        id: project.id,
+        title: project.title,
+       
+      })
+      .returning("*")
+      .then(getExactlyOne);
+  return query();
+}
 
 export function insert(project: ProjectCreateData, user: UserRecord) {
   const INSERT_RETRY_COUNT = 20;
-  const { tags, ...props } = project;
+  const pjt={
+    videoId: project.videoId,
+    title: project.title,
+    description: project.description,
+    objective: project.objective,
+    assignments: project.assignments,
+    levelStart: project.levelStart,
+    levelEnd: project.levelEnd,
+    public: project.public,
+    collaborative: project.collaborative,
+    host: project.host,
+    tags: project.tags
+  }
+  const { tags, ...props } = pjt;
   const query: any = (retry: number) =>
     database("Project")
       .insert<Project>({
@@ -178,6 +212,42 @@ export function insert(project: ProjectCreateData, user: UserRecord) {
         }
         throw error;
       });
+
+      // export function insert(project: ProjectCreateData, user: UserRecord) {
+      //   const INSERT_RETRY_COUNT = 20;
+      //   const { video, tags, ...props } = project;
+      //   const query = (retry: number) => 
+      //     database('Project') 
+      //       .insert({
+      //         ...props,
+      //         id: database.raw('uuid_generate_v4()'),
+      //         userId: user.id,
+      //         videoId: getOneVideoId(video),
+      //         publishedAt: database.raw('NOW()'),
+      //         shareName: generateUniqueShareName(props.title, retry)
+      //       })
+      //       .returning('*')
+      //       .then(getExactlyOne)
+      //       .catch(error => {
+      //         if (hasConflictedOn(error, 'User', 'username')) {
+      //           if (retry < INSERT_RETRY_COUNT) {
+      //             return query(retry + 1);
+      //           } else {
+      //             console.warn('Failed to insert project: unique share name generation failed');
+      //           }
+      //         }
+      //         throw error;
+      //       });
+      //   return query(0)
+      //     .then(record =>
+      //       Promise.all(project.tags.map(tag =>
+      //         tagProject(tag.id, record.id)
+      //       ))
+      //         .then(() =>
+      //           Promise.resolve({ tags, ...record })
+      //         )
+      //     );
+      // }
   return query(0).then((record: any) =>
     Promise.all(project.tags.map((tag) => tagProject(tag.id, record.id))).then(
       () => Promise.resolve({ tags, ...record })

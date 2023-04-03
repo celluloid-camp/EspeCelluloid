@@ -74,6 +74,31 @@ export async function up(knex: Knex): Promise<any> {
     table.jsonb("extra").defaultTo({});
   });
 
+  await knex.schema.createTable("Video", (table) => {
+    table
+      .uuid("id")
+      .notNullable()
+      .primary()
+      .defaultTo(knex.raw("uuid_generate_v4()"));
+    table.text("title").notNullable();
+    table.specificType("dublin_title", "text[]");
+    table.specificType("dublin_creator", "text[]");
+    table.specificType("dublin_subject", "text[]");
+    table.specificType("dublin_description", "text[]");
+    table.specificType("dublin_publisher", "text[]");
+    table.specificType("dublin_contributor", "text[]");
+    table.specificType("dublin_date", "text[]");
+    table.specificType("dublin_type", "text[]");
+    table.specificType("dublin_format", "text[]");
+    table.specificType("dublin_identifier", "text[]");
+    table.specificType("dublin_source", "text[]");
+    table.specificType("dublin_language", "text[]");
+    table.specificType("dublin_relation", "text[]");
+    table.specificType("dublin_coverage", "text[]");
+    table.specificType("dublin_rights", "text[]");
+    
+  });
+
   await knex.schema.createTable("Annotation", (table) => {
     table
       .uuid("id")

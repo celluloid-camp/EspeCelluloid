@@ -1,4 +1,4 @@
-// import { VideoUpdateData } from '@celluloid/types';
+import { VideoUpdateData } from '@celluloid/types';
 import {
   WithStyles,
   withStyles,
@@ -30,7 +30,7 @@ interface Props extends WithStyles<typeof styles> {
   rights: string[];
   projectid: string;
   updateDataMessage?: string;
-  // onClickValidate(projectId: string, data: VideoUpdateData): AsyncAction<VideoUpdateData, string>;
+ onClickValidate(projectId: string, data: VideoUpdateData): AsyncAction<VideoUpdateData, string>;
 }
 
 interface State {
@@ -59,39 +59,39 @@ export default (withStyles(styles)(
             return (
             <div>
                 <Button
-                        // onClick={ () => {
-                        //   let updateData = {
-                        //     dublin_title: this.props.title,
-                        //     dublin_creator: this.props.creator,
-                        //     dublin_subject: this.props.subject,
-                        //     dublin_description: this.props.description,
-                        //     dublin_contributor: this.props.contributor,
-                        //     dublin_publisher: this.props.publisher,
-                        //     dublin_date: this.props.date,
-                        //     dublin_type: this.props.type,
-                        //     dublin_format: this.props.format,
-                        //     dublin_identifier: this.props.identifier,
-                        //     dublin_source: this.props.source,
-                        //     dublin_language: this.props.language,
-                        //     dublin_relation: this.props.relation,
-                        //     dublin_coverage: this.props.coverage,
-                        //     dublin_rights: this.props.rights
-                        //   } as  VideoUpdateData;
-                        //   for (let key in updateData) {
-                        //     if ( updateData[key] != null) {
-                        //       updateData[key] = updateData[key].filter((word: string) => word !== '');
-                        //       if ( updateData[key].length === 0) {
-                        //         updateData[key] = null;
-                        //       }
-                        //     }
-                        //   }
-                        //   this.props.onClickValidate(this.props.projectid, updateData).then(() => {
-                        //     if (this.props.updateDataMessage !== undefined) {
-                        //          handleOpen();
-                        //     }
-                        // } );
-                        // }
-                        // }
+                        onClick={ () => {
+                          let updateData = {
+                            dublin_title: this.props.title,
+                            dublin_creator: this.props.creator,
+                            dublin_subject: this.props.subject,
+                            dublin_description: this.props.description,
+                            dublin_contributor: this.props.contributor,
+                            dublin_publisher: this.props.publisher,
+                            dublin_date: this.props.date,
+                            dublin_type: this.props.type,
+                            dublin_format: this.props.format,
+                            dublin_identifier: this.props.identifier,
+                            dublin_source: this.props.source,
+                            dublin_language: this.props.language,
+                            dublin_relation: this.props.relation,
+                            dublin_coverage: this.props.coverage,
+                            dublin_rights: this.props.rights
+                          } as  VideoUpdateData;
+                          for (let key in updateData) {
+                            if ( updateData[key] != null) {
+                              updateData[key] = updateData[key].filter((word: string) => word !== '');
+                              if ( updateData[key].length === 0) {
+                                updateData[key] = null;
+                              }
+                            }
+                          }
+                          this.props.onClickValidate(this.props.projectid, updateData).then(() => {
+                            if (this.props.updateDataMessage !== undefined) {
+                                 handleOpen();
+                            }
+                        } );
+                        }
+                        }
                         variant="contained"
                         color="primary"
                         className={classes.datamenu}

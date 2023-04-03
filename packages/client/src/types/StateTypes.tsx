@@ -46,6 +46,7 @@ export interface ProjectDetailsState {
   setCollaborativeError?: string;
   unshareError?: string;
   deleteError?: string;
+  updateDataFeedback?: string;
 }
 
 export interface PlayerState {

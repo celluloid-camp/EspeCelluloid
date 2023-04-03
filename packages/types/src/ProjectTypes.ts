@@ -1,8 +1,10 @@
 import { TagData } from './TagTypes';
 import { UserRecord } from './UserTypes';
+import { VideoData } from "./VideoTypes";
 
 export interface ProjectCreateData {
   videoId: string;
+  video: VideoData;
   title: string;
   host: string;
   description?: string;

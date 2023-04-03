@@ -3,6 +3,7 @@ import {
   ProjectGraphRecord,
   ProjectShareData,
   ProjectUpdateData,
+  VideoUpdateData 
 } from "@celluloid/types";
 
 import * as Constants from "./Constants";
@@ -29,7 +30,7 @@ export default class Projects {
     const headers = {
       Accepts: "application/json",
     };
-
+    console.log('project id', projectId)
     return fetch(`/api/projects/${projectId}`, {
       method: "GET",
       headers: new Headers(headers),
@@ -172,6 +173,32 @@ export default class Projects {
       throw new Error(Constants.ERR_UNAVAILABLE);
     });
   }
+
+  static updateMetaData(projectId: string, project: VideoUpdateData) {
+    const headers = {
+      'Accepts': 'application/json',
+      'Content-type': 'application/json'
+    };
+    return fetch(`/api/projects/${projectId}/metadata`, {
+      method: 'PUT',
+      headers: new Headers(headers),
+      credentials: 'include',
+      body: JSON.stringify(project)
+    }).then(response => {
+      if (response.status === 200 || response.status === 400) {
+        console.log('update succeed')
+        return response.json();
+      } else if (response.status === 401) {
+        console.log('update error 401')
+        throw new Error(Constants.ERR_NOT_LOGGED_IN);
+      } else if (response.status === 403) {
+        console.log('update error 403')
+        throw new Error(Constants.ERR_UPDATE_PROJECT_AUTH);
+      }
+      throw new Error(Constants.ERR_UNAVAILABLE);
+    });
+  }
+
 
   static delete(projectId: string) {
     const headers = {

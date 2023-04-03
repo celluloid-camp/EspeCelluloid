@@ -10,6 +10,7 @@ import { isProjectOwner, isTeacher } from "../auth/Utils";
 import { logger } from "../backends/Logger";
 import * as ProjectStore from "../store/ProjectStore";
 import AnnotationsApi from "./AnnotationApi";
+import { getOneVideoIdFromVideo} from "../store/VideoStore";
 
 const log = logger("api/ProjectApi");
 
@@ -103,7 +104,20 @@ router.delete("/:projectId", isTeacher, isProjectOwner, (req, res) => {
       return res.status(500).send();
     });
 });
-
+router.put("/:projectId/metadata", isTeacher, isProjectOwner, (req, res) => {
+  const projectId = req.params.projectId;
+  console.log('in backend, id: ', projectId)
+  getOneVideoIdFromVideo(projectId)
+    .then((json) => {
+      ProjectStore.updataMetaData(projectId, req.body);
+    })
+    .then(() => res.status(200).json("OK"))
+    .catch((error) => {
+      // tslint:disable-next-line:no-console
+      console.error("Failed to update video:", error);
+      return res.status(500).send();
+    });
+});
 router.get("/:projectId/members", (req, res) => {
   const projectId = req.params.projectId;
   const user = req.user;

@@ -4,6 +4,7 @@ import {
   ProjectGraphRecord,
   ProjectShareData,
   ProjectUpdateData,
+  VideoUpdateData,
 } from '@celluloid/types';
 import { push } from 'connected-react-router';
 import { Dispatch } from 'redux';
@@ -14,6 +15,7 @@ import {
   createAction,
   createEmptyAction,
   createErrorAction,
+ 
 } from 'types/ActionTypes';
 
 export const succeedListProjects = (projects: ProjectGraphRecord[]) =>
@@ -210,3 +212,16 @@ export const setProjectPublicThunk =
           return dispatch(failSetProjectPublic(error.message));
         });
     };
+
+export const FeedbackUpdatingMetaData = (error: string) =>
+    createAction(ActionType.DATA_FEEDBACK, error);
+
+export const updateVideoThunk =
+    (projectId: string, data: VideoUpdateData) =>
+      (dispatch: Dispatch): AsyncAction<VideoUpdateData, string> => {
+        return ProjectService.updateMetaData(projectId, data)
+        .then(() => dispatch(FeedbackUpdatingMetaData('MetaData Updated')))
+        .catch(error => {
+          return dispatch(FeedbackUpdatingMetaData(error.message));
+        });
+      };

@@ -1,5 +1,5 @@
-import { ProjectGraphRecord} from '@celluloid/types';
-// import { ProjectGraphRecord, VideoUpdateData } from '@celluloid/types';
+// import { ProjectGraphRecord} from '@celluloid/types';
+import { ProjectGraphRecord, VideoUpdateData } from '@celluloid/types';
 import {
   Grid,
   WithStyles,
@@ -16,7 +16,7 @@ import MetaDataField from './MetaDataField';
 import { useTranslation } from "react-i18next";
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-// import { updateVideoThunk } from '../../../../actions/ProjectActions';
+import { updateVideoThunk } from '../../../../actions/ProjectActions';
 import { AsyncAction } from '../../../../types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 import ValidationButton from './ValidationButton';
@@ -24,7 +24,7 @@ import ValidationButton from './ValidationButton';
 interface Props extends WithStyles<typeof styles> {
   updateDataError?: string;
   project?: ProjectGraphRecord;
-  // onClickValidate(projectId: string, data: VideoUpdateData): AsyncAction<VideoUpdateData, string>;
+  onClickValidate(projectId: string, data: VideoUpdateData): AsyncAction<VideoUpdateData, string>;
 }
 
 interface State {
@@ -46,18 +46,18 @@ interface State {
   rights: string[];
 }
 
-// const mapStateToProps = (state: AppState) => {
-//   return {
-//     updateDataError: state.project.details.updateDataFeedback
-//   };
-// };
+const mapStateToProps = (state: AppState) => {
+  return {
+    updateDataError: state.project.details.updateDataFeedback
+  };
+};
 
-// const mapDispatchToProps = (dispatch: Dispatch) => {
-//   return {
-//     onClickValidate: (projectId: string, data: VideoUpdateData) => 
-//     updateVideoThunk(projectId, data)(dispatch)
-//   };
-// };
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    onClickValidate: (projectId: string, data: VideoUpdateData) => 
+    updateVideoThunk(projectId, data)(dispatch)
+  };
+};
 //  const { t } = useTranslation();
 export let metaDataDC={
   'title':'null', 'creator':'null', 'subject':'null', 'description':'null', 'publisher':'null', 'contributor':'null', 'date':'null', 'type':'null',
@@ -66,31 +66,34 @@ export let metaDataDC={
 }
 
 export default (withStyles(styles)(
-  connect()(
+  
+  connect(mapStateToProps, mapDispatchToProps)(
+    
     class extends React.Component<Props, State> {
-   
+     
       state = {
-          // title: this.props.project ? this.props.project.video.dublin_title : [''],
-          // creator: this.props.project ? this.props.project.video.dublin_creator : [''],
-          // subject: this.props.project ? this.props.project.video.dublin_subject : [''],
-          // description: this.props.project ? this.props.project.video.dublin_description :  [''],
-          // publisher: this.props.project ? this.props.project.video.dublin_publisher :  [''],
-          // contributor: this.props.project ? this.props.project.video.dublin_contributor :  [''],
-          // date: this.props.project ? this.props.project.video.dublin_date : [''],
-          // type: this.props.project ? this.props.project.video.dublin_type : [''],
-          // format: this.props.project ? this.props.project.video.dublin_format : [''],
-          // identifier: this.props.project ? this.props.project.video.dublin_identifier : [''],
-          // source: this.props.project ? this.props.project.video.dublin_source : [''],
-          // language: this.props.project ? this.props.project.video.dublin_language : [''],
-          // relation: this.props.project ? this.props.project.video.dublin_relation : [''],
-          // coverage: this.props.project ? this.props.project.video.dublin_coverage : [''],
-          // rights: this.props.project ? this.props.project.video.dublin_rights : [''],
+
+          title: [''] ,
+          creator:[''],
+          subject:  [''],
+          description:   [''],
+          publisher: [''],
+          contributor:  [''],
+          date:  [''],
+          type: [''],
+          format:  [''],
+          identifier:  [''],
+          source:  [''],
+          language:  [''],
+          relation: [''],
+          coverage: [''],
+          rights: [''],
           dublincore: ['title', 'creator', 'subject', 'description', 'publisher', 'contributor', 'date', 'type',
           'format', 'identifier', 'source', 'language', 'relation', 'coverage', 'rights']
       } as State;
-   
+
       render() {
-      
+    
           const {classes, project} = this.props;
           const projectid: string = project ? project.id : '';
           const projectName: string = project ? project.shareName : '';
@@ -233,7 +236,7 @@ export default (withStyles(styles)(
                         color="primary"
                         className={classes.import}
                       >
-                        {'project.importButton'}
+                        {'Import'}
                       </Button> 
                       </label>
                     </FormControl>
@@ -246,7 +249,7 @@ export default (withStyles(styles)(
                       lg={3}
                     >
                       <ValidationButton
-                        fieldName={'project.validationButton'}
+                        fieldName={'Validate'}
                         title={this.state.title}
                         creator={this.state.creator}
                         subject={this.state.subject}
@@ -264,7 +267,7 @@ export default (withStyles(styles)(
                         rights={this.state.rights}
                         updateDataMessage={this.props.updateDataError}
                         projectid={projectid}
-                        // onClickValidate={async()=>{await console.log('')}}
+                        onClickValidate={this.props.onClickValidate}
                       />
                       <Button
                         onClick={() => {
@@ -313,7 +316,7 @@ export default (withStyles(styles)(
                         className={classes.datamenu}
                       >
                         <CloudUploadIcon className={classes.dataicon} color="primary" />
-                        {'project.exportButton'}
+                        {'Export'}
                       </Button>                 
                     </Grid>
                     
@@ -324,7 +327,7 @@ export default (withStyles(styles)(
                             onAdd={handleAddField}
                             onClose={handleCloseField}
                             onChange={handleChange}
-                            label={'project.dublin' + dc}
+                            label={'Dublin ' + dc}
                             key={dc}
                             field={dc}
                             value={this.state[dc]}

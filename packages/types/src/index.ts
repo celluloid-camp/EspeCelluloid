@@ -6,3 +6,4 @@ export * from "./ProjectTypes";
 export * from "./TagTypes";
 export * from "./UnfurlTypes";
 export * from "./UserTypes";
+export * from "./VideoTypes"

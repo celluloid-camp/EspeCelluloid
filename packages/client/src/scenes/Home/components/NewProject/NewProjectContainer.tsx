@@ -166,6 +166,11 @@ const NewProjectContainer: React.FC<Props> = ({
   const { t } = useTranslation();
   const [state, setState] = useState<State>({
     project: {
+      video: {
+        title: '',
+        player: 'peertube.fr',
+        path: ''
+      },
       videoId: "",
       title: "",
       description: "",

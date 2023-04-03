@@ -13,7 +13,8 @@ const initialState = {
   setPublicError: undefined,
   setCollaborativeError: undefined,
   unshareError: undefined,
-  unshareLoading: false
+  unshareLoading: false,
+  updateDataFeedback: undefined
 } as ProjectDetailsState;
 
 export default (state = initialState, {type, payload}: AnyAction):
@@ -102,6 +103,11 @@ export default (state = initialState, {type, payload}: AnyAction):
         unshareError: undefined,
         project: payload
       };
+      case ActionType.DATA_FEEDBACK:
+        return {
+          ...state,
+          updateDataFeedback : payload
+        };
     default:
       return state;
   }
