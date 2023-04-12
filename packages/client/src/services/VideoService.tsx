@@ -2,6 +2,7 @@ import * as queryString from "query-string";
 import { last } from "ramda";
 import { PeertubeVideoInfo } from "types/YoutubeTypes";
 import { PeerTubeVideo } from "@celluloid/types";
+import * as Constants from './Constants';
 
 class VideoApi {
   static async getPeerTubeVideoData(
@@ -61,6 +62,47 @@ class VideoApi {
       `Could not perform YouTube API request (error ${response.status})`
     );
   }
+  static add(video:any) {
+    const headers = {
+      'Accepts': 'application/json',
+      'Content-type': 'application/json'
+    };
+    console.log('ad function data: ', video)
+
+    return fetch('/api/video', {
+      method: 'POST',
+      headers: new Headers(headers),
+      credentials: 'include',
+      body: JSON.stringify({ video })
+    }).then(response => {
+      if (response.status === 201 || response.status === 400) {
+        return response.json();
+      } else if (response.status === 401) {
+        throw new Error(Constants.ERR_NOT_LOGGED_IN);
+      }
+      throw new Error(Constants.ERR_UNAVAILABLE);
+    });
+  }
+  // static add(video:any) {
+  //   const headers = {
+  //     Accepts: 'application/json',
+  //     'Content-type': 'application/json',
+  //   };
+  //   console.log('ad function data: ', video)
+  //   return fetch('/api/video', {
+  //     method: 'POST',
+  //     headers: new Headers(headers),
+  //     credentials: 'include',
+  //     body: JSON.stringify(video), 
+  //   }).then((response) => {
+  //     if (response.status === 201 || response.status === 400) {
+  //       return response.json();
+  //     } else (response.status === 200) {
+  //       return response;
+  //     } throw new Error(`Could not store video (error ${response.status})`);
+     
+  //   });
+  // }
 
 }
 

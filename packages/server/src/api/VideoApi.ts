@@ -4,8 +4,9 @@ import * as express from "express";
 import fetch from "node-fetch";
 import { last } from "ramda";
 import { URL } from "url";
-
+import { isTeacher } from '../auth/Utils';
 import { logger } from "../backends/Logger";
+import * as VideoStore from "../store/VideoStore";
 
 const log = logger("api/videoApi");
 
@@ -62,6 +63,19 @@ router.get("/", async (req, res) => {
     }
   }
   return res.status(500);
+});
+
+router.post('/', isTeacher, (req, res) => {
+  const { video } = req.body;
+  console.log('in backend video: ', video)
+  return VideoStore.insert(video['id'],video['title'])
+    .then(result =>
+      res.status(201).json(result)
+    )
+    .catch(error => {
+      log.error('Failed to add new tag:', error);
+      return res.status(500).send();
+    });
 });
 
 export default router;

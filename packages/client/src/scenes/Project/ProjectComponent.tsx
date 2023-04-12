@@ -23,12 +23,17 @@ export default withStyles(styles)(({
   project,
   classes,
 }: Props) => (
+ 
     <div className={classes.root}>
+     
       <MuiThemeProvider theme={Dark}>
         <div className={classes.videoContainer}>
           <div className={classes.video}>
+          
             {project &&
+               
               <Video
+           
                 project={project}
               />
             }

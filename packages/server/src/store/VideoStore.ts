@@ -171,3 +171,10 @@ export function selectOne(player: Player, path: string) {
       .first();
   return query();
 }
+export function insert(id: string, title: string) {
+  return database('Video')
+    .insert({
+      id,
+      title
+    });
+}

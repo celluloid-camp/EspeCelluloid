@@ -9,6 +9,7 @@ import {
 import { push } from 'connected-react-router';
 import { Dispatch } from 'redux';
 import ProjectService from 'services/ProjectService';
+import VideoService from 'services/VideoService';
 import {
   ActionType,
   AsyncAction,
@@ -123,6 +124,11 @@ export const createProjectThunk =
       return ProjectService.create(data)
         .then(project => {
           // dispatch(push(`/projects/${project.id}`));
+          console.log('data creation: ',project['id'], project['title'])
+           const video={id: project['id'], title: project['title']}
+          VideoService.add(video).catch(error => {
+              return dispatch(failUpsertProject(error.message));
+            });
           dispatch(discardNewVideo());
           return dispatch(succeedUpsertProject(project));
         })

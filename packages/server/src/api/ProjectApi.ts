@@ -78,6 +78,7 @@ router.post("/", isTeacher, (req, res) => {
 
   ProjectStore.insert(project, user)
     .then((result: any) => {
+      
       return res.status(201).json(result);
     })
     .catch((error: Error) => {
