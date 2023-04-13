@@ -111,6 +111,7 @@ export async function up(knex: Knex): Promise<any> {
     table.float("startTime").notNullable();
     table.float("stopTime").notNullable();
     table.boolean("pause").notNullable();
+    table.specificType("ontology","text[]");
     table
       .uuid("userId")
       .notNullable()

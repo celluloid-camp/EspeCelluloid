@@ -199,7 +199,7 @@ export function insert(project: ProjectCreateData, user: UserRecord) {
         shareName: generateUniqueShareName(props.title, retry),
       })
       .returning("*")
-      .then(getExactlyOne)
+      .then( getExactlyOne)
       .catch((error) => {
         if (hasConflictedOn(error, "User", "username")) {
           if (retry < INSERT_RETRY_COUNT) {
