@@ -1,5 +1,5 @@
 import "rc-slider/assets/index.css";
-
+import getFirstConcepts,{getSubConcepts, getRelation} from '../../api/Concept';
 import {
   Button,
   Checkbox,
@@ -119,7 +119,61 @@ const TimingControl = (props: TimingControlProps) => (
     />
   </>
 );
-
+const emojis = [
+  {
+    label: '😀',
+    value: 'Smile',
+  },
+  {
+    label: '😂',
+    value: 'Laugh',
+  },
+  {
+    label: '🤣',
+    value: 'Hilarity',
+  },
+  {
+    label: '😠',
+    value: 'Tiredness',
+  },
+  {
+    label: '🙂',
+    value: 'iLike',
+  },
+  {
+    label: '🤯',
+    value: 'Annoyance',
+  },
+  {
+    label: '🥰',
+    value: 'Empathy',
+  },
+  {
+    label: '😍',
+    value: 'iLove',
+  },
+  {
+    label: '😨',
+    value: 'Fear',
+  },
+  {
+    label: '🙁',
+    value: 'iDontLike',
+  },
+  {
+    label: '🤔',
+    value: 'ItsStrange',
+  },
+];
+export let globalEmoji=''
+let globalConcept='concept'
+let firstConcept=globalConcept
+let secondConcept='concept'
+let thirdConcept='concept'
+let fourthConcept='concept'
+let fiveConcept='concept'
+let sixConcept='concept'
+const options = getFirstConcepts(globalConcept);
 const AnnotationEditorComponent: React.FC<Props> = ({
   startTime,
   stopTime,
