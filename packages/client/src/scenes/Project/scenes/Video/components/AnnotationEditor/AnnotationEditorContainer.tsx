@@ -11,7 +11,7 @@ import { Dispatch } from 'redux';
 import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 
-import AnnotationEditorComponent from './AnnotationEditorComponent';
+import AnnotationEditorComponent, {globalEmoji} from './AnnotationEditorComponent';
 
 interface Props {
   user: UserRecord;
@@ -22,6 +22,7 @@ interface Props {
     position: number;
     duration: number;
   };
+  ontology?:any;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
   onCreate(projectId: string, data: AnnotationData):
     AsyncAction<AnnotationRecord, string>;
@@ -32,7 +33,7 @@ interface Props {
 }
 
 interface State {
-  annotation: AnnotationData;
+  annotation: AnnotationRecord;
 }
 
 function init({ annotation, video }: Props): State {
@@ -68,7 +69,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onCancel: (annotation?: AnnotationRecord) =>
     dispatch(triggerCancelAnnotation(annotation))
 });
-
+export let userName='';
+export let userId='';
+let annotationId: string[];
 export default connect(mapStateToProps, mapDispatchToProps)(
   class extends React.Component<Props, State> {
 
@@ -85,6 +88,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       } = this.props;
 
       const { annotation } = this.state;
+      // const onOntologyChange = (
+      //   ontology: any
+      // ) => {
+      //   this.setState(state => ({
+      //     ...state,
+      //     annotation: {
+      //       ...state.annotation,
+      //       ontology
+      //     }
+      //   }));
+      // };
 
       const onCheckPauseChange = (pause: boolean) => {
         this.setState(state => ({
@@ -109,14 +123,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         onSeek(position, true, true);
       };
 
-      const onClickSave = () => {
+      const onClickSave =async () => {
+       
+        annotation.user=this.props.user
+         annotation.text=annotation.text+globalEmoji
+       
         if (this.props.annotation) {
           onUpdate(projectId, {
             ...this.props.annotation,
             ...annotation
           });
         } else {
-          onCreate(projectId, annotation);
+          let res= await onCreate(projectId, annotation);
+          //@ts-ignore  
+            annotationId= res.payload.id
+            userName= annotation.user.username
+            userId=annotation.user.id
+            return annotationId
         }
       };
 
@@ -143,6 +166,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           onClickCancel={onClickCancel}
           onTextChange={onTextChange}
           duration={video.duration}
+          projectId={projectId}   
         />
       );
     }

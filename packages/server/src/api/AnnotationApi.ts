@@ -49,7 +49,7 @@ router.post("/", isProjectOwnerOrCollaborativeMember, (req, res) => {
   const projectId = req.params.projectId;
   const annotation = req.body as AnnotationData;
   const user = req.user as UserRecord;
-
+   console.log('we are postinf annotation, ', annotation)
   AnnotationStore.insert(annotation, user, projectId)
     .then((result) => fetchComments(result, user))
     .then((result) => {

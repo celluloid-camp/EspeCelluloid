@@ -1,5 +1,6 @@
 import "rc-slider/assets/index.css";
 import getFirstConcepts,{getSubConcepts, getRelation} from '../../api/Concept';
+import addAnnotation from '../../api/Annotation';
 import {
   Button,
   Checkbox,
@@ -16,7 +17,7 @@ import CancelIcon from "@material-ui/icons/Clear";
 import { Range } from "rc-slider";
 import React from "react";
 import { formatDuration } from "utils/DurationUtils";
-
+import { userName, userId } from './AnnotationEditorContainer';
 import TransparentInput from "../TransparentInput";
 import { sliderRailStyle, sliderTrackStyle } from "utils/SliderUtils";
 import { useTranslation } from "react-i18next";
@@ -42,6 +43,12 @@ const styles = (theme: Theme) =>
       },
       margin: 10,
     },
+    centerVerticalement: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+    },
     buttons: {
       display: "flex",
       flexDirection: "row",
@@ -66,14 +73,36 @@ const styles = (theme: Theme) =>
       borderRadius: "50%",
     },
   });
+  const CSS = `
+  #custom-select {
+    position: relative;
+    max-width: 30 px; 
+    font-family:"sans-serif"
+    font-size: 20px;
+    color:#CECECE;
+    font-weight: bold;
+    width: 30px
+    display: inline;
+    padding-left 10px; 
+    padding-right:20px;
+  }
+  option{
+    background-color: #CECECE;
+ 
+  }
+
+
+  `;
 
 interface Props extends WithStyles<typeof styles> {
   startTime: number;
   stopTime: number;
   pause: boolean;
+  projectId: string;
   text: string;
   duration: number;
   error?: string;
+  ontology?: string[];
   onTextChange(text: string): void;
   onCheckPauseChange(value: boolean): void;
   onTimingChange(value: number, isStart: boolean, seekAhead: boolean): void;
@@ -174,6 +203,199 @@ let fourthConcept='concept'
 let fiveConcept='concept'
 let sixConcept='concept'
 const options = getFirstConcepts(globalConcept);
+
+
+class App extends React.Component <{perf: boolean}, {emoji: string, concept: string, concept1: string, concept2: string,concept3: string,concept4: string,concept5: string,concept6: string, option1:any, option2:any ,option3:any ,option4:any, option5: any, option6: any}> {
+  constructor(props: any) {
+    super(props);
+   
+    this.state = {
+     
+      concept: globalConcept,
+      concept1:'concept 2',
+      concept2:'concept 3',
+      concept3:'concept 4',
+      concept4:fourthConcept,
+      concept5:fiveConcept,
+      concept6:sixConcept,
+      emoji:'Emoji',
+      option1:[],
+      option2:[],
+      option3:[],
+      option4:[],
+      option5:[],
+      option6:[],
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChange1 = this.handleChange1.bind(this);
+    this.handleChange2 = this.handleChange2.bind(this);
+    this.handleChange3 = this.handleChange3.bind(this);
+    this.handleChange4 = this.handleChange4.bind(this);
+    this.handleChange5 = this.handleChange5.bind(this);
+    this.handleChange6 = this.handleChange6.bind(this);
+    this.handleEmoji = this.handleEmoji.bind(this);
+  }
+handleChange(e:any) {
+    this.setState({ concept: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option1:conc1})
+    globalConcept=e.target.value;
+    firstConcept=e.target.value;
+    secondConcept=e.target.value;
+    thirdConcept=e.target.value;
+    fourthConcept=e.target.value;
+    fiveConcept=e.target.value;
+    sixConcept=e.target.value;
+    console.log(' button 1',globalConcept)
+  }
+handleChange1(e:any) {
+    this.setState({ concept1: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option2:conc1})
+    secondConcept=e.target.value;
+    thirdConcept=e.target.value;
+    fourthConcept=e.target.value;
+    fiveConcept=e.target.value;
+    sixConcept=e.target.value;
+    globalConcept=e.target.value;
+    console.log(' button 2',globalConcept)
+  }
+  handleChange2(e:any) {
+    this.setState({ concept2: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option3:conc1})
+    thirdConcept=e.target.value;
+    fourthConcept=e.target.value;
+    fiveConcept=e.target.value;
+    sixConcept=e.target.value;
+    globalConcept=e.target.value;
+    console.log(' button 3',globalConcept)
+  }
+  handleChange3(e:any) {
+    this.setState({ concept3: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option4:conc1})
+    fourthConcept=e.target.value;
+    fiveConcept=e.target.value;
+    sixConcept=e.target.value;
+    globalConcept=e.target.value;
+    console.log(' button 4',globalConcept)
+  }
+  handleChange4(e:any) {
+    this.setState({ concept4: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option5:conc1})
+    fiveConcept=e.target.value;
+    sixConcept=e.target.value;
+    globalConcept=e.target.value;
+    console.log(' button 5',globalConcept)
+  }
+  handleChange5(e:any) {
+    this.setState({ concept5: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option6:conc1})
+  //  fiveConcept=e.target.value;
+    sixConcept=e.target.value;
+    globalConcept=e.target.value;
+    console.log(' button 6',globalConcept)
+  }
+  handleChange6(e:any) {
+    this.setState({ concept6: e.target.value });
+    const conc1=getSubConcepts(e.target.value )
+    this.setState({option6:conc1})
+   // fiveConcept=e.target.value;
+    globalConcept=e.target.value;
+    console.log(' button 6',globalConcept)
+  }
+  handleEmoji(e:any) {
+    this.setState({ emoji: e.target.value });
+    globalEmoji=e.target.value;
+  }
+
+  render() { 
+    console.log('mode performance ', this.props.perf)
+    return (
+      <div id="App">
+       
+        <div id="custom-select">
+        <style>{CSS}</style>
+      {!this.props.perf ? (
+        <>
+          <select value={this.state.concept} onChange={this.handleChange}>
+            {options.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select>
+          {/* <select value={this.state.concept1} onChange={this.handleChange1}>
+            {this.state.option1.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select>
+          <select value={this.state.concept2} onChange={this.handleChange2}>
+            {this.state.option2.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select>
+          <select value={this.state.concept3} onChange={this.handleChange3}>
+            {this.state.option3.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select>
+          <select value={this.state.concept4} onChange={this.handleChange4}>
+            {this.state.option4.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select>
+          <select value={this.state.concept5} onChange={this.handleChange5}>
+            {this.state.option5.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select>
+          <select value={this.state.concept6} onChange={this.handleChange6}>
+            {this.state.option6.map((option) => (
+              <option value={option.concept}>{option.concept}</option>
+            ))}
+          </select> */}
+        </>
+      ) : (
+        <></>
+      )}
+      
+          
+          <select value={this.state.emoji} onChange={this.handleEmoji}>
+            {emojis.map((emoji) => (
+              <option value={emoji.value}>{emoji.label}</option>
+            ))}
+          </select> 
+          </div>
+      </div>
+        
+    );
+  }
+}
+
+function PostAnnotation(startTime: number, stopTime: number, text: String,projectId: string,annotationId: any) {
+  const relation=getRelation(firstConcept)
+  console.log(' les 3 derniers concept',fourthConcept,sixConcept, fiveConcept,globalConcept)
+ 
+  const annotationData= {
+    projectId:projectId,
+    userId:userId,
+    commentaire:text,
+    stopTime:stopTime,
+    startTime: startTime,
+   
+    objet: [firstConcept,secondConcept,thirdConcept,fourthConcept, fiveConcept,sixConcept,globalConcept],
+    userName:userName,
+    relation:relation,
+    annotationId:annotationId
+  }
+  if(firstConcept!=='Annotation Libre'){
+  
+    addAnnotation(annotationData)
+  }
+  
+}
 const AnnotationEditorComponent: React.FC<Props> = ({
   startTime,
   stopTime,
@@ -181,6 +403,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   text,
   duration,
   error,
+  projectId,
   onCheckPauseChange,
   onTimingChange,
   onTextChange,
@@ -202,12 +425,19 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <TransparentInput
-          text={text}
-          error={error}
-          onChange={onTextChange}
-          placeholder={t("annotation.contentPlaceholder")}
-        />
+      <div className={classes.centerVerticalement}>
+            <App
+              perf={false}
+            />
+            </div>
+         <>
+            <TransparentInput
+              text={text}
+              error={error}
+              onChange={onTextChange}
+              placeholder={t("annotation.contentPlaceholder")}
+            />
+         </>
         <div className={classes.timeline}>
           <TimingControl
             onBack={() =>
@@ -281,7 +511,14 @@ const AnnotationEditorComponent: React.FC<Props> = ({
           <IconButton color="secondary" onClick={() => onClickCancel()}>
             <CancelIcon />
           </IconButton>
-          <IconButton color="primary" onClick={() => onClickSave()}>
+          <IconButton color="primary" 
+          // onClick={() => onClickSave()}
+              onClick={async ()  =>
+                  { 
+                    const annotationId= await onClickSave() 
+                    PostAnnotation(startTime, stopTime, text,projectId,annotationId);
+                  }
+                          }>
             <CheckIcon />
           </IconButton>
         </div>

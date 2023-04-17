@@ -118,6 +118,7 @@ interface Props extends WithStyles<typeof styles> {
   focused: boolean;
   hovering: boolean;
   showActions: boolean;
+  ontologyText: string;
   onFocus(): void;
   onHover(value: boolean): void;
   onClickEdit(): void;
@@ -133,6 +134,7 @@ export default withStyles(styles)(({
   previews,
   focused,
   showActions,
+  ontologyText,
   onFocus,
   onHover,
   onClickEdit,
@@ -169,6 +171,12 @@ export default withStyles(styles)(({
                   gutterBottom={true}
                 >
                   <span dangerouslySetInnerHTML={{ __html: richText }} />
+                  <>
+                      <span
+                        style={{color: 'lightgreen'}}
+                        dangerouslySetInnerHTML={{ __html: ontologyText }}
+                      />
+                    </>
                 </Typography>
               }
             </div>

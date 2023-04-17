@@ -6,6 +6,7 @@ export interface AnnotationData {
   startTime: number;
   stopTime: number;
   pause: boolean;
+  ontology: string[];
 }
 
 export interface AnnotationRecord extends AnnotationData {

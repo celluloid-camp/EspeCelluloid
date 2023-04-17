@@ -18,7 +18,7 @@ import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 import { canEditAnnotation } from 'utils/AnnotationUtils';
 import { formatDuration } from 'utils/DurationUtils';
-
+import {getAnnotationConcept} from '../../api/Annotation'
 import AnnotationContentComponent from './AnnotationContentComponent';
 
 const getUrls = require('get-urls');
@@ -36,6 +36,7 @@ interface State {
   richText: string;
   previews: Link[];
   hovering: boolean;
+  ontology: string;
 }
 
 interface Props {
@@ -66,7 +67,8 @@ function parseText(text: string): State {
     previews,
     richText,
     loading: true,
-    hovering: false
+    hovering: false,
+    ontology:'',
   } as State;
 }
 
@@ -151,6 +153,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const showActions = user
         && (focused || hovering)
         && (isOwner(project, user) || canEditAnnotation(annotation, user)) || false;
+        getAnnotationConcept(annotation.id).then( concept=> {
+          let relationConcept=concept[1]
+          let relation
+         
+          if(relationConcept!= null){
+            relation=relationConcept[0]
+          }else{
+            relation=''
+          }
+          if(relation=== undefined){
+            relation=''
+          }
+          let onto= relation+ ' '+ concept[0]
+          if(concept[0]===undefined){
+            onto=''
+          }
+         this.setState({ontology:onto})
+        })
 
       return (
         <AnnotationContentComponent
@@ -168,6 +188,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           onFocus={() => onFocus(annotation)}
           onClickDelete={() => onClickDelete(project.id, annotation)}
           onClickEdit={() => onClickEdit(annotation)}
+          ontologyText={this.state.ontology}
         />
       );
     }

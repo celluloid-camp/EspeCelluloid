@@ -3,7 +3,7 @@ import PATH from './Parameters';
 
 function addAnnotation(data:any) {
     const route=PATH+'annotation'
-    console.log('in post data',data.objet)
+    console.log('in post data',data)
     axios.post(route, {
         projectId :data.projectId,
         userId:data.userId,
