@@ -27,7 +27,7 @@ export default class {
       'Accepts': 'application/json',
       'Content-type': 'application/json'
     };
-
+     
     return fetch(`/api/projects/${projectId}/annotations`, {
       method: 'POST',
       headers: new Headers(headers),

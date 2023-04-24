@@ -14,6 +14,7 @@ import {
   withStyles
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { ContactSupportOutlined } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import classnames from 'classnames';
@@ -141,6 +142,7 @@ export default withStyles(styles)(({
   onClickDelete,
   classes
 }: Props) => (
+  
     <div className={classes.wrapper}>
       <div
         className={classes.annotation}
@@ -171,12 +173,12 @@ export default withStyles(styles)(({
                   gutterBottom={true}
                 >
                   <span dangerouslySetInnerHTML={{ __html: richText }} />
-                  <>
+                
                       <span
                         style={{color: 'lightgreen'}}
                         dangerouslySetInnerHTML={{ __html: ontologyText }}
                       />
-                    </>
+                 
                 </Typography>
               }
             </div>
@@ -189,6 +191,10 @@ export default withStyles(styles)(({
                   gutterBottom={true}
                 >
                   <span dangerouslySetInnerHTML={{ __html: richText }} />
+                  <span
+                        style={{color: 'lightgreen'}}
+                        dangerouslySetInnerHTML={{ __html: ontologyText }}
+                      />
                 </Typography>
               }
             </div>
