@@ -150,6 +150,10 @@ const TimingControl = (props: TimingControlProps) => (
 );
 const emojis = [
   {
+    label: 'Emotions & Judgements',
+    value: '',
+  },
+  {
     label: '😀',
     value: 'Smile',
   },
@@ -517,6 +521,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
                   { 
                     const annotationId= await onClickSave() 
                     PostAnnotation(startTime, stopTime, text,projectId,annotationId);
+                    globalEmoji=''
                   }
                           }>
             <CheckIcon />
