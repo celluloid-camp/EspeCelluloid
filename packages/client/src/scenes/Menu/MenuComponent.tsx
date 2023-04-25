@@ -117,7 +117,8 @@ const MenuComponent: React.FC<Props> = ({
         <Toolbar>
           <div className={classes.grow}>
             <Button component={getButtonLink("/")} className={classes.homeLink}>
-              <svg width="180" height="40">
+            <b>{`E-spect@teur`}</b>
+              {/* <svg width="180" height="40">
                 <g id="surface1">
                   <path
                     fillRule="evenodd"
@@ -374,7 +375,7 @@ const MenuComponent: React.FC<Props> = ({
                     fillRule="nonzero"
                   />
                 </g>
-              </svg>
+              </svg> */}
             </Button>
           </div>
           <Button

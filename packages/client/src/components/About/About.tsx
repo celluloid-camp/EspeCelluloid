@@ -6,7 +6,7 @@ import { SharedLayout } from "scenes/Menu";
 const logoIcp = require("./images/logo-icp.jpg");
 const logoFsm = require("./images/logo-fsm.jpg");
 const logoLp = require("./images/logo-lp.png");
-const logoBlog = require("./images/logo-blog-celluloid.jpg");
+const logoBlog = require("./images/logo_espectateur.png");
 const logoHN = require("./images/logo-huma-num.jpg");
 
 export const About: React.FC = () => {
@@ -26,7 +26,7 @@ export const About: React.FC = () => {
         </Typography>
         <Typography variant="subtitle1" gutterBottom={true}>
           {t("about.intro.prefix")}
-          <b>Celluloid</b>
+          <b>e-spect@teur</b>
           {t("about.intro.suffix")}
         </Typography>
         <Typography variant="subtitle1" gutterBottom={true}>
