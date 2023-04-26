@@ -20,7 +20,7 @@ import * as React from "react";
 import { AsyncAction } from "types/ActionTypes";
 import { isOwner, isAdmin } from "utils/ProjectUtils";
 import CSVAnnotationExport from './components/CSVAnnotationExport';
-
+import XMLAnnotationExport from './components/XMLAnnotationExport';
 import ShareCredentials from "components/ShareCredentials";
 
 import ShareDialog from "./components/ShareDialog";
@@ -220,6 +220,11 @@ const SideBarComponenent: React.FC<Props> = ({
         </>
       )}
        <div className={classes.chips}>
+       <XMLAnnotationExport
+          annotations={annotations}
+          project={project}
+          buttonName={t('project.exportButton')}
+        />
           <CSVAnnotationExport
             annotations={annotations}
             project={project}
