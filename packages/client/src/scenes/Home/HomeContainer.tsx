@@ -143,20 +143,20 @@ const HomeContainer: React.FC<Props> = ({
             >
               {t("home.description")}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="subtitle1"
               className={classes.tutoriel}
               gutterBottom={true}
             >
-              {t("home.tutoriel.prefix")}
-              <a
+              {t("home.tutoriel.prefix")} */}
+              {/* <a
                 href="https://celluloid.hypotheses.org/1365"
                 target="_blank"
                 rel="noreferrer"
               >
                 {t("home.tutoriel.suffix")}
-              </a>
-            </Typography>
+              </a> */}
+            {/* </Typography> */}
           </Grid>
           <Grid item={true} sm={12} lg={4} xl={6} className={classes.center}>
             <div className={classes.block}>

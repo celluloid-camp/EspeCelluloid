@@ -18,6 +18,7 @@ function getFirstConcepts ( endPoint: String ) {
             options.push({'concept':response.data.concept[i]});
             i++;
           }
+          options.push({'concept':'Audience Reception'})
       })
       .catch(function(error: Error) {
           console.log('Connection to Neo4j DataBase Failed');

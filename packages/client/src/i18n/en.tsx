@@ -13,12 +13,8 @@ export default {
       + ' your pupils or your training groups: create your'
       + ' educational project, annotate the video frames,'
       + ' ask questions, provide the answers.',
-    tutoriel: {
-      prefix: 'To discover the application, you can consult the ',
-      suffix: 'tutorial '
-    },
-    teachers: 'Teachers & Trainers',
-    students: 'Pupils & Students',
+    teachers: 'Create project',
+    students: 'Collaborate on Project',
     addVideo: 'Add a link to a PeerTube video...',
     newProject: 'new project',
     joinProject: 'join a project',

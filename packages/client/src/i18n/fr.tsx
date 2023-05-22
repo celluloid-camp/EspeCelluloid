@@ -15,12 +15,8 @@ export default {
       + ' votre projet pédagogique, annotez les images,'
       + ' posez des questions et répondez à celles des'
       + ' participant.e.s.',
-    tutoriel: {
-      prefix: 'Pour découvrir l’application, vous pouvez consulter le ',
-      suffix: 'tutoriel '
-    },
-    teachers: 'Enseignants et formateurs',
-    students: 'Élèves et étudiants',
+    teachers: 'Créer projet',
+    students: 'Collaborer sur un Projet',
     addVideo: 'Ajoutez un lien vers une vidéo PeerTube...',
     newProject: 'Nouveau projet',
     joinProject: 'Rejoindre un projet',

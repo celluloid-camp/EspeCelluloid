@@ -3,11 +3,19 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { SharedLayout } from "scenes/Menu";
 
-const logoIcp = require("./images/logo-icp.jpg");
-const logoFsm = require("./images/logo-fsm.jpg");
-const logoLp = require("./images/logo-lp.png");
-const logoBlog = require("./images/logo_espectateur.png");
-const logoHN = require("./images/logo-huma-num.jpg");
+// const logoIcp = require("./images/logo-icp.jpg");
+// const logoFsm = require("./images/logo-fsm.jpg");
+// const logoLp = require("./images/logo-lp.png");
+// const logoBlog = require("./images/logo_espectateur.png");
+// const logoHN = require("./images/logo-huma-num.jpg");
+
+const logoIcp = require('./images/lr.png');
+const logoFsm = require('./images/espectateur.png');
+const logoLp = require('./images/CRHIA.jpg');
+const logoBlog = require('./images/logo-blog-celluloid.jpg');
+const logoEr = require('./images/er.png');
+const logoAquitaine=require('./images/nl.jpg');
+const logoUp=require('./images/up.png');
 
 export const About: React.FC = () => {
   const { t } = useTranslation();
@@ -45,56 +53,42 @@ export const About: React.FC = () => {
           }}
         >
           <Grid container={true} spacing={40} direction="row" justify="center">
-            <Grid item={true}>
-              <a href="https://www.icp.fr/" target="_blank" rel="noreferrer">
-                <img
-                  src={logoIcp}
-                  height="100px"
-                  alt="Institut Catholique de Paris"
-                />
-              </a>
-            </Grid>
-            <Grid item={true}>
-              <a
-                href="https://fondation-st-matthieu.org/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  src={logoFsm}
-                  height="100px"
-                  alt="Fondation Saint-Matthieu"
-                />
-              </a>
-            </Grid>
-            <Grid item={true}>
-              <a
-                href="https://www.lapaillasse.org/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={logoLp} height="100px" alt="La Paillasse" />
-              </a>
-            </Grid>
-            <Grid item={true}>
-              <a
-                href="https://celluloid.hypotheses.org"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={logoBlog} height="100px" alt="Le blog Celluloid" />
-              </a>
-            </Grid>
-            <Grid item={true}>
-              <a
-                href="https://www.huma-num.fr/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={logoHN} height="100px" alt="Le site de Huma-num" />
-              </a>
-            </Grid>
-          </Grid>
+        <Grid item={true}>
+          <a href="https://www.univ-larochelle.fr/" target="_blank">
+            <img src={logoIcp} height="100px" alt="La Rochelle Université" />
+          </a>
+        </Grid>
+        <Grid item={true}>
+          <a href="https://espectateur.huma-num.fr/" target="_blank">
+            <img src={logoFsm} height="100px" alt="Espectateur" />
+          </a>
+        </Grid>
+        <Grid item={true}>
+          <a href="https://www.crhia.fr/" target="_blank">
+            <img src={logoLp} height="100px" alt="CRHIA" />
+          </a>
+        </Grid>
+        <Grid item={true}>
+          <a href="https://celluloid.hypotheses.org" target="_blank">
+            <img src={logoBlog} height="100px" alt="Le blog Celluloid" />
+          </a>
+        </Grid>
+        <Grid item={true}>
+          <a href="https://info.erasmusplus.fr/" target="_blank">
+            <img src={logoEr} height="100px" alt="Erasmus" />
+          </a>
+        </Grid>
+        <Grid item={true}>
+          <a href="https://www.nouvelle-aquitaine.fr/" target="_blank">
+            <img src={logoAquitaine} height="100px" alt="Nouvelle Aquitaine" />
+          </a>
+        </Grid>
+        <Grid item={true}>
+          <a href="https://www.univ-poitiers.fr/" target="_blank">
+            <img src={logoUp} height="100px" alt="Université de Poitiers" />
+          </a>
+        </Grid>
+      </Grid>
         </div>
       </div>
     </SharedLayout>
