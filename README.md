@@ -1,29 +1,29 @@
-# Celluloid
+# Espect@tor
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker Build](https://github.com/celluloid-camp/celluloid/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/celluloid-camp/celluloid/actions/workflows/build.yml)
 [![Gitter chat](https://badges.gitter.im/celluloid-camp.png)](https://gitter.im/celluloid-camp)
 
 ## What is this?
 
-Celluloid is a collaborative video annotation application designed for educational purposes.
+Espect@tor is a collaborative video annotation application designed for educational purposes.
 
 Find a [PeerTube](https://joinpeertube.org/) video, choose an educational objective, annotate the video, share it with your students,
 collect their answers, answer their questions.
 
 ## ✨ Demo
 
-Head to https://celluloid.huma-num.fr/, create an account and click where you think you should!
+Head to https://especellu.huma-num.fr/, create an account and click where you think you should!
 
 We'd appreciate your feedback about the application UX and design, as well as bug reports - don't hesitate to [report an issue!](https://github.com/celluloid-camp/celluloid/issues)
 
 
 ## Who's behind it?
 
-Celluloid was born from a research project lead by **Michaël Bourgatte** and **Laurent Tessier**,
-two senior lecturers at the [Catholic University of Paris](https://en.icp.fr/english-version/).
+Espect@tor was born from a research project lead by **CHANTRAINE Cécile**,
+a professor at [La Rochelle Université](https://www.univ-larochelle.fr/).
 Their work focus on educational science and digital humanities.
 
-Celluloid is maintained by [Younes Benaomar](https://github.com/younes200), and **we are actively looking for contributors and maintainers**.
+Espect@tor is maintained by [LARBI Maya](https://github.com/mayalb), and **we are actively looking for contributors and maintainers**.
 Don't hesitate to [drop us a line on gitter!](https://gitter.im/celluloid-camp)
 
 # Setup
@@ -32,9 +32,9 @@ Don't hesitate to [drop us a line on gitter!](https://gitter.im/celluloid-camp)
 
 ### Environment
 
-Celluloid was designed to run on a Linux server.
+Espect@tor was designed to run on a Linux server.
 
-To deploy and install Celluloid, knowing your way around the command-line is required. **Using an OSX or Linux workstation is highly recommended**.
+To deploy and install Espect@tor, knowing your way around the command-line is required. **Using an OSX or Linux workstation is highly recommended**.
 
 ### Tools
 
@@ -52,7 +52,7 @@ For development purpose, you can use the provided Docker Compose [docker compose
 
 Then:
 
-1. [create a user](https://www.postgresql.org/docs/current/static/app-createuser.html) for celluloid
+1. [create a user](https://www.postgresql.org/docs/current/static/app-createuser.html) for Espect@tor
 2. [create a database](https://www.postgresql.org/docs/current/static/manage-ag-createdb.html) owned by this user. You can follow [this tutorial](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e) to get setup quickly.
 
 ### Emails
@@ -67,8 +67,8 @@ For development purpose, you could use your email account SMTP credentials, for 
 
 Fire up a terminal and run the following commands:
 
-    git clone https://github.com/celluloid-edu/celluloid
-    cd celluloid/
+    git clone https://github.com/celluloid-camp/EspeCelluloid
+    cd EspeCelluloid/
     yarn
 
 ### Configuration
@@ -84,7 +84,7 @@ Open the newly created .env file with your favorite text editor and set the valu
 
 For a quick run use the docker command line :
 
-    docker container run --rm --name celluloid \
+    docker container run --rm --name especulloid \
     -e CELLULOID_PG_HOST='localhost' \
     -e CELLULOID_PG_PORT=5432  \
     -e CELLULOID_PG_DATABASE='celluloid' \
@@ -92,7 +92,7 @@ For a quick run use the docker command line :
     -e CELLULOID_PG_PASSWORD='root' \
     -e CELLULOID_COOKIE_SECRET='XXX' \
     --net=host \
-    ghcr.io/celluloid-camp/celluloid:v1
+    ghcr.io/celluloid-camp/especulloid :v1
 
 
 ### Running the app in development mode
@@ -135,13 +135,11 @@ Do not hesitate to open a pull request, [contact us on gitter](https://gitter.im
 
 ## Technical Stack
 
-Before contributing to the development of Celluloid, you should get familiar with some of the following technologies:
+Before contributing to the development of Espect@tor, you should get familiar with some of the following technologies:
 
 - everywhere: [TypeScript](https://www.typescriptlang.org/)
 - frontend: [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [Material UI](https://material-ui.com/)
 - backend: [node.js](https://nodejs.org/en/), [Express](https://expressjs.com/) and [knex](https://knexjs.org/)
 - storage: [PostgreSQL](https://www.postgresql.org/)
 
-## V1 legacy
 
-Old celluloid version 1 that users Youtube videos still be found [here](https://github.com/celluloid-camp/celluloid/releases/tag/v1) 
