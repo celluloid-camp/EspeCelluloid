@@ -19,7 +19,7 @@ We'd appreciate your feedback about the application UX and design, as well as bu
 
 ## Who's behind it?
 
-Espect@tor was born from a research project lead by **CHANTRAINE Cécile**,
+Espect@tor was born from a research project lead by **CHANTRAINE Cécile** (cecile.chantraine_braillon@univ-lr.fr),
 a professor at [La Rochelle Université](https://www.univ-larochelle.fr/).
 Their work focus on educational science and digital humanities.
 
