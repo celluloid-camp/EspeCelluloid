@@ -142,12 +142,12 @@ export default {
       },
       guide: {
         title: 'Instructions',
-        subtitle: 'How to use Celluloid ?',
+        subtitle: 'How to use E-spect@tor ?',
         step1: 'Open the web page',
         step2: 'On the landing page, click '
           + ' "JOIN PROJECT"',
         step3: 'Enter the project code',
-        step4: 'Enter your username and an answer to a secret question',
+        step4: 'Enter your username and an last name',
         step5: 'Make sure to read carefully the objective and assignments!',
         step6: 'Complete the assignments and annotate the video while it\'s playing!'
       }
