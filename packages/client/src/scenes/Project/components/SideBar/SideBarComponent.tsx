@@ -121,7 +121,7 @@ const SideBarComponenent: React.FC<Props> = ({
   return (
     <>
       {/* {user && isOwner(project, user) ? ( */}
-      {/* {user ? ( */}
+      {user ? (
         <>
           <LabeledProgressSwitch
             label={t("project.public")}
@@ -179,7 +179,7 @@ const SideBarComponenent: React.FC<Props> = ({
                 }
               />
         </>
-      {/* ) : ( */}
+     ) : ( 
         <div className={classes.chips}>
           <VisibilityChip
             show={project.public}
@@ -190,7 +190,7 @@ const SideBarComponenent: React.FC<Props> = ({
             label={t("project.collaborative").toLowerCase()}
           />
         </div>
-      {/* )} */}
+      )} 
       {user && isOwner(project, user) && (
         <>
           <LabeledProgressSwitch
