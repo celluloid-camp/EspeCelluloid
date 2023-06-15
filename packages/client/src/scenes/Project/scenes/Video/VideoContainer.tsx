@@ -162,6 +162,7 @@ export default connect(
     seek(value: number, pause: boolean, seekAhead: boolean) {
       this.setState({ position: value });
       const player = this.state.player;
+      console.log('am seeking ', this.props.performance_mode)
       if (!this.props.performance_mode) {
       if (player) {
         if (pause) {
@@ -173,14 +174,17 @@ export default connect(
         console.log("seekTo", value);
         player.seekTo(value, "seconds");
         // this.props.requestSeek(value);
+       
+        this.props.requestSeek(value);
       }
-    }else{
-      if(player){
-        this.setState({
-          playing: false,
-        });
-        player.seekTo(value, "seconds");
-    }}
+    }
+    // else{
+    //   if(player){
+    //     this.setState({
+    //       playing: false,
+    //     });
+    //     player.seekTo(value, "seconds");
+    // }}
     }
 
     render() {

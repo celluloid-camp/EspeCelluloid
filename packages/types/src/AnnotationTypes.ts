@@ -6,6 +6,7 @@ export interface AnnotationData {
   startTime: number;
   stopTime: number;
   pause: boolean;
+  performance_mode: boolean;
   ontology: string[];
 }
 
