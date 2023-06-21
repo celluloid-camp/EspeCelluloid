@@ -505,7 +505,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
           />
         </div>
         <div className={classes.buttons}>
-          <FormControlLabel
+          {/* <FormControlLabel
             control={
               <Checkbox
                 checked={pause}
@@ -513,7 +513,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
               />
             }
             label={t("annotation.pauseLabel")}
-          />
+          /> */}
           <IconButton color="secondary" onClick={() => onClickCancel()}>
             <CancelIcon />
           </IconButton>
