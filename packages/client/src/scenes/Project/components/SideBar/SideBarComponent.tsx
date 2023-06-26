@@ -177,7 +177,7 @@ const SideBarComponenent: React.FC<Props> = ({
               onClickSetCollaborative(project.id, !project.collaborative)
             }
           />
-             {user &&
+             {/* {user &&
                 <LabeledProgressSwitch
                   label={t('project.sequencing')}
                   checked={sequencing}
@@ -190,7 +190,7 @@ const SideBarComponenent: React.FC<Props> = ({
                   }
                   }
                 />
-              }
+              } */}
               <LabeledProgressSwitch
                 label={t('project.analyze')}
                 checked={!performance_mode}
