@@ -14,6 +14,8 @@ const initialState = {
   setCollaborativeError: undefined,
   unshareError: undefined,
   unshareLoading: false,
+  annotationShowingMode: 'All',
+  ownAnnotations: false,
   updateDataFeedback: undefined
 } as ProjectDetailsState;
 
@@ -103,6 +105,16 @@ export default (state = initialState, {type, payload}: AnyAction):
         unshareError: undefined,
         project: payload
       };
+      case ActionType.SWITCHING_ANNOTATION_SHOWING_MODE:
+        return {
+          ...state,
+          annotationShowingMode: payload
+        };
+      case ActionType.SWITCH_OWN_ANNOTATIONS:
+          return {
+            ...state,
+            ownAnnotations: !state.ownAnnotations
+          };
       case ActionType.DATA_FEEDBACK:
         return {
           ...state,

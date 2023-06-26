@@ -120,6 +120,8 @@ interface Props extends WithStyles<typeof styles> {
   fullscreen: boolean;
   showControls: boolean;
   showHints: boolean;
+  ownAnnotations: boolean;
+  annotationShowingMode: string;
   onUserAction(): void;
   onPlayerReady(player: ReactPlayer): void;
   onPlayerProgress(state: PlayerProgressState): void;
@@ -138,6 +140,8 @@ interface Props extends WithStyles<typeof styles> {
 const mapStateToProps = (state: AppState) => ({
   editing: state.project.video.editing,
   focusedAnnotation: state.project.video.focusedAnnotation,
+  ownAnnotations: state.project.details.ownAnnotations,
+  annotationShowingMode: state.project.details.annotationShowingMode,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -162,6 +166,8 @@ export default connect(
       showControls,
       showHints,
       editing,
+      ownAnnotations,
+      annotationShowingMode,
       onUserAction,
       onPlayerReady,
       onPlayerStateChange,
@@ -193,7 +199,16 @@ export default connect(
       const focusedAnnotationId = focusedAnnotation
         ? focusedAnnotation.id
         : undefined;
-
+        annotations = annotations.filter(annotation =>
+          (
+            (
+              annotationShowingMode === 'All' 
+            ) && (
+            (ownAnnotations && user && annotation.userId === user.id) ||
+            !ownAnnotations
+            )
+          )
+        );
       const [muted, setMuted] = useState(false);
 
       const handleVideoReady = (player: ReactPlayer) => {

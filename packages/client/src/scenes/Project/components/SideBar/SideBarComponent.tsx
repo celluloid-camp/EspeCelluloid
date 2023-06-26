@@ -9,6 +9,8 @@ import {
   Theme,
   WithStyles,
   withStyles,
+  Typography,
+  NativeSelect,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ButtonProgress from "components/ButtonProgress";
@@ -78,6 +80,7 @@ interface Props extends WithStyles<typeof styles> {
   performance_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
+  ownAnnotations: boolean;
   onClickSetPublic(
     projectId: string,
     value: boolean
@@ -90,6 +93,8 @@ interface Props extends WithStyles<typeof styles> {
   onClickDelete(projectId: string): AsyncAction<null, string>;
   onClickSwitchPlayerMode(): void;
   onClickSwitchSequencing(): void;
+  onChangeAnnotationShowingMode(event: React.ChangeEvent<HTMLSelectElement>): void;
+  onClickSwitchOwnAnnotations(): void;
 }
 
 const SideBarComponenent: React.FC<Props> = ({
@@ -107,12 +112,15 @@ const SideBarComponenent: React.FC<Props> = ({
   performance_mode,
   sequencing,
   annotations,
+  ownAnnotations,
   onClickSetPublic,
   onClickSetCollaborative,
   onClickShare,
   onClickDelete,
   onClickSwitchSequencing,
   onClickSwitchPlayerMode,
+  onChangeAnnotationShowingMode,
+  onClickSwitchOwnAnnotations,
 
   classes,
 }: Props) => {
@@ -120,7 +128,37 @@ const SideBarComponenent: React.FC<Props> = ({
    console.log(' dans sidebar les annotations:', annotations[0])
   return (
     <>
-      {/* {user && isOwner(project, user) ? ( */}
+      <div className="Component-wrapper-504">
+        <Typography
+          variant="body2"
+          align="right"
+          gutterBottom={true}
+          component="div"
+        >
+          {t('project.annotationsVisibilitySelector')}
+          <NativeSelect
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => onChangeAnnotationShowingMode(event)}
+            inputProps={{
+              name: 'name',
+              id: 'annotation-showingMode-selector',
+            }}
+            style={{marginLeft: 5}}
+          >
+            <option value="All">{t('project.annotationsVisibilityAll')}</option>
+            <option value="Nothing">{t('project.annotationsVisibilityNothing')}</option>
+          </NativeSelect>
+        </Typography>
+      </div>
+      {user &&
+        <LabeledProgressSwitch
+          label={t('project.ownAnnotations')}
+          checked={ownAnnotations}
+          loading={false}
+          onChange={() =>
+            onClickSwitchOwnAnnotations()
+          }
+        />
+      }
       {user ? (
         <>
           <LabeledProgressSwitch

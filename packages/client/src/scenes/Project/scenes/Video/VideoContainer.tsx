@@ -32,6 +32,8 @@ interface Props {
   focusedAnnotation?: AnnotationRecord;
   performance_mode: boolean;
   sequencing_mode: boolean;
+  ownAnnotations: boolean;
+  annotationShowingMode: string;
   load(projectId: string): AsyncAction<AnnotationRecord[], string>;
   notifySeek(): EmptyAction;
   requestSeek(seekTarget: number): Action<number>;
@@ -56,7 +58,9 @@ const mapStateToProps = (state: AppState) => ({
   seeking: state.project.player.seeking,
   focusedAnnotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
-  sequencing_mode: state.project.player.sequencing
+  sequencing_mode: state.project.player.sequencing,
+  ownAnnotations: state.project.details.ownAnnotations,
+  annotationShowingMode: state.project.details.annotationShowingMode,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -108,8 +112,14 @@ export default connect(
         const focusedAnnotation = this.props.focusedAnnotation;
         const position = player.getCurrentTime();
         if (position) {
-          const visibleAnnotations = annotations.filter((annotation) =>
-            AnnotationUtils.visible(annotation, position)
+          const visibleAnnotations = annotations  .filter(annotation =>
+            (AnnotationUtils.visible(annotation, position) && (
+              this.props.annotationShowingMode === 'All' 
+            ) && (
+              (this.props.ownAnnotations && this.props.user && annotation.userId === this.props.user.id) ||
+              !this.props.ownAnnotations
+            )
+           )
           );
 
           visibleAnnotations.forEach((annotation) => {

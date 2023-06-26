@@ -11,6 +11,12 @@ import * as SigninDialog from 'components/Signin';
 import { RouterState } from 'connected-react-router';
 import { PeertubeVideoInfo } from './YoutubeTypes';
 
+
+export type AnnotationShowingMode
+  = 'All'
+  | 'Nothing'
+  | 'Own'
+  ;
 export interface SigninState {
   loading: boolean;
   dialog: SigninDialog.SigninState;
@@ -47,6 +53,8 @@ export interface ProjectDetailsState {
   unshareError?: string;
   deleteError?: string;
   updateDataFeedback?: string;
+  ownAnnotations: boolean;
+  annotationShowingMode: AnnotationShowingMode;
 }
 
 export interface PlayerState {
