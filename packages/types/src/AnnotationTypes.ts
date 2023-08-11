@@ -6,6 +6,9 @@ export interface AnnotationData {
   startTime: number;
   stopTime: number;
   pause: boolean;
+  autoDetect: boolean;
+  semiAutoDetect: boolean;
+  emotion?: string;
   ontology: string[];
 }
 

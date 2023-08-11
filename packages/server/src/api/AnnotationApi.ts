@@ -24,9 +24,10 @@ router.get("/", (req, res) => {
   // @ts-ignore
   const projectId = req.params.projectId;
   const user = req.user as UserRecord;
+  const autoDetect = req.query.autoDetect === "false" ? false : true;
 
   return ProjectStore.selectOne(projectId, user)
-    .then(() => AnnotationStore.selectByProject(projectId, user))
+    .then(() => AnnotationStore.selectByProject(projectId, user, autoDetect))
     .then((annotations: AnnotationRecord[]) =>
       Promise.all(
         annotations.map((annotation) => fetchComments(annotation, user))
@@ -49,7 +50,7 @@ router.post("/", isProjectOwnerOrCollaborativeMember, (req, res) => {
   const projectId = req.params.projectId;
   const annotation = req.body as AnnotationData;
   const user = req.user as UserRecord;
-   console.log('we are postinf annotation, ', annotation)
+  console.log("we are postinf annotation, ", annotation);
   AnnotationStore.insert(annotation, user, projectId)
     .then((result) => fetchComments(result, user))
     .then((result) => {

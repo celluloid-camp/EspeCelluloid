@@ -11,7 +11,7 @@ import { Dispatch } from 'redux';
 import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 
-import AnnotationEditorComponent, {globalEmoji} from './AnnotationEditorComponent';
+import AnnotationEditorComponent, { globalEmoji } from './AnnotationEditorComponent';
 
 interface Props {
   user: UserRecord;
@@ -22,7 +22,7 @@ interface Props {
     position: number;
     duration: number;
   };
-  ontology?:any;
+  ontology?: any;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
   onCreate(projectId: string, data: AnnotationData):
     AsyncAction<AnnotationRecord, string>;
@@ -69,8 +69,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onCancel: (annotation?: AnnotationRecord) =>
     dispatch(triggerCancelAnnotation(annotation))
 });
-export let userName='';
-export let userId='';
+export let userName = '';
+export let userId = '';
 let annotationId: string[];
 export default connect(mapStateToProps, mapDispatchToProps)(
   class extends React.Component<Props, State> {
@@ -123,25 +123,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         onSeek(position, true, true);
       };
 
-      const onClickSave =async () => {
-       
-        annotation.user=this.props.user
-         annotation.text=annotation.text+' '+globalEmoji
-       
+      const onClickSave = async () => {
+
+        annotation.user = this.props.user
+        annotation.text = annotation.text + ' ' + globalEmoji
+
         if (this.props.annotation) {
           onUpdate(projectId, {
             ...this.props.annotation,
             ...annotation
           });
         } else {
-          let res= await onCreate(projectId, annotation);
+          let res = await onCreate(projectId, annotation);
           //@ts-ignore  
-            annotationId= res.payload.id
-            userName= annotation.user.username
-            userId=annotation.user.id
-            return annotationId
+          annotationId = res.payload.id
+          userName = annotation.user.username
+          userId = annotation.user.id
+          return annotationId
         }
-        
+
       };
 
       const onClickCancel = () => {
@@ -167,7 +167,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           onClickCancel={onClickCancel}
           onTextChange={onTextChange}
           duration={video.duration}
-          projectId={projectId}   
+          projectId={projectId}
         />
       );
     }

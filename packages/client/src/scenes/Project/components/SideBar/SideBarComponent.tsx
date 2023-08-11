@@ -76,6 +76,7 @@ interface Props extends WithStyles<typeof styles> {
   unshareError?: string;
   deleteError?: string;
   performance_mode: boolean;
+  autoDetection_mode: boolean; //Auto Detect
   sequencing: boolean;
   annotations: AnnotationRecord[];
   onClickSetPublic(
@@ -90,6 +91,7 @@ interface Props extends WithStyles<typeof styles> {
   onClickDelete(projectId: string): AsyncAction<null, string>;
   onClickSwitchPlayerMode(): void;
   onClickSwitchSequencing(): void;
+  onClickSwitchAutoDetection(): void; //Auto Detect
 }
 
 const SideBarComponenent: React.FC<Props> = ({
@@ -105,6 +107,7 @@ const SideBarComponenent: React.FC<Props> = ({
   unshareError,
   deleteError,
   performance_mode,
+  autoDetection_mode,
   sequencing,
   annotations,
   onClickSetPublic,
@@ -113,11 +116,12 @@ const SideBarComponenent: React.FC<Props> = ({
   onClickDelete,
   onClickSwitchSequencing,
   onClickSwitchPlayerMode,
+  onClickSwitchAutoDetection, //Auto Detect
 
   classes,
 }: Props) => {
   const { t } = useTranslation();
-   console.log(' dans sidebar les annotations:', annotations[0])
+  console.log(' dans sidebar les annotations:', annotations[0])
   return (
     <>
       {user && isOwner(project, user) ? (
@@ -138,45 +142,59 @@ const SideBarComponenent: React.FC<Props> = ({
               onClickSetCollaborative(project.id, !project.collaborative)
             }
           />
-             {user &&
-                <LabeledProgressSwitch
-                  label={t('project.sequencing')}
-                  checked={sequencing}
-                  loading={false}
-                  onChange={() => {
-                    onClickSwitchSequencing();
-                    if (performance_mode === true) {
-                      onClickSwitchPlayerMode();
-                    }
-                  }
-                  }
-                />
+          {user &&
+            <LabeledProgressSwitch
+              label={t('project.sequencing')}
+              checked={sequencing}
+              loading={false}
+              onChange={() => {
+                onClickSwitchSequencing();
+                if (performance_mode === true) {
+                  onClickSwitchPlayerMode();
+                }
               }
-              <LabeledProgressSwitch
-                label={t('project.analyze')}
-                checked={!performance_mode}
-                loading={false}
-                onChange={() => {
-                  if (performance_mode === false && sequencing === true) {
-                    onClickSwitchSequencing();
-                  }
-                  onClickSwitchPlayerMode();
-                }
-                  
-                }
-              />
-              <LabeledProgressSwitch
-                label={t('project.performance')}
-                checked={performance_mode}
-                loading={false}
-                onChange={() => {
-                  onClickSwitchPlayerMode();
-                  if (sequencing === true) {
-                    onClickSwitchSequencing();
-                  }
-                }
-                }
-              />
+              }
+            />
+          }
+          <LabeledProgressSwitch
+            label={t('project.analyze')}
+            checked={!performance_mode}
+            loading={false}
+            onChange={() => {
+              if (performance_mode === false && sequencing === true) {
+                onClickSwitchSequencing();
+              }
+              onClickSwitchPlayerMode();
+            }
+
+            }
+          />
+          <LabeledProgressSwitch
+            label={t('project.performance')}
+            checked={performance_mode}
+            loading={false}
+            onChange={() => {
+              onClickSwitchPlayerMode();
+              if (sequencing === true) {
+                onClickSwitchSequencing();
+              }
+            }
+            }
+          />
+
+          {/* Emotion detection mode switch*/}
+          <LabeledProgressSwitch
+            label={t('project.emotion')}
+            checked={autoDetection_mode}
+            loading={false}
+            onChange={() => {
+              onClickSwitchAutoDetection();
+              if (sequencing === true) {
+                onClickSwitchSequencing();
+              }
+            }
+            }
+          />
         </>
       ) : (
         <div className={classes.chips}>
@@ -219,17 +237,17 @@ const SideBarComponenent: React.FC<Props> = ({
           )}
         </>
       )}
-       <div className={classes.chips}>
-       <XMLAnnotationExport
+      <div className={classes.chips}>
+        <XMLAnnotationExport
           annotations={annotations}
           project={project}
           buttonName={t('project.exportButton')}
         />
-          <CSVAnnotationExport
-            annotations={annotations}
-            project={project}
-            buttonName={t('project.exportButton')}
-          />
+        <CSVAnnotationExport
+          annotations={annotations}
+          project={project}
+          buttonName={t('project.exportButton')}
+        />
       </div>
       {/*{((user && !isOwner(project, user)) && (user && !isMember(project, user))
       && (user && !isAdmin(user)) && project.shared) &&

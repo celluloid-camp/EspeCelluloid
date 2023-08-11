@@ -1,5 +1,5 @@
 import "rc-slider/assets/index.css";
-import getFirstConcepts,{getSubConcepts, getRelation} from '../../api/Concept';
+import getFirstConcepts, { getSubConcepts, getRelation } from '../../api/Concept';
 import addAnnotation from '../../api/Annotation';
 import {
   Button,
@@ -73,7 +73,7 @@ const styles = (theme: Theme) =>
       borderRadius: "50%",
     },
   });
-  const CSS = `
+const CSS = `
   #custom-select {
     position: relative;
     max-width: 30 px; 
@@ -198,37 +198,37 @@ const emojis = [
     value: 'ItsStrange',
   },
 ];
-export let globalEmoji=''
-let globalConcept='concept'
-let firstConcept=globalConcept
-let secondConcept='concept'
-let thirdConcept='concept'
-let fourthConcept='concept'
-let fiveConcept='concept'
-let sixConcept='concept'
+export let globalEmoji = ''
+let globalConcept = 'concept'
+let firstConcept = globalConcept
+let secondConcept = 'concept'
+let thirdConcept = 'concept'
+let fourthConcept = 'concept'
+let fiveConcept = 'concept'
+let sixConcept = 'concept'
 const options = getFirstConcepts(globalConcept);
 
 
-class App extends React.Component <{perf: boolean}, {emoji: string, concept: string, concept1: string, concept2: string,concept3: string,concept4: string,concept5: string,concept6: string, option1:any, option2:any ,option3:any ,option4:any, option5: any, option6: any}> {
+class App extends React.Component<{ perf: boolean }, { emoji: string, concept: string, concept1: string, concept2: string, concept3: string, concept4: string, concept5: string, concept6: string, option1: any, option2: any, option3: any, option4: any, option5: any, option6: any }> {
   constructor(props: any) {
     super(props);
-   
+
     this.state = {
-     
+
       concept: globalConcept,
-      concept1:'concept 2',
-      concept2:'concept 3',
-      concept3:'concept 4',
-      concept4:fourthConcept,
-      concept5:fiveConcept,
-      concept6:sixConcept,
-      emoji:'Emoji',
-      option1:[],
-      option2:[],
-      option3:[],
-      option4:[],
-      option5:[],
-      option6:[],
+      concept1: 'concept 2',
+      concept2: 'concept 3',
+      concept3: 'concept 4',
+      concept4: fourthConcept,
+      concept5: fiveConcept,
+      concept6: sixConcept,
+      emoji: 'Emoji',
+      option1: [],
+      option2: [],
+      option3: [],
+      option4: [],
+      option5: [],
+      option6: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
@@ -239,98 +239,98 @@ class App extends React.Component <{perf: boolean}, {emoji: string, concept: str
     this.handleChange6 = this.handleChange6.bind(this);
     this.handleEmoji = this.handleEmoji.bind(this);
   }
-handleChange(e:any) {
+  handleChange(e: any) {
     this.setState({ concept: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option1:conc1})
-    globalConcept=e.target.value;
-    firstConcept=e.target.value;
-    secondConcept=e.target.value;
-    thirdConcept=e.target.value;
-    fourthConcept=e.target.value;
-    fiveConcept=e.target.value;
-    sixConcept=e.target.value;
-    console.log(' button 1',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option1: conc1 })
+    globalConcept = e.target.value;
+    firstConcept = e.target.value;
+    secondConcept = e.target.value;
+    thirdConcept = e.target.value;
+    fourthConcept = e.target.value;
+    fiveConcept = e.target.value;
+    sixConcept = e.target.value;
+    console.log(' button 1', globalConcept)
   }
-handleChange1(e:any) {
+  handleChange1(e: any) {
     this.setState({ concept1: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option2:conc1})
-    secondConcept=e.target.value;
-    thirdConcept=e.target.value;
-    fourthConcept=e.target.value;
-    fiveConcept=e.target.value;
-    sixConcept=e.target.value;
-    globalConcept=e.target.value;
-    console.log(' button 2',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option2: conc1 })
+    secondConcept = e.target.value;
+    thirdConcept = e.target.value;
+    fourthConcept = e.target.value;
+    fiveConcept = e.target.value;
+    sixConcept = e.target.value;
+    globalConcept = e.target.value;
+    console.log(' button 2', globalConcept)
   }
-  handleChange2(e:any) {
+  handleChange2(e: any) {
     this.setState({ concept2: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option3:conc1})
-    thirdConcept=e.target.value;
-    fourthConcept=e.target.value;
-    fiveConcept=e.target.value;
-    sixConcept=e.target.value;
-    globalConcept=e.target.value;
-    console.log(' button 3',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option3: conc1 })
+    thirdConcept = e.target.value;
+    fourthConcept = e.target.value;
+    fiveConcept = e.target.value;
+    sixConcept = e.target.value;
+    globalConcept = e.target.value;
+    console.log(' button 3', globalConcept)
   }
-  handleChange3(e:any) {
+  handleChange3(e: any) {
     this.setState({ concept3: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option4:conc1})
-    fourthConcept=e.target.value;
-    fiveConcept=e.target.value;
-    sixConcept=e.target.value;
-    globalConcept=e.target.value;
-    console.log(' button 4',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option4: conc1 })
+    fourthConcept = e.target.value;
+    fiveConcept = e.target.value;
+    sixConcept = e.target.value;
+    globalConcept = e.target.value;
+    console.log(' button 4', globalConcept)
   }
-  handleChange4(e:any) {
+  handleChange4(e: any) {
     this.setState({ concept4: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option5:conc1})
-    fiveConcept=e.target.value;
-    sixConcept=e.target.value;
-    globalConcept=e.target.value;
-    console.log(' button 5',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option5: conc1 })
+    fiveConcept = e.target.value;
+    sixConcept = e.target.value;
+    globalConcept = e.target.value;
+    console.log(' button 5', globalConcept)
   }
-  handleChange5(e:any) {
+  handleChange5(e: any) {
     this.setState({ concept5: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option6:conc1})
-  //  fiveConcept=e.target.value;
-    sixConcept=e.target.value;
-    globalConcept=e.target.value;
-    console.log(' button 6',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option6: conc1 })
+    //  fiveConcept=e.target.value;
+    sixConcept = e.target.value;
+    globalConcept = e.target.value;
+    console.log(' button 6', globalConcept)
   }
-  handleChange6(e:any) {
+  handleChange6(e: any) {
     this.setState({ concept6: e.target.value });
-    const conc1=getSubConcepts(e.target.value )
-    this.setState({option6:conc1})
-   // fiveConcept=e.target.value;
-    globalConcept=e.target.value;
-    console.log(' button 6',globalConcept)
+    const conc1 = getSubConcepts(e.target.value)
+    this.setState({ option6: conc1 })
+    // fiveConcept=e.target.value;
+    globalConcept = e.target.value;
+    console.log(' button 6', globalConcept)
   }
-  handleEmoji(e:any) {
+  handleEmoji(e: any) {
     this.setState({ emoji: e.target.value });
-    globalEmoji=e.target.value;
+    globalEmoji = e.target.value;
   }
 
-  render() { 
+  render() {
     console.log('mode performance ', this.props.perf)
     return (
       <div id="App">
-       
+
         <div id="custom-select">
-        <style>{CSS}</style>
-      {!this.props.perf ? (
-        <>
-          <select value={this.state.concept} onChange={this.handleChange}>
-            {options.map((option) => (
-              <option value={option.concept}>{option.concept}</option>
-            ))}
-          </select>
-          {/* <select value={this.state.concept1} onChange={this.handleChange1}>
+          <style>{CSS}</style>
+          {!this.props.perf ? (
+            <>
+              <select value={this.state.concept} onChange={this.handleChange}>
+                {options.map((option) => (
+                  <option value={option.concept}>{option.concept}</option>
+                ))}
+              </select>
+              {/* <select value={this.state.concept1} onChange={this.handleChange1}>
             {this.state.option1.map((option) => (
               <option value={option.concept}>{option.concept}</option>
             ))}
@@ -360,46 +360,47 @@ handleChange1(e:any) {
               <option value={option.concept}>{option.concept}</option>
             ))}
           </select> */}
-        </>
-      ) : (
-        <></>
-      )}
-      
-          
+            </>
+          ) : (
+            <></>
+          )}
+
+
           <select value={this.state.emoji} onChange={this.handleEmoji}>
             {emojis.map((emoji) => (
               <option value={emoji.value}>{emoji.label}</option>
             ))}
-          </select> 
-          </div>
+          </select>
+        </div>
       </div>
-        
+
     );
   }
 }
 
-function PostAnnotation(startTime: number, stopTime: number, text: String,projectId: string,annotationId: any) {
-  const relation=getRelation(firstConcept)
-  console.log(' les 3 derniers concept',fourthConcept,sixConcept, fiveConcept,globalConcept)
- 
-  const annotationData= {
-    projectId:projectId,
-    userId:userId,
-    commentaire:text,
-    stopTime:stopTime,
+function PostAnnotation(startTime: number, stopTime: number, text: String, projectId: string, annotationId: any) {
+  const relation = getRelation(firstConcept)
+  console.log(' les 3 derniers concept', fourthConcept, sixConcept, fiveConcept, globalConcept)
+
+  const annotationData = {
+    projectId: projectId,
+    userId: userId,
+    commentaire: text,
+    stopTime: stopTime,
     startTime: startTime,
-   
-    objet: [firstConcept,secondConcept,thirdConcept,fourthConcept, fiveConcept,sixConcept,globalConcept],
-    userName:userName,
-    relation:relation,
-    annotationId:annotationId
+
+    objet: [firstConcept, secondConcept, thirdConcept, fourthConcept, fiveConcept, sixConcept, globalConcept],
+    userName: userName,
+    relation: relation,
+    annotationId: annotationId
   }
-  if(firstConcept!=='Annotation Libre'){
-  
+  if (firstConcept !== 'Annotation Libre') {
+
     addAnnotation(annotationData)
   }
-  
+
 }
+
 const AnnotationEditorComponent: React.FC<Props> = ({
   startTime,
   stopTime,
@@ -429,19 +430,19 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-      <div className={classes.centerVerticalement}>
-            <App
-              perf={false}
-            />
-            </div>
-         <>
-            <TransparentInput
-              text={text}
-              error={error}
-              onChange={onTextChange}
-              placeholder={t("annotation.contentPlaceholder")}
-            />
-         </>
+        <div className={classes.centerVerticalement}>
+          <App
+            perf={false}
+          />
+        </div>
+        <>
+          <TransparentInput
+            text={text}
+            error={error}
+            onChange={onTextChange}
+            placeholder={t("annotation.contentPlaceholder")}
+          />
+        </>
         <div className={classes.timeline}>
           <TimingControl
             onBack={() =>
@@ -515,15 +516,14 @@ const AnnotationEditorComponent: React.FC<Props> = ({
           <IconButton color="secondary" onClick={() => onClickCancel()}>
             <CancelIcon />
           </IconButton>
-          <IconButton color="primary" 
-          // onClick={() => onClickSave()}
-              onClick={async ()  =>
-                  { 
-                    const annotationId= await onClickSave() 
-                    PostAnnotation(startTime, stopTime, text,projectId,annotationId);
-                    globalEmoji=''
-                  }
-                          }>
+          <IconButton color="primary"
+            // onClick={() => onClickSave()}
+            onClick={async () => {
+              const annotationId = await onClickSave()
+              PostAnnotation(startTime, stopTime, text, projectId, annotationId);
+              globalEmoji = ''
+            }
+            }>
             <CheckIcon />
           </IconButton>
         </div>

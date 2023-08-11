@@ -18,7 +18,7 @@ import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 import { canEditAnnotation } from 'utils/AnnotationUtils';
 import { formatDuration } from 'utils/DurationUtils';
-import {getAnnotationConcept} from '../../api/Annotation'
+import { getAnnotationConcept } from '../../api/Annotation'
 import AnnotationContentComponent from './AnnotationContentComponent';
 
 const getUrls = require('get-urls');
@@ -53,7 +53,7 @@ interface Props {
     Action<AnnotationRecord>;
 }
 
-function parseText(text: string): State {
+function parseText(text: string | undefined): State {
   const previews = Array
     .from(getUrls(text) as string[])
     .map((url: string) => {
@@ -68,7 +68,7 @@ function parseText(text: string): State {
     richText,
     loading: true,
     hovering: false,
-    ontology:'',
+    ontology: '',
   } as State;
 }
 
@@ -153,24 +153,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const showActions = user
         && (focused || hovering)
         && (isOwner(project, user) || canEditAnnotation(annotation, user)) || false;
-        getAnnotationConcept(annotation.id).then( concept=> {
-          let relationConcept=concept[1]
-          let relation
-         
-          if(relationConcept!= null){
-            relation=relationConcept[0]
-          }else{
-            relation=''
-          }
-          if(relation=== undefined){
-            relation=''
-          }
-          let onto= relation+ ' '+ concept[0]
-          if(concept[0]===undefined){
-            onto=''
-          }
-         this.setState({ontology:onto})
-        })
+      getAnnotationConcept(annotation.id).then(concept => {
+        let relationConcept = concept[1]
+        let relation
+
+        if (relationConcept != null) {
+          relation = relationConcept[0]
+        } else {
+          relation = ''
+        }
+        if (relation === undefined) {
+          relation = ''
+        }
+        let onto = relation + ' ' + concept[0]
+        if (concept[0] === undefined) {
+          onto = ''
+        }
+        this.setState({ ontology: onto })
+      })
 
       return (
         <AnnotationContentComponent

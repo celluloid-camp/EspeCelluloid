@@ -4,7 +4,11 @@ import { Knex } from "knex";
 import { database, getExactlyOne } from "../backends/Database";
 import * as ProjectStore from "./ProjectStore";
 
-export function selectByProject(projectId: string, user?: UserRecord) {
+export function selectByProject(
+  projectId: string,
+  user?: UserRecord,
+  autoDetect = true
+) {
   return database
     .select(
       database.raw('"Annotation".*'),
@@ -21,6 +25,10 @@ export function selectByProject(projectId: string, user?: UserRecord) {
     .innerJoin("Project", "Project.id", "Annotation.projectId")
     .innerJoin("User", "User.id", "Annotation.userId")
     .where("Annotation.projectId", projectId)
+    .whereIn(
+      "Annotation.autoDetect",
+      autoDetect === false ? [false] : [true, false]
+    )
     .andWhere((nested: Knex.QueryBuilder) => {
       nested.modify(ProjectStore.orIsOwner, user);
       nested.modify(ProjectStore.orIsMember, user);
@@ -75,10 +83,13 @@ export function insert(
 ) {
   return database("Annotation")
     .insert({
-      text: annotation.text,
+      text: annotation.text || "",
       startTime: annotation.startTime,
       stopTime: annotation.stopTime,
       pause: annotation.pause,
+      autoDetect: annotation.autoDetect || false,
+      semiAutoDetect: annotation.semiAutoDetect || false,
+      emotion: annotation.emotion || null,
       userId: user.id,
       projectId: projectId,
     })

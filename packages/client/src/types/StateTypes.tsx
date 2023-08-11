@@ -53,6 +53,7 @@ export interface PlayerState {
   seeking: boolean;
   seekTarget: number;
   performance_mode: boolean;
+  autoDetection_mode: boolean;
   sequencing: boolean;
 }
 
