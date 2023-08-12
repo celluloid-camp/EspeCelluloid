@@ -1,10 +1,10 @@
-import "rc-slider/assets/index.css";
+import 'rc-slider/assets/index.css';
 
 import {
   AnnotationRecord,
   ProjectGraphRecord,
   UserRecord,
-} from "@celluloid/types";
+} from '@celluloid/types';
 import {
   Badge,
   Button,
@@ -15,38 +15,37 @@ import {
   WithStyles,
   withStyles,
   Zoom as ZoomMUI,
-} from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import { triggerAddAnnotation } from "actions/AnnotationsActions";
-import classnames from "classnames";
-import * as React from "react";
-import Fullscreen from "react-full-screen";
-import { connect } from "react-redux";
-import { TransitionGroup } from "react-transition-group";
-import { Dispatch } from "redux";
-import { EmptyAction } from "types/ActionTypes";
-import { AppState } from "types/StateTypes";
-import { canAnnotate } from "utils/ProjectUtils";
-import AnnotationIcon from "@material-ui/icons/Comment";
-import AnnotationContent from "./components/AnnotationContent";
-import AnnotationEditor from "./components/AnnotationEditor";
-import AnnotationHints from "./components/AnnotationHints";
-import Controls from "./components/Controls";
-import { styles } from "./VideoStyles";
-import { ZoomProps } from "@material-ui/core/Zoom";
-import { GrowProps } from "@material-ui/core/Grow";
-import ReactPlayer, { ReactPlayerProps } from "@celluloid/react-player";
-import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import VideoApi from "services/VideoService";
+} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import { triggerAddAnnotation } from 'actions/AnnotationsActions';
+import classnames from 'classnames';
+import * as React from 'react';
+import Fullscreen from 'react-full-screen';
+import { connect } from 'react-redux';
+import { TransitionGroup } from 'react-transition-group';
+import { Dispatch } from 'redux';
+import { EmptyAction } from 'types/ActionTypes';
+import { AppState } from 'types/StateTypes';
+import { canAnnotate } from 'utils/ProjectUtils';
+import AnnotationIcon from '@material-ui/icons/Comment';
+import AnnotationContent from './components/AnnotationContent';
+import AnnotationEditor from './components/AnnotationEditor';
+import AnnotationHints from './components/AnnotationHints';
+import Controls from './components/Controls';
+import { styles } from './VideoStyles';
+import { ZoomProps } from '@material-ui/core/Zoom';
+import { GrowProps } from '@material-ui/core/Grow';
+import ReactPlayer, { ReactPlayerProps } from '@celluloid/react-player';
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import VideoApi from 'services/VideoService';
 
-import useExternalScripts from "hooks/useExternalScripts";
+import useExternalScripts from 'hooks/useExternalScripts';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import LinearProgress from "@material-ui/core/LinearProgress";
-
-import get from "lodash/get";
-import { F } from "ramda";
+import get from 'lodash/get';
+import { F } from 'ramda';
 
 const Zoom: React.FC<React.PropsWithChildren & ZoomProps> = (props) => (
   <ZoomMUI {...props} />
@@ -68,8 +67,6 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
   //     }, 1000);
   //   }
   // }, [playerRef]);
-
-
 
   return (
     <ReactPlayer
@@ -93,7 +90,6 @@ const Player: React.FC<ReactPlayerProps> = (props) => {
       }}
       {...props}
     />
-
   );
 };
 
@@ -179,14 +175,10 @@ export default connect(
       onSeek,
       performance_mode,
       classes,
-
     }: Props) => {
       const [isReady, setIsReady] = useState(false);
 
-      const [url, setUrl] = useState<string>("");
-
-      // useExternalScripts("https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js");
-
+      const [url, setUrl] = useState<string>('');
 
       const controlsOpacity =
         showControls || showHints ? classes.visible : classes.hidden;
@@ -206,15 +198,13 @@ export default connect(
         setIsReady(true);
       };
 
-
-
       useEffect(() => {
         if (project) {
           setUrl(`https://${project.host}/w/${project.videoId}`);
         }
 
         return () => {
-          setUrl("");
+          setUrl('');
         };
       }, [project]);
 
@@ -247,13 +237,10 @@ export default connect(
       };
 
       return (
-        <Fullscreen
-          enabled={fullscreen}
-          onChange={onFullscreenChange}
-        >
+        <Fullscreen enabled={fullscreen} onChange={onFullscreenChange}>
           <div
             onMouseMove={onUserAction}
-            className={classnames("full-screenable-node", classes.videoWrapper)}
+            className={classnames('full-screenable-node', classes.videoWrapper)}
           >
             <div onMouseMove={onUserAction}>
               <Player
@@ -272,13 +259,11 @@ export default connect(
               <div
                 className={classes.glassPane}
                 onMouseMove={onUserAction}
-              // onClick={}
+                // onClick={}
               />
 
               {!showHints && (
-                <div
-                  className={classes.annotationFrame}
-                >
+                <div className={classes.annotationFrame}>
                   <Grow appear={true} in={editing}>
                     <div>
                       {user && editing && (
@@ -381,7 +366,7 @@ export default connect(
                     onToggleFullscreen={onToggleFullscreen}
                     onTogglePlayPause={onTogglePlayPause}
                     onToggleHints={onToggleHints}
-                  // onToggleMuted={handleToggleMute}
+                    // onToggleMuted={handleToggleMute}
                   />
                 </div>
               ) : (

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { connect } from "react-redux";
-import { AppState } from "types/StateTypes";
+import { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { AppState } from 'types/StateTypes';
 import {
   Modal,
   withStyles,
@@ -9,11 +9,11 @@ import {
   Grid,
   Typography,
   Divider,
-} from "@material-ui/core";
-import * as faceapi from "@vladmandic/face-api";
-import styles from "./styles";
-import { AnnotationData } from "@celluloid/types";
-import AnnotationService from "services/AnnotationService";
+} from '@material-ui/core';
+import * as faceapi from '@vladmandic/face-api';
+import styles from './styles';
+import { AnnotationData } from '@celluloid/types';
+import AnnotationService from 'services/AnnotationService';
 
 interface Props extends WithStyles<typeof styles> {
   positionFloored: number;
@@ -35,7 +35,7 @@ export const AutoDetection = ({
   const [error, setError] = useState<string | null>(null);
 
   const videoRefTmp = useRef<HTMLVideoElement>(null);
-  const [detectionState, setDetectionState] = useState<string>("Loading ...");
+  const [detectionState, setDetectionState] = useState<string>('Loading ...');
   const [modalOpen, setModalOpen] = useState(true);
 
   const closeModal = () => setModalOpen(false);
@@ -48,7 +48,7 @@ export const AutoDetection = ({
     const loadModels = async () => {
       // load models
       const modelPath =
-        "https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/";
+        'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
       await Promise.all([
         await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath),
         // await faceapi.nets.tinyYolov2.loadFromUri(modelPath),
@@ -80,7 +80,7 @@ export const AutoDetection = ({
         .withFaceExpressions();
 
       if (detections.length) {
-        setDetectionState("Detection OK");
+        setDetectionState('Detection OK');
 
         const emotion = Object.entries(detections[0]?.expressions).sort(
           (a, b) => b[1] - a[1]
@@ -108,7 +108,7 @@ export const AutoDetection = ({
           }
 
           const annotation: AnnotationData = {
-            text: "",
+            text: '',
             startTime: startPositionRef.current,
             stopTime: startPositionRef.current,
             pause: !playing,
@@ -121,7 +121,7 @@ export const AutoDetection = ({
           annotations.current.push(annotation);
         }
       } else
-        setDetectionState("No detection, Please follow the recommendations");
+        setDetectionState('No detection, Please follow the recommendations');
 
       await delay(100);
 
@@ -149,13 +149,13 @@ export const AutoDetection = ({
         }
       } catch (err) {
         if (
-          err.name === "PermissionDeniedError" ||
-          err.name === "NotAllowedError"
+          err.name === 'PermissionDeniedError' ||
+          err.name === 'NotAllowedError'
         )
           setError(
             `Camera Error: camera permission denied: ${err.message || err}`
           );
-        if (err.name === "SourceUnavailableError")
+        if (err.name === 'SourceUnavailableError')
           setError(`Camera Error: camera not available: ${err.message || err}`);
         return null;
       }
@@ -167,6 +167,23 @@ export const AutoDetection = ({
       // console.log(annotations.current);
       // clearInterval(captureIntervalRef.current as number);
 
+      const pushLastAnnotation = async () => {
+        if (annotations.current.length !== 0) {
+          try {
+            await AnnotationService.create(
+              projectId,
+              annotations.current[annotations.current.length - 1]
+            );
+          } catch (e) {
+            setError(e);
+          }
+
+          annotations.current.pop();
+        }
+      };
+
+      pushLastAnnotation();
+
       if (stream) {
         const tracks = stream.getTracks();
         tracks.forEach((track) => track.stop());
@@ -176,7 +193,7 @@ export const AutoDetection = ({
 
   return (
     <>
-      <video ref={videoRef} style={{ display: "none" }} />
+      <video ref={videoRef} style={{ display: 'none' }} />
       {/* <canvas ref={canvasRef} style={{ display: 'none' }} /> */}
       {/* <canvas ref={canvasRef} style={{ height: '700px', width: '1000px' }} /> */}
       {/* <div
@@ -189,19 +206,19 @@ export const AutoDetection = ({
             <Grid item className={classes.section1}>
               <div>
                 <div
-                  style={{ background: "grey", zIndex: 10, width: "100%" }}
+                  style={{ background: 'grey', zIndex: 10, width: '100%' }}
                 ></div>
                 <video
                   ref={videoRefTmp}
                   autoPlay
                   style={{
-                    display: "block",
-                    position: "absolute",
+                    display: 'block',
+                    position: 'absolute',
                     top: 0,
                     left: 0,
-                    width: "100%",
-                    height: "100%",
-                    zIndex: "100",
+                    width: '100%',
+                    height: '100%',
+                    zIndex: '100',
                   }}
                   id="video"
                   playsInline

@@ -1,8 +1,4 @@
-import {
-  ActionType,
-  createAction,
-  createEmptyAction
-} from 'types/ActionTypes';
+import { ActionType, createAction, createEmptyAction } from 'types/ActionTypes';
 
 export const playerRequestSeek = (seekTarget: number) =>
   createAction(ActionType.PLAYER_REQUEST_SEEK, seekTarget);
@@ -16,12 +12,8 @@ export const playerSwitchMode = () =>
 export const playerSwitchSequencing = () =>
   createEmptyAction(ActionType.PLAYER_SWITCH_SEQUENCING);
 
-//Auto Detect 
 export const playerSwitchAutoDetection = () =>
   createEmptyAction(ActionType.PLAYER_SWITCH_AUTO_DETECTION);
 
-// export const playerStartAutoDetection = () =>
-//   createEmptyAction(ActionType.PLAYER_START_AUTO_DETECTION);
-
-// export const playerStopAutoDetection = () =>
-//   createEmptyAction(ActionType.PLAYER_STOP_AUTO_DETECTION);
+export const playerSwitchSemiAutoDetection = () =>
+  createEmptyAction(ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION);

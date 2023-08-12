@@ -1,5 +1,8 @@
-import "rc-slider/assets/index.css";
-import getFirstConcepts, { getSubConcepts, getRelation } from '../../api/Concept';
+import 'rc-slider/assets/index.css';
+import getFirstConcepts, {
+  getSubConcepts,
+  getRelation,
+} from '../../api/Concept';
 import addAnnotation from '../../api/Annotation';
 import {
   Button,
@@ -11,34 +14,34 @@ import {
   Typography,
   WithStyles,
   withStyles,
-} from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
-import CancelIcon from "@material-ui/icons/Clear";
-import { Range } from "rc-slider";
-import React from "react";
-import { formatDuration } from "utils/DurationUtils";
+} from '@material-ui/core';
+import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/Clear';
+import { Range } from 'rc-slider';
+import React from 'react';
+import { formatDuration } from 'utils/DurationUtils';
 import { userName, userId } from './AnnotationEditorContainer';
-import TransparentInput from "../TransparentInput";
-import { sliderRailStyle, sliderTrackStyle } from "utils/SliderUtils";
-import { useTranslation } from "react-i18next";
+import TransparentInput from '../TransparentInput';
+import { sliderRailStyle, sliderTrackStyle } from 'utils/SliderUtils';
+import { useTranslation } from 'react-i18next';
 
-const caretStart = require("images/caret-start.png");
-const caretStop = require("images/caret-stop.png");
+const caretStart = require('images/caret-start.png');
+const caretStop = require('images/caret-stop.png');
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       paddingLeft: theme.spacing.unit,
       paddingTop: theme.spacing.unit,
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "flex-start",
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
     },
     content: {
-      flex: "1 1 auto",
+      flex: '1 1 auto',
       minWidth: 0,
       padding: `0 ${theme.spacing.unit * 2}px`,
-      "&:first-child": {
+      '&:first-child': {
         paddingLeft: 0,
       },
       margin: 10,
@@ -50,19 +53,19 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
     },
     buttons: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "flex-end",
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
     },
     timeline: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     buttonRoot: {
       fontSize: 10,
-      lineHeight: "20px",
+      lineHeight: '20px',
       minWidth: 20,
       minHeight: 20,
       maxWidth: 20,
@@ -70,7 +73,7 @@ const styles = (theme: Theme) =>
       margin: 4,
       marginBottom: 7,
       padding: 0,
-      borderRadius: "50%",
+      borderRadius: '50%',
     },
   });
 const CSS = `
@@ -198,23 +201,39 @@ const emojis = [
     value: 'ItsStrange',
   },
 ];
-export let globalEmoji = ''
-let globalConcept = 'concept'
-let firstConcept = globalConcept
-let secondConcept = 'concept'
-let thirdConcept = 'concept'
-let fourthConcept = 'concept'
-let fiveConcept = 'concept'
-let sixConcept = 'concept'
+export let globalEmoji = '';
+let globalConcept = 'concept';
+let firstConcept = globalConcept;
+let secondConcept = 'concept';
+let thirdConcept = 'concept';
+let fourthConcept = 'concept';
+let fiveConcept = 'concept';
+let sixConcept = 'concept';
 const options = getFirstConcepts(globalConcept);
 
-
-class App extends React.Component<{ perf: boolean }, { emoji: string, concept: string, concept1: string, concept2: string, concept3: string, concept4: string, concept5: string, concept6: string, option1: any, option2: any, option3: any, option4: any, option5: any, option6: any }> {
+class App extends React.Component<
+  { perf: boolean },
+  {
+    emoji: string;
+    concept: string;
+    concept1: string;
+    concept2: string;
+    concept3: string;
+    concept4: string;
+    concept5: string;
+    concept6: string;
+    option1: any;
+    option2: any;
+    option3: any;
+    option4: any;
+    option5: any;
+    option6: any;
+  }
+> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-
       concept: globalConcept,
       concept1: 'concept 2',
       concept2: 'concept 3',
@@ -241,8 +260,8 @@ class App extends React.Component<{ perf: boolean }, { emoji: string, concept: s
   }
   handleChange(e: any) {
     this.setState({ concept: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option1: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option1: conc1 });
     globalConcept = e.target.value;
     firstConcept = e.target.value;
     secondConcept = e.target.value;
@@ -250,66 +269,66 @@ class App extends React.Component<{ perf: boolean }, { emoji: string, concept: s
     fourthConcept = e.target.value;
     fiveConcept = e.target.value;
     sixConcept = e.target.value;
-    console.log(' button 1', globalConcept)
+    console.log(' button 1', globalConcept);
   }
   handleChange1(e: any) {
     this.setState({ concept1: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option2: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option2: conc1 });
     secondConcept = e.target.value;
     thirdConcept = e.target.value;
     fourthConcept = e.target.value;
     fiveConcept = e.target.value;
     sixConcept = e.target.value;
     globalConcept = e.target.value;
-    console.log(' button 2', globalConcept)
+    console.log(' button 2', globalConcept);
   }
   handleChange2(e: any) {
     this.setState({ concept2: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option3: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option3: conc1 });
     thirdConcept = e.target.value;
     fourthConcept = e.target.value;
     fiveConcept = e.target.value;
     sixConcept = e.target.value;
     globalConcept = e.target.value;
-    console.log(' button 3', globalConcept)
+    console.log(' button 3', globalConcept);
   }
   handleChange3(e: any) {
     this.setState({ concept3: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option4: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option4: conc1 });
     fourthConcept = e.target.value;
     fiveConcept = e.target.value;
     sixConcept = e.target.value;
     globalConcept = e.target.value;
-    console.log(' button 4', globalConcept)
+    console.log(' button 4', globalConcept);
   }
   handleChange4(e: any) {
     this.setState({ concept4: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option5: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option5: conc1 });
     fiveConcept = e.target.value;
     sixConcept = e.target.value;
     globalConcept = e.target.value;
-    console.log(' button 5', globalConcept)
+    console.log(' button 5', globalConcept);
   }
   handleChange5(e: any) {
     this.setState({ concept5: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option6: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option6: conc1 });
     //  fiveConcept=e.target.value;
     sixConcept = e.target.value;
     globalConcept = e.target.value;
-    console.log(' button 6', globalConcept)
+    console.log(' button 6', globalConcept);
   }
   handleChange6(e: any) {
     this.setState({ concept6: e.target.value });
-    const conc1 = getSubConcepts(e.target.value)
-    this.setState({ option6: conc1 })
+    const conc1 = getSubConcepts(e.target.value);
+    this.setState({ option6: conc1 });
     // fiveConcept=e.target.value;
     globalConcept = e.target.value;
-    console.log(' button 6', globalConcept)
+    console.log(' button 6', globalConcept);
   }
   handleEmoji(e: any) {
     this.setState({ emoji: e.target.value });
@@ -317,10 +336,9 @@ class App extends React.Component<{ perf: boolean }, { emoji: string, concept: s
   }
 
   render() {
-    console.log('mode performance ', this.props.perf)
+    console.log('mode performance ', this.props.perf);
     return (
       <div id="App">
-
         <div id="custom-select">
           <style>{CSS}</style>
           {!this.props.perf ? (
@@ -365,7 +383,6 @@ class App extends React.Component<{ perf: boolean }, { emoji: string, concept: s
             <></>
           )}
 
-
           <select value={this.state.emoji} onChange={this.handleEmoji}>
             {emojis.map((emoji) => (
               <option value={emoji.value}>{emoji.label}</option>
@@ -373,14 +390,25 @@ class App extends React.Component<{ perf: boolean }, { emoji: string, concept: s
           </select>
         </div>
       </div>
-
     );
   }
 }
 
-function PostAnnotation(startTime: number, stopTime: number, text: String, projectId: string, annotationId: any) {
-  const relation = getRelation(firstConcept)
-  console.log(' les 3 derniers concept', fourthConcept, sixConcept, fiveConcept, globalConcept)
+function PostAnnotation(
+  startTime: number,
+  stopTime: number,
+  text: String,
+  projectId: string,
+  annotationId: any
+) {
+  const relation = getRelation(firstConcept);
+  console.log(
+    ' les 3 derniers concept',
+    fourthConcept,
+    sixConcept,
+    fiveConcept,
+    globalConcept
+  );
 
   const annotationData = {
     projectId: projectId,
@@ -389,16 +417,22 @@ function PostAnnotation(startTime: number, stopTime: number, text: String, proje
     stopTime: stopTime,
     startTime: startTime,
 
-    objet: [firstConcept, secondConcept, thirdConcept, fourthConcept, fiveConcept, sixConcept, globalConcept],
+    objet: [
+      firstConcept,
+      secondConcept,
+      thirdConcept,
+      fourthConcept,
+      fiveConcept,
+      sixConcept,
+      globalConcept,
+    ],
     userName: userName,
     relation: relation,
-    annotationId: annotationId
-  }
+    annotationId: annotationId,
+  };
   if (firstConcept !== 'Annotation Libre') {
-
-    addAnnotation(annotationData)
+    addAnnotation(annotationData);
   }
-
 }
 
 const AnnotationEditorComponent: React.FC<Props> = ({
@@ -421,8 +455,8 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   const handleStyles = {
     border: 0,
     borderRadius: 0,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    backgroundSize: "cover",
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    backgroundSize: 'cover',
     width: 12,
     height: 12,
   };
@@ -431,16 +465,14 @@ const AnnotationEditorComponent: React.FC<Props> = ({
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.centerVerticalement}>
-          <App
-            perf={false}
-          />
+          <App perf={false} />
         </div>
         <>
           <TransparentInput
             text={text}
             error={error}
             onChange={onTextChange}
-            placeholder={t("annotation.contentPlaceholder")}
+            placeholder={t('annotation.contentPlaceholder')}
           />
         </>
         <div className={classes.timeline}>
@@ -511,19 +543,26 @@ const AnnotationEditorComponent: React.FC<Props> = ({
                 onChange={(event) => onCheckPauseChange(event.target.checked)}
               />
             }
-            label={t("annotation.pauseLabel")}
+            label={t('annotation.pauseLabel')}
           />
           <IconButton color="secondary" onClick={() => onClickCancel()}>
             <CancelIcon />
           </IconButton>
-          <IconButton color="primary"
+          <IconButton
+            color="primary"
             // onClick={() => onClickSave()}
             onClick={async () => {
-              const annotationId = await onClickSave()
-              PostAnnotation(startTime, stopTime, text, projectId, annotationId);
-              globalEmoji = ''
-            }
-            }>
+              const annotationId = await onClickSave();
+              PostAnnotation(
+                startTime,
+                stopTime,
+                text,
+                projectId,
+                annotationId
+              );
+              globalEmoji = '';
+            }}
+          >
             <CheckIcon />
           </IconButton>
         </div>

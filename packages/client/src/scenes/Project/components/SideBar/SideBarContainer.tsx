@@ -1,20 +1,30 @@
-import { ProjectGraphRecord, UserRecord, AnnotationRecord } from "@celluloid/types";
+import {
+  ProjectGraphRecord,
+  UserRecord,
+  AnnotationRecord,
+} from '@celluloid/types';
 import {
   deleteProjectThunk,
   openShareProject,
   setProjectCollaborativeThunk,
   setProjectPublicThunk,
   unshareProjectThunk,
-} from "actions/ProjectActions";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { AsyncAction, EmptyAction } from "types/ActionTypes";
-import { AppState } from "types/StateTypes";
+} from 'actions/ProjectActions';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { AsyncAction, EmptyAction } from 'types/ActionTypes';
+import { AppState } from 'types/StateTypes';
 import { triggerCancelAnnotation } from 'actions/AnnotationsActions';
-import SideBarComponent from "./SideBarComponent";
-import { playerSwitchMode, playerSwitchSequencing, playerSwitchAutoDetection } from '../../../../actions/PlayerActions';
+import SideBarComponent from './SideBarComponent';
+import {
+  playerSwitchMode,
+  playerSwitchSequencing,
+  playerSwitchAutoDetection,
+  playerSwitchSemiAutoDetection,
+} from '../../../../actions/PlayerActions';
+
 interface Props {
   user?: UserRecord;
   project: ProjectGraphRecord;
@@ -27,7 +37,8 @@ interface Props {
   unshareError?: string;
   deleteError?: string;
   performance_mode: boolean;
-  autoDetection_mode: boolean; //Auto Detection
+  autoDetection_mode: boolean;
+  semiAutoDetection_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   onClickSetPublic(
@@ -45,6 +56,7 @@ interface Props {
   onClickSwitchSequencing(): void;
   // Auto Detection
   onClickSwitchAutoDetection(): void;
+  onClickSwitchSemiAutoDetection(): void;
   // onClickStartAutoDetection(): void;
   // onClickStopAutoDetection(): void;
 }
@@ -60,9 +72,10 @@ const mapStateToProps = (state: AppState) => ({
   deleteError: state.project.details.deleteError,
   user: state.user,
   performance_mode: state.project.player.performance_mode,
-  autoDetection_mode: state.project.player.autoDetection_mode, //Auto Detection
+  autoDetection_mode: state.project.player.autoDetection_mode,
+  semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
   sequencing: state.project.player.sequencing,
-  annotations: state.project.video.annotations
+  annotations: state.project.video.annotations,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -79,23 +92,20 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onClickSwitchSequencing: () =>
     dispatch(playerSwitchSequencing()) && dispatch(triggerCancelAnnotation()),
 
-  // AutoDetection
   onClickSwitchAutoDetection: () =>
-    dispatch(playerSwitchAutoDetection()) && dispatch(triggerCancelAnnotation()),
+    dispatch(playerSwitchAutoDetection()) &&
+    dispatch(triggerCancelAnnotation()),
 
-  // onClickStartAutoDetection: () =>
-  //   dispatch(playerStartAutoDetection()) && dispatch(triggerCancelAnnotation()),
-  // onClickStopAutoDetection: () =>
-  //   dispatch(playerStopAutoDetection()) && dispatch(triggerCancelAnnotation()),
-
-
+  onClickSwitchSemiAutoDetection: () =>
+    dispatch(playerSwitchSemiAutoDetection()) &&
+    dispatch(triggerCancelAnnotation()),
 });
 
 const SideBarContainer: React.FC<Props> = (props) => {
   const { t } = useTranslation();
 
   const content = new Set([
-    { subtitle: t("project.creatorRole"), ...props.project.user },
+    { subtitle: t('project.creatorRole'), ...props.project.user },
     ...props.project.members,
   ]);
 

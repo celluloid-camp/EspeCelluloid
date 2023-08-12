@@ -5,11 +5,15 @@ import { PlayerState } from 'types/StateTypes';
 const initialState = {
   performance_mode: false,
   autoDetection_mode: false,
+  semiAutoDetection_mode: false,
   seeking: false,
-  sequencing: false
+  sequencing: false,
 } as PlayerState;
 
-export default (state = initialState, { type, payload }: AnyAction): PlayerState => {
+export default (
+  state = initialState,
+  { type, payload }: AnyAction
+): PlayerState => {
   switch (type) {
     case ActionType.PLAYER_NOTIFY_SEEK:
       return {
@@ -20,38 +24,36 @@ export default (state = initialState, { type, payload }: AnyAction): PlayerState
       return {
         ...state,
         seeking: true,
-        seekTarget: payload
+        seekTarget: payload,
       };
     case ActionType.PLAYER_SWITCH_MODE:
       return {
         ...state,
-        performance_mode: !state.performance_mode
+        performance_mode: !state.performance_mode,
       };
     case ActionType.PLAYER_SWITCH_SEQUENCING:
       return {
         ...state,
-        sequencing: !state.sequencing
+        sequencing: !state.sequencing,
       };
 
-    // Auto Detect Reducer
     case ActionType.PLAYER_SWITCH_AUTO_DETECTION:
       return {
         ...state,
-        autoDetection_mode: !state.autoDetection_mode
+        semiAutoDetection_mode: !state.autoDetection_mode
+          ? false
+          : state.semiAutoDetection_mode,
+        autoDetection_mode: !state.autoDetection_mode,
       };
 
-
-    // case ActionType.PLAYER_START_AUTO_DETECTION:
-    //   return {
-    //     ...state,
-    //     autoDetection_mode: true
-    //   };
-
-    // case ActionType.PLAYER_STOP_AUTO_DETECTION:
-    //   return {
-    //     ...state,
-    //     autoDetection_mode: false
-    //   };
+    case ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION:
+      return {
+        ...state,
+        autoDetection_mode: !state.semiAutoDetection_mode
+          ? false
+          : state.autoDetection_mode,
+        semiAutoDetection_mode: !state.semiAutoDetection_mode,
+      };
 
     default:
       return state;
