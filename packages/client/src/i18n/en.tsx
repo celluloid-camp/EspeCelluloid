@@ -14,8 +14,8 @@ export default {
       ' your pupils or your training groups: create your' +
       ' educational project, annotate the video frames,' +
       ' ask questions, provide the answers.',
-    teachers: 'Create project',
-    students: 'Collaborate on Project',
+    teachers: 'Create a project',
+    students: 'Collaborate on a Project',
     addVideo: 'Add a link to a PeerTube video...',
     newProject: 'new project',
     joinProject: 'join a project',
@@ -45,6 +45,34 @@ export default {
         ' , through a partnership with La Paillasse.' +
         ' Its source code is freely available ',
       github: 'on GitHub',
+    },
+  },
+  guide: {
+    title: 'User guide',
+    intro: {
+      prefix: 'How to use E-spectateur to annotate a video?  ',
+      // suffix: ' s’inscrit dans le cadre d’un projet de recherche'
+      //   + ' porté par Michaël Bourgatte et Laurent Tessier au sein'
+      //   + ' de l’Atelier du Numérique de l’Institut Catholique de Paris.'
+    },
+    support:
+      'If you are a collaborator on an existing project and ' +
+      ' would like to join, please follow these instructions:',
+
+    step1: 'On the home page, click' + ' "JOIN PROJECT"',
+    step2: 'On the landing page, click ' + ' "JOIN PROJECT"',
+    step3: 'Enter the project code',
+    step4: 'Enter your username and an last name',
+    step5: 'Make sure to read carefully the objective and assignments!',
+    step6:
+      "Complete the assignments and annotate the video while it's playing!",
+    opensource: {
+      prefix:
+        'Celluloid est un projet Open Source développé par Erwan' +
+        ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn' +
+        " dans le cadre d'un partenariat avec La Paillasse." +
+        ' L’ensemble du code est accessible librement ',
+      github: 'sur GitHub',
     },
   },
 
@@ -103,6 +131,10 @@ export default {
     title: 'Title',
     description: 'Description',
     public: 'Public',
+    ownAnnotations: 'Only mine',
+    annotationsVisibilitySelector: 'Annotations',
+    annotationsVisibilityAll: 'All',
+    annotationsVisibilityNothing: 'None',
     collaborative: 'Collaborative',
     performance: 'Performance',
     autoDetect: 'Automatic detection',

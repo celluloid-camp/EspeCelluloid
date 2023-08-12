@@ -20,6 +20,7 @@ interface Props {
   error?: string;
   projectId: string;
   annotation?: AnnotationRecord;
+  performance_mode: boolean;
   video: {
     position: number;
     duration: number;
@@ -41,17 +42,25 @@ interface State {
   annotation: AnnotationRecord;
 }
 
-function init({ annotation, video }: Props): State {
+function init({ annotation, video, performance_mode }: Props): State {
   if (annotation) {
     return {
       annotation,
     };
   } else {
+    let startAt: number = video.position;
+    if (performance_mode) {
+      const SECONDS_BEFORE_START: number = 2;
+      if (startAt > SECONDS_BEFORE_START) {
+        startAt = startAt - SECONDS_BEFORE_START;
+      }
+    }
     return {
       annotation: {
         text: '',
         startTime: video.position,
         stopTime: maxAnnotationDuration(video.position, video.duration),
+
         pause: false,
       },
     } as State;
@@ -61,6 +70,7 @@ function init({ annotation, video }: Props): State {
 const mapStateToProps = (state: AppState) => ({
   error: state.project.video.annotationError,
   annotation: state.project.video.focusedAnnotation,
+  performance_mode: state.project.player.performance_mode,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -113,14 +123,17 @@ export default connect(
         isStart: boolean,
         seekAhead: boolean
       ) => {
-        const state = this.state as State;
-        if (isStart) {
-          state.annotation.startTime = position;
-        } else {
-          state.annotation.stopTime = position;
+        if (!this.props.performance_mode) {
+          console.log('on time changing..', this.props.performance_mode);
+          const state = this.state as State;
+          if (isStart) {
+            state.annotation.startTime = position;
+          } else {
+            state.annotation.stopTime = position;
+          }
+          this.setState(state);
+          onSeek(position, true, true);
         }
-        this.setState(state);
-        onSeek(position, true, true);
       };
 
       const onClickSave = async () => {
@@ -160,6 +173,7 @@ export default connect(
       return (
         <AnnotationEditorComponent
           {...annotation}
+          performance_mode={this.props.performance_mode}
           onCheckPauseChange={onCheckPauseChange}
           onTimingChange={onTimingChange}
           onClickSave={onClickSave}

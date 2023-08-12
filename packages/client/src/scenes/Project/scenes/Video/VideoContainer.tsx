@@ -38,6 +38,8 @@ interface Props {
   autoDetection_mode: boolean;
   semiAutoDetection_mode: boolean;
   sequencing_mode: boolean;
+  ownAnnotations: boolean;
+  annotationShowingMode: string;
   load(projectId: string): AsyncAction<AnnotationRecord[], string>;
   notifySeek(): EmptyAction;
   requestSeek(seekTarget: number): Action<number>;
@@ -66,6 +68,8 @@ const mapStateToProps = (state: AppState) => ({
   autoDetection_mode: state.project.player.autoDetection_mode,
   semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
   sequencing_mode: state.project.player.sequencing,
+  ownAnnotations: state.project.details.ownAnnotations,
+  annotationShowingMode: state.project.details.annotationShowingMode,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -118,8 +122,14 @@ export default connect(
         const focusedAnnotation = this.props.focusedAnnotation;
         const position = player.getCurrentTime();
         if (position) {
-          const visibleAnnotations = annotations.filter((annotation) =>
-            AnnotationUtils.visible(annotation, position)
+          const visibleAnnotations = annotations.filter(
+            (annotation) =>
+              AnnotationUtils.visible(annotation, position) &&
+              this.props.annotationShowingMode === 'All' &&
+              ((this.props.ownAnnotations &&
+                this.props.user &&
+                annotation.userId === this.props.user.id) ||
+                !this.props.ownAnnotations)
           );
 
           visibleAnnotations.forEach((annotation) => {
@@ -176,6 +186,7 @@ export default connect(
         positionFloored: Math.round(value * 10) / 10,
       });
       const player = this.state.player;
+      console.log('am seeking ', this.props.performance_mode);
       if (!this.props.performance_mode) {
         if (player) {
           if (pause) {
@@ -187,15 +198,17 @@ export default connect(
           console.log('seekTo', value);
           player.seekTo(value, 'seconds');
           // this.props.requestSeek(value);
-        }
-      } else {
-        if (player) {
-          this.setState({
-            playing: false,
-          });
-          player.seekTo(value, 'seconds');
+
+          this.props.requestSeek(value);
         }
       }
+      // else {
+      //   if (player) {
+      //     this.setState({
+      //       playing: false,
+      //     });
+      //     player.seekTo(value, 'seconds');
+      //   }
     }
 
     render() {

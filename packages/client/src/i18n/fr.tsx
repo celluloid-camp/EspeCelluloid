@@ -15,7 +15,7 @@ export default {
       + ' votre projet pédagogique, annotez les images,'
       + ' posez des questions et répondez à celles des'
       + ' participant.e.s.',
-    teachers: 'Créer projet',
+    teachers: 'Créer un projet',
     students: 'Collaborer sur un Projet',
     addVideo: 'Ajoutez un lien vers une vidéo PeerTube...',
     newProject: 'Nouveau projet',
@@ -37,6 +37,32 @@ export default {
     support: 'Le développement de cette plateforme d’annotation vidéo'
       + ' à vocation pédagogique a bénéficié du soutien de la'
       + ' Fondation Saint Matthieu.',
+    opensource: {
+      prefix: 'Celluloid est un projet Open Source développé par Erwan'
+        + ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn'
+        + ' dans le cadre d\'un partenariat avec La Paillasse.'
+        + ' L’ensemble du code est accessible librement ',
+      github: 'sur GitHub'
+    }
+  },
+
+  guide: {
+    title: 'Guide utilisateur',
+    intro: {
+      prefix: 'Comment utiliser E-spectateur pour annoter une vidéo?  ',
+      // suffix: ' s’inscrit dans le cadre d’un projet de recherche'
+      //   + ' porté par Michaël Bourgatte et Laurent Tessier au sein'
+      //   + ' de l’Atelier du Numérique de l’Institut Catholique de Paris.'
+    },
+    support: 'Si vous êtes collaborateur sur un projet existant et'
+      + ' vous souahitez le joindre veuillez suivre les consignes suivantes: ',
+      step1: 'Open the web page',
+      step2: 'On the landing page, click '
+        + ' "JOIN PROJECT"',
+      step3: 'Enter the project code',
+      step4: 'Enter your username and an last name',
+      step5: 'Make sure to read carefully the objective and assignments!',
+      step6: 'Complete the assignments and annotate the video while it\'s playing!',
     opensource: {
       prefix: 'Celluloid est un projet Open Source développé par Erwan'
         + ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn'
@@ -109,6 +135,9 @@ export default {
     sequencing: 'Sequencing',
     shared: 'Partage',
     exportButton: 'EXPORTER',
+    ownAnnotations: 'Moi seulement',
+    annotationsVisibilitySelector: 'Annotations',
+    annotationsVisibilityAll: 'Toutes',
     members: '{{ count }} participant',
     members_plural: '{{ count }} participants',
     URL_title: 'URL de la vidéo',

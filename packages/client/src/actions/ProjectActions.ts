@@ -93,7 +93,12 @@ export const succeedUnshareProject = (error: string) =>
 
 export const failUnshareProject = (project: ProjectGraphRecord) =>
   createAction(ActionType.FAIL_UNSHARE_PROJECT, project);
+  
+export const setAnnotationShowingMode = (showingMode: string) => 
+  createAction(ActionType.SWITCHING_ANNOTATION_SHOWING_MODE, showingMode);
 
+export const switchOwnAnnotations = () =>
+  createEmptyAction(ActionType.SWITCH_OWN_ANNOTATIONS);
 export const listProjectsThunk =
   () => (dispatch: Dispatch): AsyncAction<ProjectGraphRecord[], string> => {
     return ProjectService.list()

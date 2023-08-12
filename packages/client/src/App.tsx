@@ -27,6 +27,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { About } from "components/About";
+
 import { ConnectedRouter } from "connected-react-router";
 
 const queryClient = new QueryClient();
@@ -80,6 +81,7 @@ const Content = () => {
                       errorElement={<NotFound />}
                     />
                     <Route path="/about" element={<About />} />
+             
                     <Route path="/legal-notice" element={<LegalNotice />} />
                     <Route
                       path="/terms-and-conditions"

@@ -106,6 +106,7 @@ interface Props extends WithStyles<typeof styles> {
   duration: number;
   error?: string;
   ontology?: string[];
+  performance_mode: boolean;
   onTextChange(text: string): void;
   onCheckPauseChange(value: boolean): void;
   onTimingChange(value: number, isStart: boolean, seekAhead: boolean): void;
@@ -443,6 +444,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   duration,
   error,
   projectId,
+  performance_mode,
   onCheckPauseChange,
   onTimingChange,
   onTextChange,
@@ -465,7 +467,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.centerVerticalement}>
-          <App perf={false} />
+          <App perf={performance_mode} />
         </div>
         <>
           <TransparentInput
@@ -536,15 +538,15 @@ const AnnotationEditorComponent: React.FC<Props> = ({
           />
         </div>
         <div className={classes.buttons}>
-          <FormControlLabel
+          {/* <FormControlLabel
             control={
               <Checkbox
                 checked={pause}
                 onChange={(event) => onCheckPauseChange(event.target.checked)}
               />
             }
-            label={t('annotation.pauseLabel')}
-          />
+            label={t("annotation.pauseLabel")}
+          /> */}
           <IconButton color="secondary" onClick={() => onClickCancel()}>
             <CancelIcon />
           </IconButton>

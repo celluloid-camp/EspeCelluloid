@@ -9,6 +9,8 @@ import {
   setProjectCollaborativeThunk,
   setProjectPublicThunk,
   unshareProjectThunk,
+  setAnnotationShowingMode,
+  switchOwnAnnotations,
 } from 'actions/ProjectActions';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -41,6 +43,7 @@ interface Props {
   semiAutoDetection_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
+  ownAnnotations: boolean;
   onClickSetPublic(
     projectId: string,
     value: boolean
@@ -57,8 +60,11 @@ interface Props {
   // Auto Detection
   onClickSwitchAutoDetection(): void;
   onClickSwitchSemiAutoDetection(): void;
-  // onClickStartAutoDetection(): void;
-  // onClickStopAutoDetection(): void;
+
+  onClickSwitchOwnAnnotations(): void;
+  onChangeAnnotationShowingMode(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -76,6 +82,7 @@ const mapStateToProps = (state: AppState) => ({
   semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
   sequencing: state.project.player.sequencing,
   annotations: state.project.video.annotations,
+  ownAnnotations: state.project.details.ownAnnotations,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -99,6 +106,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onClickSwitchSemiAutoDetection: () =>
     dispatch(playerSwitchSemiAutoDetection()) &&
     dispatch(triggerCancelAnnotation()),
+  onClickSwitchOwnAnnotations: () =>
+    dispatch(switchOwnAnnotations()) && dispatch(triggerCancelAnnotation()),
+  onChangeAnnotationShowingMode: (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => dispatch(setAnnotationShowingMode(event.target.value)),
 });
 
 const SideBarContainer: React.FC<Props> = (props) => {

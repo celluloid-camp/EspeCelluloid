@@ -49,20 +49,20 @@ export default (
                 onClick={async() => {
                  // const p = Promise.resolve('Hello World');
                   let data = 'projectName, startTime, stopTime, user, text, ontology,subConcept1,subConcept2,subConcept3, relationConcept' + '\n';
-                   console.log('annotations: ', annotations)
+                  //  console.log('annotations: ', annotations.)
                   let subConcept1= ''
                   let subConcept2= ''
                   let subConcept3= ''
                   let relationConcept=''
                   await Promise.all(annotations.map(async (item) => {
-                    console.log('item ', item)
+                    console.log('item ', item.user.username)
                    let res= await getConcept(item.id)
                   //  console.log('list des concept',res)
                    let ontology=res[0]
-                   console.log('print ontology ',ontology, item.text)
+                  //  console.log('print ontology ',ontology, item.text)
                    if(ontology=== undefined|| ontology===''){
                      ontology=''
-                     console.log('dkhlna khawti')
+                    //  console.log('dkhlna khawti')
                    }else{
                       let superClasses=res[1]
                    
