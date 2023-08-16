@@ -11,9 +11,7 @@ import { Dispatch } from 'redux';
 import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 
-import AnnotationEditorComponent, {
-  globalEmoji,
-} from './AnnotationEditorComponent';
+import AnnotationEditorComponent from './AnnotationEditorComponent';
 
 interface Props {
   user: UserRecord;
@@ -81,9 +79,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onCancel: (annotation?: AnnotationRecord) =>
     dispatch(triggerCancelAnnotation(annotation)),
 });
-export let userName = '';
-export let userId = '';
-let annotationId: string[];
+// export let userName = '';
+// export let userId = '';
+// let annotationId: string[];
 export default connect(
   mapStateToProps,
   mapDispatchToProps
@@ -96,17 +94,6 @@ export default connect(
         this.props;
 
       const { annotation } = this.state;
-      // const onOntologyChange = (
-      //   ontology: any
-      // ) => {
-      //   this.setState(state => ({
-      //     ...state,
-      //     annotation: {
-      //       ...state.annotation,
-      //       ontology
-      //     }
-      //   }));
-      // };
 
       const onCheckPauseChange = (pause: boolean) => {
         this.setState((state) => ({
@@ -138,8 +125,6 @@ export default connect(
 
       const onClickSave = async () => {
         annotation.user = this.props.user;
-        annotation.text = annotation.text;
-        annotation.emotion = globalEmoji;
 
         if (this.props.annotation) {
           onUpdate(projectId, {
@@ -149,10 +134,7 @@ export default connect(
         } else {
           let res = await onCreate(projectId, annotation);
           //@ts-ignore
-          annotationId = res.payload.id;
-          userName = annotation.user.username;
-          userId = annotation.user.id;
-          return annotationId;
+          return res.payload.id;
         }
       };
 
@@ -170,15 +152,39 @@ export default connect(
         }));
       };
 
+      const onEmotionChange = (emotion: string) => {
+        this.setState((state) => ({
+          ...state,
+          annotation: {
+            ...state.annotation,
+            emotion,
+          },
+        }));
+      };
+
+       const onOntologyChange = (
+        ontology: any
+      ) => {
+        this.setState(state => ({
+          ...state,
+          annotation: {
+            ...state.annotation,
+            ontology
+          },
+        }));
+      };
+
       return (
         <AnnotationEditorComponent
           {...annotation}
+          user={this.props.user}
           performance_mode={this.props.performance_mode}
           onCheckPauseChange={onCheckPauseChange}
           onTimingChange={onTimingChange}
           onClickSave={onClickSave}
           onClickCancel={onClickCancel}
           onTextChange={onTextChange}
+          onEmotionChange={onEmotionChange}
           duration={video.duration}
           projectId={projectId}
         />

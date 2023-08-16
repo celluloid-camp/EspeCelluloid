@@ -117,6 +117,7 @@ export function update(id: string, data: AnnotationData, user: UserRecord) {
       startTime: data.startTime,
       stopTime: data.stopTime,
       pause: data.pause,
+      emotion: data.emotion || null,
     })
     .returning('id')
     .where('id', id)
