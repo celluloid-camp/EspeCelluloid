@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
   Divider,
+  Link,
 } from '@material-ui/core';
 import * as faceapi from '@vladmandic/face-api';
 import styles from './styles';
@@ -33,9 +34,9 @@ export const AutoDetection = ({
   const startPositionRef = useRef<number>(0);
   const annotations = useRef<AnnotationData[]>([]);
   const [error, setError] = useState<string | null>(null);
-
   const videoRefTmp = useRef<HTMLVideoElement>(null);
-  const [detectionState, setDetectionState] = useState<string>('Loading ...');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDetection, setIsDetection] = useState(false);
   const [modalOpen, setModalOpen] = useState(true);
 
   const closeModal = () => setModalOpen(false);
@@ -43,23 +44,6 @@ export const AutoDetection = ({
   useEffect(() => {
     startPositionRef.current = positionFloored;
   }, [positionFloored]);
-
-  useEffect(() => {
-    const loadModels = async () => {
-      // load models
-      const modelPath =
-        'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
-      await Promise.all([
-        await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath),
-        // await faceapi.nets.tinyYolov2.loadFromUri(modelPath),
-        // await faceapi.nets.ssdMobilenetv1.loadFromUri(modelPath),
-        await faceapi.nets.faceLandmark68Net.loadFromUri(modelPath),
-        await faceapi.nets.faceExpressionNet.loadFromUri(modelPath),
-      ]);
-    };
-
-    loadModels();
-  }, []);
 
   function delay(milliseconds: number) {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -80,7 +64,7 @@ export const AutoDetection = ({
         .withFaceExpressions();
 
       if (detections.length) {
-        setDetectionState('Detection OK');
+        setIsDetection(true);
 
         const emotion = Object.entries(detections[0]?.expressions).sort(
           (a, b) => b[1] - a[1]
@@ -120,8 +104,7 @@ export const AutoDetection = ({
 
           annotations.current.push(annotation);
         }
-      } else
-        setDetectionState('No detection, Please follow the recommendations');
+      } else setIsDetection(false);
 
       await delay(100);
 
@@ -130,9 +113,31 @@ export const AutoDetection = ({
   };
 
   useEffect(() => {
+    const loadModels = async () => {
+      setIsLoading(true);
+
+      const modelPath =
+        'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+
+      try {
+        await Promise.all([
+          await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath),
+          // await faceapi.nets.tinyYolov2.loadFromUri(modelPath),
+          // await faceapi.nets.ssdMobilenetv1.loadFromUri(modelPath),
+          await faceapi.nets.faceLandmark68Net.loadFromUri(modelPath),
+          await faceapi.nets.faceExpressionNet.loadFromUri(modelPath),
+        ]);
+      } catch (e) {
+        setError('Failed to load the models ...');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     let stream: MediaStream | null = null;
 
     const startStream = async () => {
+      await loadModels();
       try {
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
@@ -202,22 +207,32 @@ export const AutoDetection = ({
 
       <Modal open={modalOpen} onClose={closeModal}>
         <div className={classes.modal}>
-          <Grid container direction="column" justify="space-between">
-            <Grid item className={classes.section1}>
-              <div>
-                <div
-                  style={{ background: 'grey', zIndex: 10, width: '100%' }}
-                ></div>
+          <Grid
+            className={classes.gridContainer}
+            container
+            direction="column"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item className={classes.videoContainer}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography gutterBottom variant="h6" color="primary">
+                  Auto Detection Mode
+                </Typography>
                 <video
                   ref={videoRefTmp}
                   autoPlay
                   style={{
                     display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
+                    width: '90%',
+                    height: '90%',
                     zIndex: '100',
                   }}
                   id="video"
@@ -227,18 +242,36 @@ export const AutoDetection = ({
               </div>
             </Grid>
 
-            <Grid item className={classes.section2}>
-              <div>
-                <p> Detection state: {detectionState}</p>
-              </div>
+            <Grid item className={classes.detectionState}>
+              {isLoading && (
+                <Typography className={classes.text}>Loading ...</Typography>
+              )}
+
+              {!isLoading && isDetection && (
+                <Typography color="primary" paragraph>
+                  Detection OK
+                </Typography>
+              )}
+
+              {!isLoading && !isDetection && (
+                <Typography color="error" paragraph>
+                  Detection failed, please follow the recommendations
+                </Typography>
+              )}
+
+              {error && (
+                <Typography color="error" paragraph>
+                  {error}
+                </Typography>
+              )}
+
               <Divider className={classes.divider} variant="middle" />
-              <Typography gutterBottom variant="h6" color="primary">
-                Auto Detection Mode
-              </Typography>
 
               <Typography className={classes.text} paragraph>
                 Please follow these recommendation before using this mode
               </Typography>
+
+              <Link>Click here</Link>
 
               <Divider className={classes.divider} variant="middle" />
             </Grid>

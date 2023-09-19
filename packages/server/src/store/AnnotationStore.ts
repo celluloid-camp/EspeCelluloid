@@ -4,9 +4,33 @@ import { Knex } from 'knex';
 import { database, getExactlyOne } from '../backends/Database';
 import * as ProjectStore from './ProjectStore';
 
+interface QueryString {
+  startTime: number;
+  stopTime: number;
+  limit: number;
+}
+
+export function getEmotionCounts(projectId: string, queryString: QueryString) {
+  const { startTime, stopTime, limit } = queryString;
+  const subquery = database('Annotation')
+    .max('stopTime as max_stop_time')
+    .first();
+
+  return database('Annotation as a')
+    .select('emotion', 'autoDetect')
+    .count('* as emotion_count')
+    .where('projectId', projectId)
+    .whereNotNull('emotion')
+    .andWhere('stopTime', '>=', startTime)
+    .andWhere('startTime', '<=', stopTime === 0 ? subquery : stopTime)
+    .groupBy(['emotion', 'autoDetect'])
+    .orderBy('emotion_count', 'desc')
+    .limit(limit);
+}
+
 export function selectByProject(
   projectId: string,
-  user?: UserRecord,
+  user: UserRecord,
   autoDetect = true
 ) {
   return database

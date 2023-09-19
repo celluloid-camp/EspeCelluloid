@@ -24,6 +24,7 @@ interface Props {
     duration: number;
   };
   ontology?: any;
+  semiAutoDetect: boolean;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
   onCreate(
     projectId: string,
@@ -40,7 +41,12 @@ interface State {
   annotation: AnnotationRecord;
 }
 
-function init({ annotation, video, performance_mode }: Props): State {
+function init({
+  annotation,
+  video,
+  performance_mode,
+  semiAutoDetect,
+}: Props): State {
   if (annotation) {
     return {
       annotation,
@@ -58,7 +64,7 @@ function init({ annotation, video, performance_mode }: Props): State {
         text: '',
         startTime: video.position,
         stopTime: maxAnnotationDuration(video.position, video.duration),
-
+        semiAutoDetect,
         pause: false,
       },
     } as State;
@@ -66,6 +72,7 @@ function init({ annotation, video, performance_mode }: Props): State {
 }
 
 const mapStateToProps = (state: AppState) => ({
+  semiAutoDetect: state.project.player.semiAutoDetection_mode,
   error: state.project.video.annotationError,
   annotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
@@ -162,14 +169,12 @@ export default connect(
         }));
       };
 
-       const onOntologyChange = (
-        ontology: any
-      ) => {
-        this.setState(state => ({
+      const onOntologyChange = (ontology: any) => {
+        this.setState((state) => ({
           ...state,
           annotation: {
             ...state.annotation,
-            ontology
+            ontology,
           },
         }));
       };
@@ -186,6 +191,7 @@ export default connect(
           onTextChange={onTextChange}
           onEmotionChange={onEmotionChange}
           duration={video.duration}
+          position={video.position}
           projectId={projectId}
         />
       );

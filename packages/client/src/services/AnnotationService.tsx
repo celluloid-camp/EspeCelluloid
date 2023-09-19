@@ -1,20 +1,43 @@
-import { AnnotationData } from "@celluloid/types";
+import { AnnotationData } from '@celluloid/types';
 
-import * as Constants from "./Constants";
+import * as Constants from './Constants';
 
 export default class {
   static list(projectId: string, queryString = {}) {
     const headers = {
-      Accepts: "application/json",
+      Accepts: 'application/json',
     };
 
     return fetch(
       `/api/projects/${projectId}/annotations?` +
         new URLSearchParams(queryString),
       {
-        method: "GET",
+        method: 'GET',
         headers: new Headers(headers),
-        credentials: "include",
+        credentials: 'include',
+      }
+    ).then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 404) {
+        throw new Error(Constants.ERR_PROJECT_NOT_FOUND);
+      }
+      throw new Error(Constants.ERR_UNAVAILABLE);
+    });
+  }
+
+  static getTopEmotions(projectId: string, queryString = {}) {
+    const headers = {
+      Accepts: 'application/json',
+    };
+
+    return fetch(
+      `/api/projects/${projectId}/annotations/top-emotions?` +
+        new URLSearchParams(queryString),
+      {
+        method: 'GET',
+        headers: new Headers(headers),
+        credentials: 'include',
       }
     ).then((response) => {
       if (response.status === 200) {
@@ -28,14 +51,14 @@ export default class {
 
   static create(projectId: string, annotation: AnnotationData) {
     const headers = {
-      Accepts: "application/json",
-      "Content-type": "application/json",
+      Accepts: 'application/json',
+      'Content-type': 'application/json',
     };
 
     return fetch(`/api/projects/${projectId}/annotations`, {
-      method: "POST",
+      method: 'POST',
       headers: new Headers(headers),
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify(annotation),
     }).then((response) => {
       if (response.status === 201) {
@@ -57,14 +80,14 @@ export default class {
     annotation: AnnotationData
   ) {
     const headers = {
-      Accepts: "application/json",
-      "Content-type": "application/json",
+      Accepts: 'application/json',
+      'Content-type': 'application/json',
     };
 
     return fetch(`/api/projects/${projectId}/annotations/${annotationId}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: new Headers(headers),
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify(annotation),
     }).then((response) => {
       if (response.status === 200 || response.status === 400) {
@@ -82,8 +105,8 @@ export default class {
 
   static delete(projectId: string, annotationId: string) {
     return fetch(`/api/projects/${projectId}/annotations/${annotationId}`, {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
     }).then((response) => {
       if (response.status === 204) {
         return Promise.resolve();

@@ -20,6 +20,34 @@ function fetchComments(annotation: AnnotationRecord, user: UserRecord) {
   );
 }
 
+router.get('/top-emotions', async (req, res) => {
+  //http://localhost:3000/api/projects/:id/annotations/top-emotions?startTime=0&offset=10&limit=5
+  // @ts-ignore
+  const projectId = req.params.projectId;
+  const user = req.user as UserRecord;
+  const startTime = Number(req.query.startTime) || 0;
+  const stopTime = startTime + Number(req.query.offset) || 0;
+  const limit = Number(req.query.limit) || 5;
+  try {
+    await ProjectStore.selectOne(projectId, user);
+    const results = await AnnotationStore.getEmotionCounts(projectId, {
+      startTime,
+      stopTime,
+      limit,
+    });
+
+    res.status(200).json(results);
+    // @ts-ignore
+  } catch (error: Error) {
+    log.error('Failed to list annotations:', error);
+    if (error.message === 'ProjectNotFound') {
+      res.status(404).json({ error: error.message });
+    } else {
+      res.status(500).send();
+    }
+  }
+});
+
 router.get('/', (req, res) => {
   // @ts-ignore
   const projectId = req.params.projectId;

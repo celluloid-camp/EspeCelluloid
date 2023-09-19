@@ -138,7 +138,7 @@ export default {
     collaborative: 'Collaborative',
     performance: 'Performance',
     autoDetect: 'Automatic detection',
-    semiAutoDetect: 'Semi-Automatic detection',
+    semiAutoDetect: 'Emoji Recommendation',
     analyze: 'Analyze',
     sequencing: 'Sequencing',
     shared: 'Share',

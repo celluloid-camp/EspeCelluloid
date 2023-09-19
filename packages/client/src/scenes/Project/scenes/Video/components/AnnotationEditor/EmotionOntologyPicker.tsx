@@ -9,6 +9,7 @@ import EmotionsPalette from './EmotionsPalette';
 
 interface Props {
   perf: boolean;
+  position: number;
   emotion?: string;
   onEmotionChange(emotion: string): void;
 }
@@ -38,7 +39,7 @@ const ontologyStyles: React.CSSProperties = {
   fontWeight: 'bold',
   width: '30px',
   display: 'inline',
-  padding: '0 20px 0 10px',
+  paddingLeft: '10px',
 };
 
 let globalConcept = 'concept';
@@ -198,7 +199,7 @@ export default class EmotionOntologyPicker extends React.Component<
   }
 
   render() {
-    const { onEmotionChange } = this.props;
+    const { onEmotionChange, position } = this.props;
 
     return (
       <div>
@@ -248,6 +249,7 @@ export default class EmotionOntologyPicker extends React.Component<
           <EmotionsPalette
             emotion={this.props.emotion}
             onEmotionChange={onEmotionChange}
+            position={position}
           />
         </div>
       </div>

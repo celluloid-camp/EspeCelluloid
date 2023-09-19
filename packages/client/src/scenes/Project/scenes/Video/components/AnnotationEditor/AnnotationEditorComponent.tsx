@@ -40,6 +40,7 @@ interface Props extends WithStyles<typeof styles> {
   text: string;
   emotion?: string;
   duration: number;
+  position: number;
   error?: string;
   ontology?: string[];
   performance_mode: boolean;
@@ -98,6 +99,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   text,
   emotion,
   duration,
+  position,
   error,
   projectId,
   performance_mode,
@@ -125,6 +127,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
       <div className={classes.content}>
         <div className={classes.centerVerticalement}>
           <EmotionOntologyPicker
+            position={position}
             emotion={emotion}
             onEmotionChange={onEmotionChange}
             perf={performance_mode}
