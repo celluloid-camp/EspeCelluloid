@@ -3,12 +3,12 @@ import {
   AnnotationRecord,
   ProjectGraphRecord,
   UnfurlData,
-  UserRecord
+  UserRecord,
 } from '@celluloid/types';
 import {
   deleteAnnotationThunk,
   triggerEditAnnotation,
-  triggerFocusAnnotation
+  triggerFocusAnnotation,
 } from 'actions/AnnotationsActions';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 import { canEditAnnotation } from 'utils/AnnotationUtils';
 import { formatDuration } from 'utils/DurationUtils';
-import {getAnnotationConcept} from '../../api/Annotation'
+import { getAnnotationConcept } from '../../api/Annotation';
 import AnnotationContentComponent from './AnnotationContentComponent';
 
 const getUrls = require('get-urls');
@@ -45,22 +45,20 @@ interface Props {
   project: ProjectGraphRecord;
   annotation: AnnotationRecord;
   focused: boolean;
-  onClickEdit(annotation: AnnotationRecord):
-    Action<AnnotationRecord>;
-  onClickDelete(projectId: string, annotation: AnnotationRecord):
-    AsyncAction<AnnotationRecord, string>;
-  onFocus(annotationRecord: AnnotationRecord):
-    Action<AnnotationRecord>;
+  onClickEdit(annotation: AnnotationRecord): Action<AnnotationRecord>;
+  onClickDelete(
+    projectId: string,
+    annotation: AnnotationRecord
+  ): AsyncAction<AnnotationRecord, string>;
+  onFocus(annotationRecord: AnnotationRecord): Action<AnnotationRecord>;
 }
 
-function parseText(text: string): State {
-  const previews = Array
-    .from(getUrls(text) as string[])
-    .map((url: string) => {
-      return {
-        url,
-      } as Link;
-    });
+function parseText(text: string | undefined): State {
+  const previews = Array.from(getUrls(text) as string[]).map((url: string) => {
+    return {
+      url,
+    } as Link;
+  });
   const richText = linkifyUrls(text);
   return {
     text,
@@ -68,13 +66,13 @@ function parseText(text: string): State {
     richText,
     loading: true,
     hovering: false,
-    ontology:'',
+    ontology: '',
   } as State;
 }
 
 const mapStateToProps = (state: AppState) => ({
   user: state.user,
-  error: state.project.video.annotationError
+  error: state.project.video.annotationError,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -83,12 +81,14 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onClickDelete: (projectId: string, record: AnnotationRecord) =>
     deleteAnnotationThunk(projectId, record)(dispatch),
   onFocus: (record: AnnotationRecord) =>
-    dispatch(triggerFocusAnnotation(record))
+    dispatch(triggerFocusAnnotation(record)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   class extends React.PureComponent<Props, State> {
-
     state = parseText(this.props.annotation.text);
 
     static getDerivedStateFromProps({ annotation }: Props, state: State) {
@@ -99,21 +99,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
 
     loadPreviews() {
-      Promise.all(this.state.previews.map(preview =>
-        UnfurlService
-          .unfurl(preview.url)
-          .then((data?: UnfurlData) => {
+      Promise.all(
+        this.state.previews.map((preview) =>
+          UnfurlService.unfurl(preview.url).then((data?: UnfurlData) => {
             return {
               url: preview.url,
-              data
+              data,
             };
-          })))
-        .then(previews => {
-          this.setState({
-            previews,
-            loading: false,
-          });
+          })
+        )
+      ).then((previews) => {
+        this.setState({
+          previews,
+          loading: false,
         });
+      });
     }
 
     componentDidUpdate({ annotation }: Props) {
@@ -137,40 +137,41 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         onClickEdit,
       } = this.props;
 
-      const {
-        hovering, richText, loading, previews
-      } = this.state;
+      const { hovering, richText, loading, previews } = this.state;
 
       const formattedStart = formatDuration(annotation.startTime);
       const formattedStop = formatDuration(annotation.stopTime);
 
       const onHover = (value: boolean) => {
         this.setState({
-          hovering: value
+          hovering: value,
         });
       };
 
-      const showActions = user
-        && (focused || hovering)
-        && (isOwner(project, user) || canEditAnnotation(annotation, user)) || false;
-        getAnnotationConcept(annotation.id).then( concept=> {
-          let relationConcept=concept[1]
-          let relation
-         
-          if(relationConcept!= null){
-            relation=relationConcept[0]
-          }else{
-            relation=''
-          }
-          if(relation=== undefined){
-            relation=''
-          }
-          let onto= relation+ ' '+ concept[0]
-          if(concept[0]===undefined){
-            onto=''
-          }
-         this.setState({ontology:onto})
-        })
+      const showActions =
+        (user &&
+          (focused || hovering) &&
+          (isOwner(project, user) || canEditAnnotation(annotation, user))) ||
+        false;
+
+      getAnnotationConcept(annotation.id).then((concept) => {
+        let relationConcept = concept[1];
+        let relation;
+
+        if (relationConcept != null) {
+          relation = relationConcept[0];
+        } else {
+          relation = '';
+        }
+        if (relation === undefined) {
+          relation = '';
+        }
+        let onto = relation + ' ' + concept[0];
+        if (concept[0] === undefined) {
+          onto = '';
+        }
+        this.setState({ ontology: onto });
+      });
 
       return (
         <AnnotationContentComponent
@@ -192,4 +193,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         />
       );
     }
-  });
+  }
+);

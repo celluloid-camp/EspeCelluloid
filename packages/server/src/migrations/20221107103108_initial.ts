@@ -96,7 +96,7 @@ export async function up(knex: Knex): Promise<any> {
     table.specificType("dublin_relation", "text[]");
     table.specificType("dublin_coverage", "text[]");
     table.specificType("dublin_rights", "text[]");
-    
+
   });
 
   await knex.schema.createTable("Annotation", (table) => {
@@ -107,11 +107,14 @@ export async function up(knex: Knex): Promise<any> {
       .primary()
       .defaultTo(knex.raw("uuid_generate_v4()"));
 
-    table.text("text").notNullable();
+    table.text("text");
+    table.boolean("autoDetect").notNullable(); //Auto Detection Flag
+    table.boolean("semiAutoDetect").notNullable(); //Semi Auto Detection Flag
+    table.text("emotion"); //emotion
     table.float("startTime").notNullable();
     table.float("stopTime").notNullable();
     table.boolean("pause").notNullable();
-    table.specificType("ontology","text[]");
+    table.specificType("ontology", "text[]");
     table
       .uuid("userId")
       .notNullable()

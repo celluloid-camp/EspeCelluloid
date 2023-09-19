@@ -1,4 +1,8 @@
-import { AnnotationRecord, ProjectGraphRecord, UserRecord } from "@celluloid/types";
+import {
+  AnnotationRecord,
+  ProjectGraphRecord,
+  UserRecord,
+} from '@celluloid/types';
 import {
   createStyles,
   List,
@@ -11,22 +15,22 @@ import {
   withStyles,
   Typography,
   NativeSelect,
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ButtonProgress from "components/ButtonProgress";
-import DialogError from "components/DialogError";
-import LabeledProgressSwitch from "components/LabeledProgressSwitch";
-import UserAvatar from "components/UserAvatar";
-import VisibilityChip from "components/VisibilityChip";
-import * as React from "react";
-import { AsyncAction } from "types/ActionTypes";
-import { isOwner, isAdmin } from "utils/ProjectUtils";
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ButtonProgress from 'components/ButtonProgress';
+import DialogError from 'components/DialogError';
+import LabeledProgressSwitch from 'components/LabeledProgressSwitch';
+import UserAvatar from 'components/UserAvatar';
+import VisibilityChip from 'components/VisibilityChip';
+import * as React from 'react';
+import { AsyncAction } from 'types/ActionTypes';
+import { isOwner, isAdmin } from 'utils/ProjectUtils';
 import CSVAnnotationExport from './components/CSVAnnotationExport';
 import XMLAnnotationExport from './components/XMLAnnotationExport';
-import ShareCredentials from "components/ShareCredentials";
+import ShareCredentials from 'components/ShareCredentials';
 
-import ShareDialog from "./components/ShareDialog";
-import { useTranslation } from "react-i18next";
+import ShareDialog from './components/ShareDialog';
+import { useTranslation } from 'react-i18next';
 
 const styles = ({ spacing }: Theme) =>
   createStyles({
@@ -48,7 +52,7 @@ const styles = ({ spacing }: Theme) =>
     },
     listHeader: {
       height: spacing.unit * 5,
-      textAlign: "left",
+      textAlign: 'left',
       marginTop: spacing.unit,
       paddingLeft: spacing.unit,
     },
@@ -57,7 +61,7 @@ const styles = ({ spacing }: Theme) =>
     },
     chips: {
       paddingTop: spacing.unit,
-      textAlign: "right",
+      textAlign: 'right',
     },
   });
 
@@ -78,6 +82,8 @@ interface Props extends WithStyles<typeof styles> {
   unshareError?: string;
   deleteError?: string;
   performance_mode: boolean;
+  autoDetection_mode: boolean;
+  semiAutoDetection_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   ownAnnotations: boolean;
@@ -93,7 +99,11 @@ interface Props extends WithStyles<typeof styles> {
   onClickDelete(projectId: string): AsyncAction<null, string>;
   onClickSwitchPlayerMode(): void;
   onClickSwitchSequencing(): void;
-  onChangeAnnotationShowingMode(event: React.ChangeEvent<HTMLSelectElement>): void;
+  onClickSwitchAutoDetection(): void; //Auto Detect
+  onClickSwitchSemiAutoDetection(): void;
+  onChangeAnnotationShowingMode(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void;
   onClickSwitchOwnAnnotations(): void;
 }
 
@@ -110,6 +120,8 @@ const SideBarComponenent: React.FC<Props> = ({
   unshareError,
   deleteError,
   performance_mode,
+  autoDetection_mode,
+  semiAutoDetection_mode,
   sequencing,
   annotations,
   ownAnnotations,
@@ -119,13 +131,15 @@ const SideBarComponenent: React.FC<Props> = ({
   onClickDelete,
   onClickSwitchSequencing,
   onClickSwitchPlayerMode,
+  onClickSwitchAutoDetection,
+  onClickSwitchSemiAutoDetection,
   onChangeAnnotationShowingMode,
   onClickSwitchOwnAnnotations,
 
   classes,
 }: Props) => {
   const { t } = useTranslation();
-   console.log(' dans sidebar les annotations:', annotations[0])
+  console.log(' dans sidebar les annotations:', annotations[0]);
   return (
     <>
       <div className="Component-wrapper-504">
@@ -137,39 +151,41 @@ const SideBarComponenent: React.FC<Props> = ({
         >
           {t('project.annotationsVisibilitySelector')}
           <NativeSelect
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => onChangeAnnotationShowingMode(event)}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+              onChangeAnnotationShowingMode(event)
+            }
             inputProps={{
               name: 'name',
               id: 'annotation-showingMode-selector',
             }}
-            style={{marginLeft: 5}}
+            style={{ marginLeft: 5 }}
           >
             <option value="All">{t('project.annotationsVisibilityAll')}</option>
-            <option value="Nothing">{t('project.annotationsVisibilityNothing')}</option>
+            <option value="Nothing">
+              {t('project.annotationsVisibilityNothing')}
+            </option>
           </NativeSelect>
         </Typography>
       </div>
-      {user &&
+      {user && (
         <LabeledProgressSwitch
           label={t('project.ownAnnotations')}
           checked={ownAnnotations}
           loading={false}
-          onChange={() =>
-            onClickSwitchOwnAnnotations()
-          }
+          onChange={() => onClickSwitchOwnAnnotations()}
         />
-      }
+      )}
       {user ? (
         <>
           <LabeledProgressSwitch
-            label={t("project.public")}
+            label={t('project.public')}
             checked={project.public}
             loading={setPublicLoading}
             error={setPublicError}
             onChange={() => onClickSetPublic(project.id, !project.public)}
           />
           <LabeledProgressSwitch
-            label={t("project.collaborative")}
+            label={t('project.collaborative')}
             checked={project.collaborative}
             loading={setCollaborativeLoading}
             error={setCollaborativeError}
@@ -177,62 +193,82 @@ const SideBarComponenent: React.FC<Props> = ({
               onClickSetCollaborative(project.id, !project.collaborative)
             }
           />
-             {/* {user &&
-                <LabeledProgressSwitch
-                  label={t('project.sequencing')}
-                  checked={sequencing}
-                  loading={false}
-                  onChange={() => {
-                    onClickSwitchSequencing();
-                    if (performance_mode === true) {
-                      onClickSwitchPlayerMode();
-                    }
-                  }
-                  }
-                />
-              } */}
-              <LabeledProgressSwitch
-                label={t('project.analyze')}
-                checked={!performance_mode}
-                loading={false}
-                onChange={() => {
-                  if (performance_mode === false && sequencing === true) {
-                    onClickSwitchSequencing();
-                  }
+          {/* {user && (
+            <LabeledProgressSwitch
+              label={t('project.sequencing')}
+              checked={sequencing}
+              loading={false}
+              onChange={() => {
+                onClickSwitchSequencing();
+                if (performance_mode === true) {
                   onClickSwitchPlayerMode();
                 }
-                  
-                }
-              />
-              <LabeledProgressSwitch
-                label={t('project.performance')}
-                checked={performance_mode}
-                loading={false}
-                onChange={() => {
-                  onClickSwitchPlayerMode();
-                  if (sequencing === true) {
-                    onClickSwitchSequencing();
-                  }
-                }
-                }
-              />
+              }}
+            />
+          )} */}
+          <LabeledProgressSwitch
+            label={t('project.analyze')}
+            checked={!performance_mode}
+            loading={false}
+            onChange={() => {
+              if (performance_mode === false && sequencing === true) {
+                onClickSwitchSequencing();
+              }
+              onClickSwitchPlayerMode();
+            }}
+          />
+          <LabeledProgressSwitch
+            label={t('project.performance')}
+            checked={performance_mode}
+            loading={false}
+            onChange={() => {
+              onClickSwitchPlayerMode();
+              if (sequencing === true) {
+                onClickSwitchSequencing();
+              }
+            }}
+          />
+
+          <LabeledProgressSwitch
+            label={t('project.autoDetect')}
+            checked={autoDetection_mode}
+            loading={false}
+            onChange={() => {
+              onClickSwitchAutoDetection();
+              if (sequencing === true) {
+                onClickSwitchSequencing();
+              }
+            }}
+          />
+
+          <LabeledProgressSwitch
+            label={t('project.semiAutoDetect')}
+            checked={semiAutoDetection_mode}
+            loading={false}
+            onChange={() => {
+              onClickSwitchSemiAutoDetection();
+              if (sequencing === true) {
+                onClickSwitchSequencing();
+              }
+            }}
+          />
         </>
-     ) : ( 
+      ) : (
         <div className={classes.chips}>
           <VisibilityChip
             show={project.public}
-            label={t("project.public").toLowerCase()}
+            label={t('project.public').toLowerCase()}
           />
           <VisibilityChip
             show={project.collaborative}
-            label={t("project.collaborative").toLowerCase()}
+            label={t('project.collaborative').toLowerCase()}
           />
         </div>
-      )} 
+      )}
       {user && isOwner(project, user) && (
         <>
           <LabeledProgressSwitch
-            label={t("project.shared")}
+            label={t('project.shared')}
             checked={project.shared}
             loading={unshareLoading}
             error={unshareError}
@@ -245,30 +281,30 @@ const SideBarComponenent: React.FC<Props> = ({
                 name={project.shareName}
                 password={project.sharePassword}
               />
-              {t("project.share.dialog.description")}
+              {t('project.share.dialog.description')}
               <a
                 href={`/shares/${project.id}?p=${project.sharePassword}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                {t("project.share.dialog.linkText")}
+                {t('project.share.dialog.linkText')}
               </a>
               .
             </div>
           )}
         </>
       )}
-       <div className={classes.chips}>
-       <XMLAnnotationExport
+      <div className={classes.chips}>
+        <XMLAnnotationExport
           annotations={annotations}
           project={project}
           buttonName={t('project.exportButton')}
         />
-          <CSVAnnotationExport
-            annotations={annotations}
-            project={project}
-            buttonName={t('project.exportButton')}
-          />
+        <CSVAnnotationExport
+          annotations={annotations}
+          project={project}
+          buttonName={t('project.exportButton')}
+        />
       </div>
       {/*{((user && !isOwner(project, user)) && (user && !isMember(project, user))
       && (user && !isAdmin(user)) && project.shared) &&
@@ -291,7 +327,7 @@ const SideBarComponenent: React.FC<Props> = ({
           className={classes.list}
           subheader={
             <ListSubheader className={classes.listHeader}>
-              {t("project.members", { count: members.size })}
+              {t('project.members', { count: members.size })}
             </ListSubheader>
           }
         >
@@ -316,7 +352,7 @@ const SideBarComponenent: React.FC<Props> = ({
           className={classes.list}
           subheader={
             <ListSubheader className={classes.listHeader}>
-              {t("project.members", { count: members.size })}
+              {t('project.members', { count: members.size })}
             </ListSubheader>
           }
         >
@@ -347,7 +383,7 @@ const SideBarComponenent: React.FC<Props> = ({
             onClick={() => onClickDelete(project.id)}
           >
             <DeleteIcon fontSize="inherit" className={classes.buttonIcon} />
-            {t("deleteAction")}
+            {t('deleteAction')}
           </ButtonProgress>
           {deleteError && <DialogError error={deleteError} />}
         </div>

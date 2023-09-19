@@ -2,25 +2,29 @@ import {
   AnnotationRecord,
   ProjectGraphRecord,
   UserRecord,
-} from "@celluloid/types";
+} from '@celluloid/types';
 import {
   listAnnotationsThunk,
   triggerBlurAnnotation,
-} from "actions/AnnotationsActions";
-import { playerNotifySeek, playerRequestSeek } from "actions/PlayerActions";
-import * as R from "ramda";
-import * as React from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { Action, AsyncAction, EmptyAction } from "types/ActionTypes";
-import { AppState } from "types/StateTypes";
-import * as AnnotationUtils from "utils/AnnotationUtils";
-import ReactPlayer from "@celluloid/react-player";
+} from 'actions/AnnotationsActions';
+import { playerNotifySeek, playerRequestSeek } from 'actions/PlayerActions';
+import * as R from 'ramda';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { Action, AsyncAction, EmptyAction } from 'types/ActionTypes';
+import { AppState } from 'types/StateTypes';
+import * as AnnotationUtils from 'utils/AnnotationUtils';
+import ReactPlayer from '@celluloid/react-player';
 
 import VideoComponent, {
   PlayerEvent,
   PlayerProgressState,
-} from "./VideoComponent";
+} from './VideoComponent';
+
+import AutoDetection from './components/AutoDetection';
+
+const AutoDetectionMemo = React.memo(AutoDetection);
 
 const FADE_TIMEOUT = 3000;
 
@@ -31,6 +35,8 @@ interface Props {
   seeking: boolean;
   focusedAnnotation?: AnnotationRecord;
   performance_mode: boolean;
+  autoDetection_mode: boolean;
+  semiAutoDetection_mode: boolean;
   sequencing_mode: boolean;
   ownAnnotations: boolean;
   annotationShowingMode: string;
@@ -43,6 +49,7 @@ interface Props {
 interface State {
   player?: ReactPlayer;
   position: number;
+  positionFloored: number;
   duration: number;
   playing: boolean;
   fullscreen: boolean;
@@ -58,6 +65,8 @@ const mapStateToProps = (state: AppState) => ({
   seeking: state.project.player.seeking,
   focusedAnnotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
+  autoDetection_mode: state.project.player.autoDetection_mode,
+  semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
   sequencing_mode: state.project.player.sequencing,
   ownAnnotations: state.project.details.ownAnnotations,
   annotationShowingMode: state.project.details.annotationShowingMode,
@@ -80,13 +89,14 @@ export default connect(
     state = {
       playing: true,
       position: 0,
+      positionFloored: 0,
       duration: 0,
       fullscreen: false,
       showControls: true,
       showHints: false,
       visibleAnnotations: [],
       annotating: false,
-      performance_mode:false,
+      performance_mode: false,
     } as State;
 
     componentDidMount() {
@@ -112,14 +122,14 @@ export default connect(
         const focusedAnnotation = this.props.focusedAnnotation;
         const position = player.getCurrentTime();
         if (position) {
-          const visibleAnnotations = annotations  .filter(annotation =>
-            (AnnotationUtils.visible(annotation, position) && (
-              this.props.annotationShowingMode === 'All' 
-            ) && (
-              (this.props.ownAnnotations && this.props.user && annotation.userId === this.props.user.id) ||
-              !this.props.ownAnnotations
-            )
-           )
+          const visibleAnnotations = annotations.filter(
+            (annotation) =>
+              AnnotationUtils.visible(annotation, position) &&
+              this.props.annotationShowingMode === 'All' &&
+              ((this.props.ownAnnotations &&
+                this.props.user &&
+                annotation.userId === this.props.user.id) ||
+                !this.props.ownAnnotations)
           );
 
           visibleAnnotations.forEach((annotation) => {
@@ -132,7 +142,7 @@ export default connect(
               this.setState({
                 playing: false,
               });
-              player.seekTo(position + 0.1, "seconds");
+              player.seekTo(position + 0.1, 'seconds');
             }
           });
 
@@ -150,6 +160,7 @@ export default connect(
             this.setState({
               visibleAnnotations,
               position: position,
+              positionFloored: Math.round(position * 10) / 10,
             });
           }
         }
@@ -170,31 +181,34 @@ export default connect(
     }
 
     seek(value: number, pause: boolean, seekAhead: boolean) {
-      this.setState({ position: value });
+      this.setState({
+        position: value,
+        positionFloored: Math.round(value * 10) / 10,
+      });
       const player = this.state.player;
-      console.log('am seeking ', this.props.performance_mode)
+      console.log('am seeking ', this.props.performance_mode);
       if (!this.props.performance_mode) {
-      if (player) {
-        if (pause) {
-          // player.pauseVideo();
-          this.setState({
-            playing: false,
-          });
+        if (player) {
+          if (pause) {
+            // player.pauseVideo();
+            this.setState({
+              playing: false,
+            });
+          }
+          console.log('seekTo', value);
+          player.seekTo(value, 'seconds');
+          // this.props.requestSeek(value);
+
+          this.props.requestSeek(value);
         }
-        console.log("seekTo", value);
-        player.seekTo(value, "seconds");
-        // this.props.requestSeek(value);
-       
-        this.props.requestSeek(value);
       }
-    }
-    // else{
-    //   if(player){
-    //     this.setState({
-    //       playing: false,
-    //     });
-    //     player.seekTo(value, "seconds");
-    // }}
+      // else {
+      //   if (player) {
+      //     this.setState({
+      //       playing: false,
+      //     });
+      //     player.seekTo(value, 'seconds');
+      //   }
     }
 
     render() {
@@ -204,6 +218,7 @@ export default connect(
         player,
         playing,
         position,
+        positionFloored,
         duration,
         showControls,
         showHints,
@@ -214,7 +229,7 @@ export default connect(
       const onUserAction = this.resetFadeOutTimer.bind(this);
 
       const onPlayerReady = (player: ReactPlayer) => {
-        console.log("onPlayerReady");
+        console.log('onPlayerReady');
         this.refreshTimer = window.setInterval(
           this.refreshPlayer.bind(this),
           500
@@ -228,21 +243,22 @@ export default connect(
       const onPlayerProgress = (state: PlayerProgressState) => {
         this.setState({
           position: state.playedSeconds,
+          positionFloored: Math.round(state.playedSeconds * 10) / 10,
         });
       };
 
       const onDuration = (duration: number) => {
-        console.log("onDuration");
+        console.log('onDuration');
         this.setState({
           duration,
         });
       };
 
       const onPlayerStateChange = (event: PlayerEvent, data: number) => {
-        console.log('hhhhhhhhhhhhhh')
+        console.log('hhhhhhhhhhhhhh');
         switch (event) {
           case PlayerEvent.PLAYING:
-            console.log('WE ARE PLAYING')
+            console.log('WE ARE PLAYING');
             this.setState({ playing: true });
             this.props.notifySeek();
             break;
@@ -250,19 +266,17 @@ export default connect(
           case PlayerEvent.ENDED:
           case PlayerEvent.PAUSED:
           default:
-            console.log('WE ARE PAUSED')
+            console.log('WE ARE PAUSED');
             this.setState({ playing: false });
         }
       };
 
       const onFullscreenChange = (newFullscreen: boolean) =>
         this.setState({ fullscreen: newFullscreen });
-      const performance_mode= this.props.performance_mode;
+      const performance_mode = this.props.performance_mode;
       const onTogglePlayPause = () => {
-    
         onUserAction();
         if (player) {
-      
           if (playing && !this.props.performance_mode) {
             this.setState({ playing: false });
             // player.pauseVideo();
@@ -297,30 +311,42 @@ export default connect(
       const onSeek = this.seek.bind(this);
 
       return (
-        <VideoComponent
-          user={user}
-          project={project}
-          annotations={annotations}
-          visibleAnnotations={visibleAnnotations}
-          position={position}
-          duration={duration}
-          playing={playing}
-          fullscreen={fullscreen}
-          showControls={showControls}
-          showHints={showHints}
-          onUserAction={onUserAction}
-          onPlayerReady={onPlayerReady}
-          onPlayerStateChange={onPlayerStateChange}
-          onPlayerProgress={onPlayerProgress}
-          onDuration={onDuration}
-          onFullscreenChange={onFullscreenChange}
-          onTogglePlayPause={onTogglePlayPause}
-          onToggleFullscreen={onToggleFullscreen}
-          onToggleHints={onToggleHints}
-          onClickHint={onClickHint}
-          onSeek={onSeek}
-          performance_mode={performance_mode}
-        />
+        <>
+          <VideoComponent
+            user={user}
+            project={project}
+            annotations={annotations}
+            visibleAnnotations={visibleAnnotations}
+            position={position}
+            duration={duration}
+            playing={playing}
+            fullscreen={fullscreen}
+            showControls={showControls}
+            showHints={showHints}
+            onUserAction={onUserAction}
+            onPlayerReady={onPlayerReady}
+            onPlayerStateChange={onPlayerStateChange}
+            onPlayerProgress={onPlayerProgress}
+            onDuration={onDuration}
+            onFullscreenChange={onFullscreenChange}
+            onTogglePlayPause={onTogglePlayPause}
+            onToggleFullscreen={onToggleFullscreen}
+            onToggleHints={onToggleHints}
+            onClickHint={onClickHint}
+            onSeek={onSeek}
+            performance_mode={performance_mode}
+          />
+
+          {(this.props.autoDetection_mode ||
+            this.props.semiAutoDetection_mode) && (
+            <AutoDetectionMemo
+              positionFloored={positionFloored}
+              playing={playing}
+              projectId={project.id}
+              // position={position}
+            />
+          )}
+        </>
       );
     }
   }

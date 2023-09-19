@@ -3,18 +3,18 @@ export default {
     login: 'connexion',
     signup: 'inscription',
     legalNotice: 'Mention légales',
-    termsAndConditions: 'Conditions Générales d\'Utilisation',
-    about: 'à propos'
+    termsAndConditions: "Conditions Générales d'Utilisation",
+    about: 'à propos',
   },
 
   home: {
     title: 'Apprendre ensemble avec une vidéo',
     description:
-      'Partagez une vidéo PeerTube avec vos élèves, vos'
-      + ' étudiant.e.s ou un groupe en formation : créez'
-      + ' votre projet pédagogique, annotez les images,'
-      + ' posez des questions et répondez à celles des'
-      + ' participant.e.s.',
+      'Partagez une vidéo PeerTube avec vos élèves, vos' +
+      ' étudiant.e.s ou un groupe en formation : créez' +
+      ' votre projet pédagogique, annotez les images,' +
+      ' posez des questions et répondez à celles des' +
+      ' participant.e.s.',
     teachers: 'Créer un projet',
     students: 'Collaborer sur un Projet',
     addVideo: 'Ajoutez un lien vers une vidéo PeerTube...',
@@ -30,20 +30,23 @@ export default {
     title: 'À propos',
     intro: {
       prefix: 'Le développement de la plateforme ',
-      suffix: ' s’inscrit dans le cadre d’un projet de recherche'
-        + ' porté par Michaël Bourgatte et Laurent Tessier au sein'
-        + ' de l’Atelier du Numérique de l’Institut Catholique de Paris.'
+      suffix:
+        ' s’inscrit dans le cadre d’un projet de recherche' +
+        ' porté par Michaël Bourgatte et Laurent Tessier au sein' +
+        ' de l’Atelier du Numérique de l’Institut Catholique de Paris.',
     },
-    support: 'Le développement de cette plateforme d’annotation vidéo'
-      + ' à vocation pédagogique a bénéficié du soutien de la'
-      + ' Fondation Saint Matthieu.',
+    support:
+      'Le développement de cette plateforme d’annotation vidéo' +
+      ' à vocation pédagogique a bénéficié du soutien de la' +
+      ' Fondation Saint Matthieu.',
     opensource: {
-      prefix: 'Celluloid est un projet Open Source développé par Erwan'
-        + ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn'
-        + ' dans le cadre d\'un partenariat avec La Paillasse.'
-        + ' L’ensemble du code est accessible librement ',
-      github: 'sur GitHub'
-    }
+      prefix:
+        'Celluloid est un projet Open Source développé par Erwan' +
+        ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn' +
+        " dans le cadre d'un partenariat avec La Paillasse." +
+        ' L’ensemble du code est accessible librement ',
+      github: 'sur GitHub',
+    },
   },
 
   guide: {
@@ -54,22 +57,24 @@ export default {
       //   + ' porté par Michaël Bourgatte et Laurent Tessier au sein'
       //   + ' de l’Atelier du Numérique de l’Institut Catholique de Paris.'
     },
-    support: 'Si vous êtes collaborateur sur un projet existant et'
-      + ' vous souahitez le joindre veuillez suivre les consignes suivantes: ',
-      step1: 'Open the web page',
-      step2: 'On the landing page, click '
-        + ' "JOIN PROJECT"',
-      step3: 'Enter the project code',
-      step4: 'Enter your username and an last name',
-      step5: 'Make sure to read carefully the objective and assignments!',
-      step6: 'Complete the assignments and annotate the video while it\'s playing!',
+    support:
+      'Si vous êtes collaborateur sur un projet existant et' +
+      ' vous souahitez le joindre veuillez suivre les consignes suivantes: ',
+    step1: 'Open the web page',
+    step2: 'On the landing page, click ' + ' "JOIN PROJECT"',
+    step3: 'Enter the project code',
+    step4: 'Enter your username and an last name',
+    step5: 'Make sure to read carefully the objective and assignments!',
+    step6:
+      "Complete the assignments and annotate the video while it's playing!",
     opensource: {
-      prefix: 'Celluloid est un projet Open Source développé par Erwan'
-        + ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn'
-        + ' dans le cadre d\'un partenariat avec La Paillasse.'
-        + ' L’ensemble du code est accessible librement ',
-      github: 'sur GitHub'
-    }
+      prefix:
+        'Celluloid est un projet Open Source développé par Erwan' +
+        ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn' +
+        " dans le cadre d'un partenariat avec La Paillasse." +
+        ' L’ensemble du code est accessible librement ',
+      github: 'sur GitHub',
+    },
   },
 
   signin: {
@@ -79,7 +84,7 @@ export default {
     forgotPasswordTitle: 'Mot de passe perdu',
     joinProjectTitle: 'Rejoindre un projet',
 
-    login: 'Email ou nom d\'utilisateur',
+    login: "Email ou nom d'utilisateur",
     username: 'Prenom ou pseudo',
     code: 'Code de confirmation',
     email: 'Adresse email',
@@ -98,24 +103,26 @@ export default {
 
     resetAction: 'mettre à jour',
     resendCodeAction: 'Envoyer un nouveau code',
-    confirmSignupAction: 'Confirmer l\'inscription',
-    signupAction: 's\'inscrire',
+    confirmSignupAction: "Confirmer l'inscription",
+    signupAction: "s'inscrire",
     forgotPasswordAction: 'mot de passe oublié',
     loginAction: 'se connecter',
     changePasswordAction: 'changer le mot de passe',
     joinAction: 'rejoindre',
 
-    upgradeAccountMessage: 'Pour continuer, vous devez renseigner'
-      + ' votre adresse email et un mot de passe',
-    signupOrLoginMessage: 'Pour continuer, vous devez vous inscrire'
-      + ' ou vous connecter',
+    upgradeAccountMessage:
+      'Pour continuer, vous devez renseigner' +
+      ' votre adresse email et un mot de passe',
+    signupOrLoginMessage:
+      'Pour continuer, vous devez vous inscrire' + ' ou vous connecter',
   },
 
   notFound: {
     title: 'Page introuvable :(',
-    description: 'La page que vous cherchez est peut-être privée'
-      + ' ou à peut-être été supprimée',
-    action: 'retour à l\'accueil'
+    description:
+      'La page que vous cherchez est peut-être privée' +
+      ' ou à peut-être été supprimée',
+    action: "retour à l'accueil",
   },
 
   project: {
@@ -129,8 +136,10 @@ export default {
     public: 'Public',
     collaborative: 'Collaboratif',
     performance: 'Performance',
+    autoDetect: 'Détection automatique',
+    semiAutoDetect: "Recommandation d'Emoji",
     analyze: 'Analyse',
-    sequencing:'Sequencing',
+    sequencing: 'Sequencing',
     shared: 'Partage',
     exportButton: 'EXPORTER',
     ownAnnotations: 'Moi seulement',
@@ -142,21 +151,22 @@ export default {
     videoUrlHelper: 'Lien vers la vidéo originale',
     titleHelper: 'Donnez un titre à votre projet',
     descriptionHelper: 'Décrivez brièvement le contenu de la vidéo',
-    objectiveHelper: 'Fixez l\'objectif pédagogique du projet',
-    assignmentsHelper: 'Listez les différentes activités que'
-      + ' vous proposez au partcipants',
-    tagsHelper: 'Choisissez un ou plusieurs domaines correspondant'
-      + ' à votre projet',
-    levelsHelper: 'Veuillez préciser à quels niveaux s\'adresse'
-      + ' ce projet',
-    publicHelper: 'Rendre un projet public signifie que tous'
-      + ' les utilisateurs de la plateforme pourront le consulter,'
-      + ' mais ils ne pourront'
-      + ' pas y participer, ni voir les annotations.',
-    collaborativeHelper: '`Rendre un projet collaboratif signifie'
-      + ' que les personnes que vous invitez pourront annoter la'
-      + ' vidéo. Si le projet n’est pas collaboratif, vous seul.e'
-      + ' pourrez annoter la vidéo.',
+    objectiveHelper: "Fixez l'objectif pédagogique du projet",
+    assignmentsHelper:
+      'Listez les différentes activités que' + ' vous proposez au partcipants',
+    tagsHelper:
+      'Choisissez un ou plusieurs domaines correspondant' + ' à votre projet',
+    levelsHelper: "Veuillez préciser à quels niveaux s'adresse" + ' ce projet',
+    publicHelper:
+      'Rendre un projet public signifie que tous' +
+      ' les utilisateurs de la plateforme pourront le consulter,' +
+      ' mais ils ne pourront' +
+      ' pas y participer, ni voir les annotations.',
+    collaborativeHelper:
+      '`Rendre un projet collaboratif signifie' +
+      ' que les personnes que vous invitez pourront annoter la' +
+      ' vidéo. Si le projet n’est pas collaboratif, vous seul.e' +
+      ' pourrez annoter la vidéo.',
 
     assignmentsSection: 'Activités proposées',
     tagsSection: 'Domaines',
@@ -168,37 +178,38 @@ export default {
 
     codeWarning: {
       title: 'Partagez ce code avec vos élèves. ',
-      description: 'Ce code sera disponible sur la page de projet'
-        + ' Vous pouvez le réinitialiser en partageant'
-        + ' à nouveau le projet.'
+      description:
+        'Ce code sera disponible sur la page de projet' +
+        ' Vous pouvez le réinitialiser en partageant' +
+        ' à nouveau le projet.',
     },
 
     share: {
       dialog: {
-        description: 'Pour ouvrir une fiche pédagogique'
-          + ' imprimable dans une nouvelle fenêtre, ',
-        linkText: 'cliquez ici'
+        description:
+          'Pour ouvrir une fiche pédagogique' +
+          ' imprimable dans une nouvelle fenêtre, ',
+        linkText: 'cliquez ici',
       },
       guide: {
         title: 'Fiche pédagogique',
         subtitle: 'Comment utiliser Celluloid ?',
         step1: 'Allez sur le site internet',
-        step2: 'Sur la page d\'accueil, cliquez sur '
-          + ' "rejoindre un projet"',
+        step2: "Sur la page d'accueil, cliquez sur " + ' "rejoindre un projet"',
         step3: 'Entrez le code du projet',
         step4: 'Indiquez votre nom et une réponse secrète',
-        step5: 'Lisez bien les consignes et l\'exercice',
-        step6: 'Réalisez l\'exercice et annotez la vidéo' +
-          ' au fil de la lecture'
-      }
+        step5: "Lisez bien les consignes et l'exercice",
+        step6:
+          "Réalisez l'exercice et annotez la vidéo" + ' au fil de la lecture',
+      },
     },
-    creatorRole: 'Créateur'
+    creatorRole: 'Créateur',
   },
 
   update: {
-    message: 'L\'application a été mise à jour.'
-      + ' Veuillez rafraîchir la page.',
-    action: 'Rafraîchir'
+    message:
+      "L'application a été mise à jour." + ' Veuillez rafraîchir la page.',
+    action: 'Rafraîchir',
   },
 
   annotation: {
@@ -209,12 +220,12 @@ export default {
     hintLabel_plural: '{{count}} annotations',
     hintLabelNone: 'Aucune annotation',
     commentLabel: '{{count}} commentaire',
-    commentLabel_plural: '{{count}} commentaires'
+    commentLabel_plural: '{{count}} commentaires',
   },
 
   tagSearch: {
     createLabel: 'Créer le domaine',
-    prefix: 'Domaine : '
+    prefix: 'Domaine : ',
   },
 
   levels: {
@@ -224,12 +235,12 @@ export default {
     middleSchool: 'Collège',
     highSchool: 'Lycée',
     higherEducation: 'Supérieur',
-    research: 'Recherche'
+    research: 'Recherche',
   },
 
   createAction: 'Enregistrer',
   cancelAction: 'Annuler',
   deleteAction: 'Supprimer',
   shareAction: 'Partager',
-  printAction: 'Imprimer'
+  printAction: 'Imprimer',
 };

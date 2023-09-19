@@ -11,7 +11,7 @@ import { Dispatch } from 'redux';
 import { Action, AsyncAction } from 'types/ActionTypes';
 import { AppState } from 'types/StateTypes';
 
-import AnnotationEditorComponent, {globalEmoji} from './AnnotationEditorComponent';
+import AnnotationEditorComponent from './AnnotationEditorComponent';
 
 interface Props {
   user: UserRecord;
@@ -23,24 +23,33 @@ interface Props {
     position: number;
     duration: number;
   };
-  ontology?:any;
+  ontology?: any;
+  semiAutoDetect: boolean;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
-  onCreate(projectId: string, data: AnnotationData):
-    AsyncAction<AnnotationRecord, string>;
-  onUpdate(projectId: string, record: AnnotationRecord):
-    AsyncAction<AnnotationRecord, string>;
-  onCancel(annotation?: AnnotationRecord):
-    Action<AnnotationRecord | undefined>;
+  onCreate(
+    projectId: string,
+    data: AnnotationData
+  ): AsyncAction<AnnotationRecord, string>;
+  onUpdate(
+    projectId: string,
+    record: AnnotationRecord
+  ): AsyncAction<AnnotationRecord, string>;
+  onCancel(annotation?: AnnotationRecord): Action<AnnotationRecord | undefined>;
 }
 
 interface State {
   annotation: AnnotationRecord;
 }
 
-function init({ annotation, video,performance_mode }: Props): State {
+function init({
+  annotation,
+  video,
+  performance_mode,
+  semiAutoDetect,
+}: Props): State {
   if (annotation) {
     return {
-      annotation
+      annotation,
     };
   } else {
     let startAt: number = video.position;
@@ -54,20 +63,16 @@ function init({ annotation, video,performance_mode }: Props): State {
       annotation: {
         text: '',
         startTime: video.position,
-        stopTime: maxAnnotationDuration(
-          video.position,
-          video.duration,
-          
-        ),
-        performance_mode,
-        
-        pause: false
-      }
+        stopTime: maxAnnotationDuration(video.position, video.duration),
+        semiAutoDetect,
+        pause: false,
+      },
     } as State;
   }
 }
 
 const mapStateToProps = (state: AppState) => ({
+  semiAutoDetect: state.project.player.semiAutoDetection_mode,
   error: state.project.video.annotationError,
   annotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
@@ -79,85 +84,65 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onUpdate: (projectId: string, record: AnnotationRecord) =>
     updateAnnotationThunk(projectId, record)(dispatch),
   onCancel: (annotation?: AnnotationRecord) =>
-    dispatch(triggerCancelAnnotation(annotation))
+    dispatch(triggerCancelAnnotation(annotation)),
 });
-export let userName='';
-export let userId='';
-let annotationId: string[];
-export default connect(mapStateToProps, mapDispatchToProps)(
+// export let userName = '';
+// export let userId = '';
+// let annotationId: string[];
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   class extends React.Component<Props, State> {
-
     state = init(this.props);
 
     render() {
-      const {
-        projectId,
-        video,
-        onCreate,
-        onUpdate,
-        onCancel,
-        onSeek
-      } = this.props;
+      const { projectId, video, onCreate, onUpdate, onCancel, onSeek } =
+        this.props;
 
       const { annotation } = this.state;
-      // const onOntologyChange = (
-      //   ontology: any
-      // ) => {
-      //   this.setState(state => ({
-      //     ...state,
-      //     annotation: {
-      //       ...state.annotation,
-      //       ontology
-      //     }
-      //   }));
-      // };
 
       const onCheckPauseChange = (pause: boolean) => {
-        this.setState(state => ({
+        this.setState((state) => ({
           ...state,
           annotation: {
             ...state.annotation,
-            pause
-          }
+            pause,
+          },
         }));
       };
 
       const onTimingChange = (
-        position: number, isStart: boolean, seekAhead: boolean
+        position: number,
+        isStart: boolean,
+        seekAhead: boolean
       ) => {
         if (!this.props.performance_mode) {
-          console.log('on time changing..', this.props.performance_mode)
-        const state = this.state as State;
-        if (isStart) {
-          state.annotation.startTime = position;
-        } else {
-          state.annotation.stopTime = position;
+          console.log('on time changing..', this.props.performance_mode);
+          const state = this.state as State;
+          if (isStart) {
+            state.annotation.startTime = position;
+          } else {
+            state.annotation.stopTime = position;
+          }
+          this.setState(state);
+          onSeek(position, true, true);
         }
-        this.setState(state);
-        onSeek(position, true, true);
-      }
       };
 
-      const onClickSave =async () => {
-       
-        annotation.user=this.props.user
-         annotation.text=annotation.text+' '+globalEmoji
-        annotation.performance_mode = this.props.performance_mode;
-       
+      const onClickSave = async () => {
+        annotation.user = this.props.user;
+
         if (this.props.annotation) {
           onUpdate(projectId, {
             ...this.props.annotation,
-            ...annotation
+            ...annotation,
           });
         } else {
-          let res= await onCreate(projectId, annotation);
-          //@ts-ignore  
-            annotationId= res.payload.id
-            userName= annotation.user.username
-            userId=annotation.user.id
-            return annotationId
+          let res = await onCreate(projectId, annotation);
+          //@ts-ignore
+          return res.payload.id;
         }
-        
       };
 
       const onClickCancel = () => {
@@ -165,27 +150,51 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       };
 
       const onTextChange = (text: string) => {
-        this.setState(state => ({
+        this.setState((state) => ({
           ...state,
           annotation: {
             ...state.annotation,
-            text
-          }
+            text,
+          },
+        }));
+      };
+
+      const onEmotionChange = (emotion: string) => {
+        this.setState((state) => ({
+          ...state,
+          annotation: {
+            ...state.annotation,
+            emotion,
+          },
+        }));
+      };
+
+      const onOntologyChange = (ontology: any) => {
+        this.setState((state) => ({
+          ...state,
+          annotation: {
+            ...state.annotation,
+            ontology,
+          },
         }));
       };
 
       return (
         <AnnotationEditorComponent
           {...annotation}
+          user={this.props.user}
           performance_mode={this.props.performance_mode}
           onCheckPauseChange={onCheckPauseChange}
           onTimingChange={onTimingChange}
           onClickSave={onClickSave}
           onClickCancel={onClickCancel}
           onTextChange={onTextChange}
+          onEmotionChange={onEmotionChange}
           duration={video.duration}
-          projectId={projectId}   
+          position={video.position}
+          projectId={projectId}
         />
       );
     }
-  });
+  }
+);

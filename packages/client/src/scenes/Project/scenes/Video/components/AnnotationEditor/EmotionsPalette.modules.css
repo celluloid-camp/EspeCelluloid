@@ -1,0 +1,27 @@
+.container {
+  background-color: #f3f3f3;
+  border-radius: '20px';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+  margin: '10px 0 0 0';
+  padding: '0 5px';
+  height: '2.2rem';
+  width: '100%';
+}
+
+.element {
+  display: 'inline-block';
+  font-size: 1.2rem;
+  border-radius: 50%;
+  margin: '1px 2px';
+  padding: '2px';
+  text-align: 'center';
+  cursor: 'pointer';
+  transition: 'transform .3s';
+  box-shadow: 'rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px';
+}
+
+.element:hover {
+  transform: translateY(-20%) scale(2);
+}

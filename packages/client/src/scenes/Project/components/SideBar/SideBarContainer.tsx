@@ -1,4 +1,8 @@
-import { ProjectGraphRecord, UserRecord, AnnotationRecord } from "@celluloid/types";
+import {
+  ProjectGraphRecord,
+  UserRecord,
+  AnnotationRecord,
+} from '@celluloid/types';
 import {
   deleteProjectThunk,
   openShareProject,
@@ -6,18 +10,23 @@ import {
   setProjectPublicThunk,
   unshareProjectThunk,
   setAnnotationShowingMode,
-  switchOwnAnnotations
-} from "actions/ProjectActions";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { AsyncAction, EmptyAction } from "types/ActionTypes";
-import { AppState } from "types/StateTypes";
-import { playerSwitchMode } from 'actions/PlayerActions';
+  switchOwnAnnotations,
+} from 'actions/ProjectActions';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { AsyncAction, EmptyAction } from 'types/ActionTypes';
+import { AppState } from 'types/StateTypes';
 import { triggerCancelAnnotation } from 'actions/AnnotationsActions';
-import SideBarComponent from "./SideBarComponent";
-import { playerSwitchSequencing } from '../../../../actions/PlayerActions';
+import SideBarComponent from './SideBarComponent';
+import {
+  playerSwitchMode,
+  playerSwitchSequencing,
+  playerSwitchAutoDetection,
+  playerSwitchSemiAutoDetection,
+} from '../../../../actions/PlayerActions';
+
 interface Props {
   user?: UserRecord;
   project: ProjectGraphRecord;
@@ -30,6 +39,8 @@ interface Props {
   unshareError?: string;
   deleteError?: string;
   performance_mode: boolean;
+  autoDetection_mode: boolean;
+  semiAutoDetection_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   ownAnnotations: boolean;
@@ -46,9 +57,14 @@ interface Props {
   onClickDelete(projectId: string): AsyncAction<null, string>;
   onClickSwitchPlayerMode(): void;
   onClickSwitchSequencing(): void;
-  onClickSwitchOwnAnnotations(): void;
-  onChangeAnnotationShowingMode(event: React.ChangeEvent<HTMLSelectElement>): void;
+  // Auto Detection
+  onClickSwitchAutoDetection(): void;
+  onClickSwitchSemiAutoDetection(): void;
 
+  onClickSwitchOwnAnnotations(): void;
+  onChangeAnnotationShowingMode(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -62,6 +78,8 @@ const mapStateToProps = (state: AppState) => ({
   deleteError: state.project.details.deleteError,
   user: state.user,
   performance_mode: state.project.player.performance_mode,
+  autoDetection_mode: state.project.player.autoDetection_mode,
+  semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
   sequencing: state.project.player.sequencing,
   annotations: state.project.video.annotations,
   ownAnnotations: state.project.details.ownAnnotations,
@@ -80,17 +98,26 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(playerSwitchMode()) && dispatch(triggerCancelAnnotation()),
   onClickSwitchSequencing: () =>
     dispatch(playerSwitchSequencing()) && dispatch(triggerCancelAnnotation()),
+
+  onClickSwitchAutoDetection: () =>
+    dispatch(playerSwitchAutoDetection()) &&
+    dispatch(triggerCancelAnnotation()),
+
+  onClickSwitchSemiAutoDetection: () =>
+    dispatch(playerSwitchSemiAutoDetection()) &&
+    dispatch(triggerCancelAnnotation()),
   onClickSwitchOwnAnnotations: () =>
     dispatch(switchOwnAnnotations()) && dispatch(triggerCancelAnnotation()),
-  onChangeAnnotationShowingMode: (event: React.ChangeEvent<HTMLSelectElement>) => 
-    dispatch(setAnnotationShowingMode(event.target.value)),
+  onChangeAnnotationShowingMode: (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => dispatch(setAnnotationShowingMode(event.target.value)),
 });
 
 const SideBarContainer: React.FC<Props> = (props) => {
   const { t } = useTranslation();
 
   const content = new Set([
-    { subtitle: t("project.creatorRole"), ...props.project.user },
+    { subtitle: t('project.creatorRole'), ...props.project.user },
     ...props.project.members,
   ]);
 

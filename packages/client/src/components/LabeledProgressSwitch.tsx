@@ -41,33 +41,33 @@ export default withStyles(styles)(({
   onChange,
   classes
 }: Props) => (
-    <div className={classes.wrapper}>
-      <Typography
-        variant="body2"
-        align="right"
-        gutterBottom={true}
-        component="div"
-      >
-        {loading &&
-          <CircularProgress
-            color="secondary"
-            className={classes.progress}
-            size={16}
-            variant="indeterminate"
-          />
-        }
-        {label}
-        <Switch
-          checked={checked}
-          onChange={() => onChange()}
+  <div className={classes.wrapper}>
+    <Typography
+      variant="body2"
+      align="right"
+      gutterBottom={true}
+      component="div"
+    >
+      {loading &&
+        <CircularProgress
+          color="secondary"
+          className={classes.progress}
+          size={16}
+          variant="indeterminate"
         />
-      </Typography>
-      <div
-        className={classes.error}
-      >
-        <Collapse in={error ? true : false} appear={true}>
-          <DialogError small={true} align="right" error={error} />
-        </Collapse>
-      </div>
+      }
+      {label}
+      <Switch
+        checked={checked}
+        onChange={() => onChange()}
+      />
+    </Typography>
+    <div
+      className={classes.error}
+    >
+      <Collapse in={error ? true : false} appear={true}>
+        <DialogError small={true} align="right" error={error} />
+      </Collapse>
     </div>
-  ));
+  </div>
+));

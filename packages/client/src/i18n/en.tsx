@@ -4,15 +4,16 @@ export default {
     signup: 'signup',
     legalNotice: 'Legal notice',
     termsAndConditions: 'Terms & Conditions',
-    about: 'about'
+    about: 'about',
   },
 
   home: {
     title: 'Learning together with a video',
-    description: 'Share a PeerTube video with your students,'
-      + ' your pupils or your training groups: create your'
-      + ' educational project, annotate the video frames,'
-      + ' ask questions, provide the answers.',
+    description:
+      'Share a PeerTube video with your students,' +
+      ' your pupils or your training groups: create your' +
+      ' educational project, annotate the video frames,' +
+      ' ask questions, provide the answers.',
     teachers: 'Create a project',
     students: 'Collaborate on a Project',
     addVideo: 'Add a link to a PeerTube video...',
@@ -28,20 +29,23 @@ export default {
     title: 'About',
     intro: {
       prefix: '',
-      suffix: ' was born from a research project led by'
-        + ' Michaël Bourgatte and Laurent Tessier, two senior lecturers in educational sciences'
-        + ' involved in the "Atelier du Numérique" (Digital Workshop) of the'
-        + ' Paris Catholic University.'
+      suffix:
+        ' was born from a research project led by' +
+        ' Michaël Bourgatte and Laurent Tessier, two senior lecturers in educational sciences' +
+        ' involved in the "Atelier du Numérique" (Digital Workshop) of the' +
+        ' Paris Catholic University.',
     },
-    support: 'Celluloid was made possible thanks to key support '
-      + ' from Fondation Saint Matthieu.',
+    support:
+      'Celluloid was made possible thanks to key support ' +
+      ' from Fondation Saint Matthieu.',
     opensource: {
-      prefix: 'Celluloid is an Open Source project crafted by Erwan'
-        + ' Queffélec with the participation of Souleymane Thiam and Guillaume Aichhorn'
-        + ' , through a partnership with La Paillasse.'
-        + ' Its source code is freely available ',
-      github: 'on GitHub'
-    }
+      prefix:
+        'Celluloid is an Open Source project crafted by Erwan' +
+        ' Queffélec with the participation of Souleymane Thiam and Guillaume Aichhorn' +
+        ' , through a partnership with La Paillasse.' +
+        ' Its source code is freely available ',
+      github: 'on GitHub',
+    },
   },
   guide: {
     title: 'User guide',
@@ -51,24 +55,25 @@ export default {
       //   + ' porté par Michaël Bourgatte et Laurent Tessier au sein'
       //   + ' de l’Atelier du Numérique de l’Institut Catholique de Paris.'
     },
-    support: 'If you are a collaborator on an existing project and '
-      + ' would like to join, please follow these instructions:',
+    support:
+      'If you are a collaborator on an existing project and ' +
+      ' would like to join, please follow these instructions:',
 
-      step1: 'On the home page, click'
-      + ' "JOIN PROJECT"',
-      step2: 'On the landing page, click '
-        + ' "JOIN PROJECT"',
-      step3: 'Enter the project code',
-      step4: 'Enter your username and an last name',
-      step5: 'Make sure to read carefully the objective and assignments!',
-      step6: 'Complete the assignments and annotate the video while it\'s playing!',
+    step1: 'On the home page, click' + ' "JOIN PROJECT"',
+    step2: 'On the landing page, click ' + ' "JOIN PROJECT"',
+    step3: 'Enter the project code',
+    step4: 'Enter your username and an last name',
+    step5: 'Make sure to read carefully the objective and assignments!',
+    step6:
+      "Complete the assignments and annotate the video while it's playing!",
     opensource: {
-      prefix: 'Celluloid est un projet Open Source développé par Erwan'
-        + ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn'
-        + ' dans le cadre d\'un partenariat avec La Paillasse.'
-        + ' L’ensemble du code est accessible librement ',
-      github: 'sur GitHub'
-    }
+      prefix:
+        'Celluloid est un projet Open Source développé par Erwan' +
+        ' Queffélec avec la participation de Souleymane Thiam et de Guillaume Aichhorn' +
+        " dans le cadre d'un partenariat avec La Paillasse." +
+        ' L’ensemble du code est accessible librement ',
+      github: 'sur GitHub',
+    },
   },
 
   signin: {
@@ -104,16 +109,17 @@ export default {
     changePasswordAction: 'reset password',
     joinAction: 'join',
 
-    upgradeAccountMessage: 'Please enter a valid email and a'
-      + ' password to continue',
-    signupOrLoginMessage: 'Please signup or login to continue'
+    upgradeAccountMessage:
+      'Please enter a valid email and a' + ' password to continue',
+    signupOrLoginMessage: 'Please signup or login to continue',
   },
 
   notFound: {
     title: 'Page not found :(',
-    description: 'The page you are looking for might be private or'
-      + ' may have been deleted',
-    action: 'back to home'
+    description:
+      'The page you are looking for might be private or' +
+      ' may have been deleted',
+    action: 'back to home',
   },
 
   project: {
@@ -131,8 +137,10 @@ export default {
     annotationsVisibilityNothing: 'None',
     collaborative: 'Collaborative',
     performance: 'Performance',
+    autoDetect: 'Automatic detection',
+    semiAutoDetect: 'Emoji Recommendation',
     analyze: 'Analyze',
-    sequencing:'Sequencing',
+    sequencing: 'Sequencing',
     shared: 'Share',
     exportButton: 'EXPORT',
     members: '{{ count }} attendees',
@@ -145,12 +153,14 @@ export default {
     assignmentsHelper: 'List the assignments submitted to the attendees',
     tagsHelper: 'Choose up to 4 tags that fit your project',
     levelsHelper: 'Select the education levels relevant to your project',
-    publicHelper: 'A public project will be visible by all users,'
-      + ' even logged-out. However, they won\'t be able to see the'
-      + ' annotations and comments, nor to add their own.',
-    collaborativeHelper: 'Attendees to a collaborative project will'
-      + ' be allowed to annotate or comment the video. If your project'
-      + ' is not collaborative, only you can annotate and comment on it.',
+    publicHelper:
+      'A public project will be visible by all users,' +
+      " even logged-out. However, they won't be able to see the" +
+      ' annotations and comments, nor to add their own.',
+    collaborativeHelper:
+      'Attendees to a collaborative project will' +
+      ' be allowed to annotate or comment the video. If your project' +
+      ' is not collaborative, only you can annotate and comment on it.',
 
     assignmentsSection: 'Assignments',
     tagsSection: 'Tags',
@@ -162,34 +172,34 @@ export default {
 
     codeWarning: {
       title: 'Share this code with your students. ',
-      description: 'This code will be available on the project page.'
-        + ' To reset it, just reshare the project.'
+      description:
+        'This code will be available on the project page.' +
+        ' To reset it, just reshare the project.',
     },
 
     share: {
       dialog: {
         description: 'To open printable instructions in a new widow ',
-        linkText: 'click here'
+        linkText: 'click here',
       },
       guide: {
         title: 'Instructions',
         subtitle: 'How to use E-spect@tor ?',
         step1: 'Open the web page',
-        step2: 'On the landing page, click '
-          + ' "JOIN PROJECT"',
+        step2: 'On the landing page, click ' + ' "JOIN PROJECT"',
         step3: 'Enter the project code',
         step4: 'Enter your username and an last name',
         step5: 'Make sure to read carefully the objective and assignments!',
-        step6: 'Complete the assignments and annotate the video while it\'s playing!'
-      }
+        step6:
+          "Complete the assignments and annotate the video while it's playing!",
+      },
     },
-    creatorRole: 'Creator'
+    creatorRole: 'Creator',
   },
 
   update: {
-    message: 'This app was just updated!'
-      + ' Please refresh the page.',
-    action: 'refresh'
+    message: 'This app was just updated!' + ' Please refresh the page.',
+    action: 'refresh',
   },
 
   annotation: {
@@ -200,12 +210,12 @@ export default {
     hintLabel_plural: '{{count}} annotations',
     hintLabelNone: 'No annotation at this time',
     commentLabel: '{{count}} comment',
-    commentLabel_plural: '{{count}} comments'
+    commentLabel_plural: '{{count}} comments',
   },
 
   tagSearch: {
     createLabel: 'Create tag',
-    prefix: 'Tag: '
+    prefix: 'Tag: ',
   },
 
   levels: {
@@ -215,12 +225,12 @@ export default {
     middleSchool: 'Middle school',
     highSchool: 'High school',
     higherEducation: 'Higher education',
-    research: 'Research'
+    research: 'Research',
   },
 
   createAction: 'Save',
   cancelAction: 'Cancel',
   deleteAction: 'Delete',
   shareAction: 'Share',
-  printAction: 'Print'
+  printAction: 'Print',
 };

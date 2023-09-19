@@ -1,7 +1,6 @@
 import { Action as ReduxAction } from 'redux';
 
 export enum ActionType {
-
   APPLICATION_UPDATED = 'APPLICATION_UPDATED',
   OPEN_LOGIN = 'OPEN_LOGIN',
   SUCCEED_LOGIN = 'SUCCEED_LOGIN',
@@ -65,16 +64,15 @@ export enum ActionType {
   FAIL_SHARE_PROJECT = 'FAIL_SHARE_PROJECT',
   SUCCEED_SHARE_PROJECT = 'SUCCEED_SHARE_PROJECT',
 
-  SWITCHING_ANNOTATION_SHOWING_MODE = 'SWITCHING_ANNOTATION_SHOWING_MODE',
-  SWITCH_OWN_ANNOTATIONS = 'SWITCH_OWN_ANNOTATIONS',
-  
-  TRIGGER_UNSHARE_PROJECT_LOADING = 'TRIGGER_UNSHARE_PROJECT_LOADING',
-  FAIL_UNSHARE_PROJECT = 'FAIL_UNSHARE_PROJECT',
-  SUCCEED_UNSHARE_PROJECT = 'SUCCEED_UNSHARE_PROJECT',
-
   TRIGGER_SET_PROJECT_PUBLIC_LOADING = 'TRIGGER_SET_PROJECT_PUBLIC_LOADING',
   FAIL_SET_PROJECT_PUBLIC = 'FAIL_SET_PROJECT_PUBLIC',
   SUCCEED_SET_PROJECT_PUBLIC = 'SUCCEED_SET_PROJECT_PUBLIC',
+  SWITCHING_ANNOTATION_SHOWING_MODE = 'SWITCHING_ANNOTATION_SHOWING_MODE',
+  SWITCH_OWN_ANNOTATIONS = 'SWITCH_OWN_ANNOTATIONS',
+
+  TRIGGER_UNSHARE_PROJECT_LOADING = 'TRIGGER_UNSHARE_PROJECT_LOADING',
+  FAIL_UNSHARE_PROJECT = 'FAIL_UNSHARE_PROJECT',
+  SUCCEED_UNSHARE_PROJECT = 'SUCCEED_UNSHARE_PROJECT',
 
   TRIGGER_SET_PROJECT_COLLABORATIVE_LOADING = 'TRIGGER_SET_PROJECT_COLLABORATIVE_LOADING',
   FAIL_SET_PROJECT_COLLABORATIVE = 'FAIL_SET_PROJECT_COLLABORATIVE',
@@ -120,7 +118,11 @@ export enum ActionType {
   PLAYER_REQUEST_SEEK = 'PLAYER_REQUEST_SEEK',
   PLAYER_NOTIFY_SEEK = 'PLAYER_NOTIFY_SEEK',
   PLAYER_SWITCH_MODE = 'PLAYER_SWITCH_MODE',
-  PLAYER_SWITCH_SEQUENCING = 'PLAYER_SWITCH_SEQUENCING'
+  PLAYER_SWITCH_SEQUENCING = 'PLAYER_SWITCH_SEQUENCING',
+
+  // Auto/SemiAuto Detect
+  PLAYER_SWITCH_AUTO_DETECTION = 'PLAYER_SWITCH_AUTO_DETECTION',
+  PLAYER_SWITCH_SEMI_AUTO_DETECTION = 'PLAYER_SWITCH_SEMI_AUTO_DETECTION',
 }
 
 export interface Action<T> extends ReduxAction {
@@ -129,26 +131,31 @@ export interface Action<T> extends ReduxAction {
   error: boolean;
 }
 
-export interface EmptyAction extends Action<null> { }
+export interface EmptyAction extends Action<null> {}
 
 export type AsyncAction<S, E> = Promise<Required<Action<S | E>>>;
 
-export function createAction<P>(type: ActionType, payload: P):
-  Required<Action<P>> {
+export function createAction<P>(
+  type: ActionType,
+  payload: P
+): Required<Action<P>> {
   return { type, payload, error: false };
 }
 
-export function createOptionalAction<P>(type: ActionType, payload?: P):
-  Action<P> {
+export function createOptionalAction<P>(
+  type: ActionType,
+  payload?: P
+): Action<P> {
   return { type, payload, error: false };
 }
 
-export function createEmptyAction(type: ActionType):
-  EmptyAction {
+export function createEmptyAction(type: ActionType): EmptyAction {
   return { type, error: false };
 }
 
-export function createErrorAction<P>(type: ActionType, payload: P):
-  Required<Action<P>> {
+export function createErrorAction<P>(
+  type: ActionType,
+  payload: P
+): Required<Action<P>> {
   return { type, payload, error: true };
 }
