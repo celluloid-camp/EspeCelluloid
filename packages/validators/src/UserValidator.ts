@@ -17,6 +17,8 @@ export function validateSignup(payload: TeacherSignupData) {
     result.errors.username = `UsernameMissing`;
   }
 
+  //MASQUER VALIDATION MAIL
+
   if (!payload || typeof payload.email !== 'string' ||
     !validator.isEmail(payload.email)) {
     result.success = false;
