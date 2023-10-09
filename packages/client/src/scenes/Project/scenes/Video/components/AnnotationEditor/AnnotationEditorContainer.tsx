@@ -19,6 +19,7 @@ interface Props {
   projectId: string;
   annotation?: AnnotationRecord;
   performance_mode: boolean;
+  emotionDetected: string;
   video: {
     position: number;
     duration: number;
@@ -97,8 +98,15 @@ export default connect(
     state = init(this.props);
 
     render() {
-      const { projectId, video, onCreate, onUpdate, onCancel, onSeek } =
-        this.props;
+      const {
+        projectId,
+        video,
+        onCreate,
+        onUpdate,
+        onCancel,
+        onSeek,
+        emotionDetected,
+      } = this.props;
 
       const { annotation } = this.state;
 
@@ -193,6 +201,7 @@ export default connect(
           duration={video.duration}
           position={video.position}
           projectId={projectId}
+          emotionDetected={emotionDetected}
         />
       );
     }

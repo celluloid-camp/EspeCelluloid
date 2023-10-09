@@ -50,6 +50,7 @@ interface State {
   player?: ReactPlayer;
   position: number;
   positionFloored: number;
+  emotionDetected: string;
   duration: number;
   playing: boolean;
   fullscreen: boolean;
@@ -90,6 +91,7 @@ export default connect(
       playing: true,
       position: 0,
       positionFloored: 0,
+      emotionDetected: '',
       duration: 0,
       fullscreen: false,
       showControls: true,
@@ -224,9 +226,16 @@ export default connect(
         showHints,
         fullscreen,
         visibleAnnotations,
+        emotionDetected,
       } = this.state;
 
       const onUserAction = this.resetFadeOutTimer.bind(this);
+
+      const onEmotionDetectedChange = (emotion: string) => {
+        this.setState({
+          emotionDetected: emotion,
+        });
+      };
 
       const onPlayerReady = (player: ReactPlayer) => {
         console.log('onPlayerReady');
@@ -335,6 +344,7 @@ export default connect(
             onClickHint={onClickHint}
             onSeek={onSeek}
             performance_mode={performance_mode}
+            emotionDetected={emotionDetected}
           />
 
           {(this.props.autoDetection_mode ||
@@ -343,6 +353,7 @@ export default connect(
               positionFloored={positionFloored}
               playing={playing}
               projectId={project.id}
+              onEmotionDetectedChange={onEmotionDetectedChange}
               // position={position}
             />
           )}

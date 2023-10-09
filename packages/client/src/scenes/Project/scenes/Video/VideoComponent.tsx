@@ -121,6 +121,7 @@ interface Props extends WithStyles<typeof styles> {
   showHints: boolean;
   ownAnnotations: boolean;
   annotationShowingMode: string;
+  emotionDetected: string;
   onUserAction(): void;
   onPlayerReady(player: ReactPlayer): void;
   onPlayerProgress(state: PlayerProgressState): void;
@@ -180,6 +181,7 @@ export default connect(
       onClickAnnotate,
       onSeek,
       performance_mode,
+      emotionDetected,
       classes,
     }: Props) => {
       const [isReady, setIsReady] = useState(false);
@@ -196,16 +198,12 @@ export default connect(
       const focusedAnnotationId = focusedAnnotation
         ? focusedAnnotation.id
         : undefined;
-        annotations = annotations.filter(annotation =>
-          (
-            (
-              annotationShowingMode === 'All' 
-            ) && (
-            (ownAnnotations && user && annotation.userId === user.id) ||
-            !ownAnnotations
-            )
-          )
-        );
+      annotations = annotations.filter(
+        (annotation) =>
+          annotationShowingMode === 'All' &&
+          ((ownAnnotations && user && annotation.userId === user.id) ||
+            !ownAnnotations)
+      );
       const [muted, setMuted] = useState(false);
 
       const handleVideoReady = (player: ReactPlayer) => {
@@ -290,6 +288,7 @@ export default connect(
                             duration: duration,
                           }}
                           onSeek={onSeek}
+                          emotionDetected={emotionDetected}
                         />
                       )}
                     </div>

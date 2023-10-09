@@ -21,6 +21,7 @@ interface Props extends WithStyles<typeof styles> {
   // position: number;
   playing: boolean;
   projectId: string;
+  onEmotionDetectedChange(emotion: string): void;
 }
 
 export const AutoDetection = ({
@@ -28,6 +29,7 @@ export const AutoDetection = ({
   positionFloored,
   playing,
   projectId,
+  onEmotionDetectedChange,
 }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const captureIntervalRef = useRef<number | null>(null);
@@ -70,6 +72,8 @@ export const AutoDetection = ({
           (a, b) => b[1] - a[1]
         )[0][0];
 
+        onEmotionDetectedChange(emotion);
+
         if (
           annotations.current.length !== 0 &&
           annotations.current[annotations.current.length - 1].emotion ===
@@ -104,7 +108,10 @@ export const AutoDetection = ({
 
           annotations.current.push(annotation);
         }
-      } else setIsDetection(false);
+      } else {
+        setIsDetection(false);
+        onEmotionDetectedChange('');
+      }
 
       await delay(100);
 

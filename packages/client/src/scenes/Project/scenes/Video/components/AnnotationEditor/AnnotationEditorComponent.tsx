@@ -44,6 +44,7 @@ interface Props extends WithStyles<typeof styles> {
   error?: string;
   ontology?: string[];
   performance_mode: boolean;
+  emotionDetected: string;
   onTextChange(text: string): void;
   onEmotionChange(emotion: string): void;
   onCheckPauseChange(value: boolean): void;
@@ -109,6 +110,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   onEmotionChange,
   onClickSave,
   onClickCancel,
+  emotionDetected,
   classes,
 }: Props) => {
   const { t } = useTranslation();
@@ -131,6 +133,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
             emotion={emotion}
             onEmotionChange={onEmotionChange}
             perf={performance_mode}
+            emotionDetected={emotionDetected}
           />
         </div>
         <>
