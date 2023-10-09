@@ -8,6 +8,7 @@ interface EmotionsPaletteProps {
   position: number;
   semiAutoDetect: boolean;
   emotion?: string;
+  emotionDetected: string;
   onEmotionChange(emotion: string | undefined): void;
 }
 
@@ -86,6 +87,7 @@ const EmotionsPalette = ({
   projectId,
   semiAutoDetect,
   emotion,
+  emotionDetected,
   onEmotionChange,
 }: EmotionsPaletteProps) => {
   const [hoveredComponent, setHoveredComponent] = useState<number | null>(null);
@@ -96,6 +98,33 @@ const EmotionsPalette = ({
   useEffect(() => {
     startPositionRef.current = position;
   }, [position]);
+
+  useEffect(() => {
+    const mapEmotionDetectedToEmoji = (emotion: string) => {
+      switch (emotion) {
+        case 'neutral':
+          return emojisArray.find((emoji) => emoji.value === 'Smile');
+        case 'happy':
+          return emojisArray.find((emoji) => emoji.value === 'Laugh');
+        case 'surprised':
+          return emojisArray.find((emoji) => emoji.value === 'Surprise');
+        case 'fearful':
+          return emojisArray.find((emoji) => emoji.value === 'Fear');
+        default:
+          return emojisArray.find((emoji) => emoji.value === 'Smile');
+      }
+    };
+
+    if (semiAutoDetect) {
+      const emojiMapped = mapEmotionDetectedToEmoji(emotionDetected);
+
+      if (emojiMapped)
+        setEmojis((prev) => [
+          emojiMapped,
+          ...prev.filter((emoji) => emoji.value !== emojiMapped.value),
+        ]);
+    }
+  }, [emotionDetected, semiAutoDetect]);
 
   useEffect(() => {
     const mapEmotionToEmoji = (emotions: EmotionCount[]): Emoji[] => {
@@ -123,7 +152,7 @@ const EmotionsPalette = ({
           );
       };
 
-      return emotions.map(mapCallback).filter((item) => item != undefined);
+      return emotions.map(mapCallback).filter((item) => item !== undefined);
     };
 
     const updateEmojis = async () => {
@@ -133,12 +162,17 @@ const EmotionsPalette = ({
           {
             startTime: startPositionRef.current,
             offset: OFFSET,
-            limit: 5,
+            limit: 4,
           }
         );
 
-        const emojis: Emoji[] = mapEmotionToEmoji(emotions);
-        setEmojis(emojis);
+        const emotionsMapped: Emoji[] = mapEmotionToEmoji(emotions);
+
+        if (!emotionsMapped.length) {
+          emotionsMapped.push(emojisArray[3]);
+        }
+
+        setEmojis(emotionsMapped);
       } catch (e) {
         console.log(e);
       }
@@ -166,10 +200,10 @@ const EmotionsPalette = ({
   };
 
   const containerStyle: CSSProperties = {
-    backgroundColor: '#f3f3f3',
+    // backgroundColor: '#f3f3f3',
     // backgroundColor: '#708090',
     // backgroundColor: '#36454F',
-    // backgroundColor: '#333333',
+    backgroundColor: '#333333',
     borderRadius: '20px',
     display: 'flex',
     justifyContent: 'center',

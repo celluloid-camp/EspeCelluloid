@@ -24,7 +24,7 @@ import UserAvatar from 'components/UserAvatar';
 import VisibilityChip from 'components/VisibilityChip';
 import * as React from 'react';
 import { AsyncAction } from 'types/ActionTypes';
-import { isOwner, isAdmin } from 'utils/ProjectUtils';
+import { isOwner, isAdmin, canAnnotate } from 'utils/ProjectUtils';
 import CSVAnnotationExport from './components/CSVAnnotationExport';
 import XMLAnnotationExport from './components/XMLAnnotationExport';
 import ShareCredentials from 'components/ShareCredentials';
@@ -229,29 +229,33 @@ const SideBarComponenent: React.FC<Props> = ({
             }}
           />
 
-          <LabeledProgressSwitch
-            label={t('project.autoDetect')}
-            checked={autoDetection_mode}
-            loading={false}
-            onChange={() => {
-              onClickSwitchAutoDetection();
-              if (sequencing === true) {
-                onClickSwitchSequencing();
-              }
-            }}
-          />
+          {user && canAnnotate(project, user) && (
+            <>
+              <LabeledProgressSwitch
+                label={t('project.autoDetect')}
+                checked={autoDetection_mode}
+                loading={false}
+                onChange={() => {
+                  onClickSwitchAutoDetection();
+                  if (sequencing === true) {
+                    onClickSwitchSequencing();
+                  }
+                }}
+              />
 
-          <LabeledProgressSwitch
-            label={t('project.semiAutoDetect')}
-            checked={semiAutoDetection_mode}
-            loading={false}
-            onChange={() => {
-              onClickSwitchSemiAutoDetection();
-              if (sequencing === true) {
-                onClickSwitchSequencing();
-              }
-            }}
-          />
+              <LabeledProgressSwitch
+                label={t('project.semiAutoDetect')}
+                checked={semiAutoDetection_mode}
+                loading={false}
+                onChange={() => {
+                  onClickSwitchSemiAutoDetection();
+                  if (sequencing === true) {
+                    onClickSwitchSequencing();
+                  }
+                }}
+              />
+            </>
+          )}
         </>
       ) : (
         <div className={classes.chips}>

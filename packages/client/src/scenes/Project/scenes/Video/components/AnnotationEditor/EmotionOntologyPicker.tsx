@@ -11,6 +11,7 @@ interface Props {
   perf: boolean;
   position: number;
   emotion?: string;
+  emotionDetected: string;
   onEmotionChange(emotion: string): void;
 }
 
@@ -250,6 +251,7 @@ export default class EmotionOntologyPicker extends React.Component<
             emotion={this.props.emotion}
             onEmotionChange={onEmotionChange}
             position={position}
+            emotionDetected={this.props.emotionDetected}
           />
         </div>
       </div>
