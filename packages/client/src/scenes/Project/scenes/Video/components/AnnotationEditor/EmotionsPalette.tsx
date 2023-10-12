@@ -10,6 +10,7 @@ interface EmotionsPaletteProps {
   emotion?: string;
   emotionDetected: string;
   onEmotionChange(emotion: string | undefined): void;
+
 }
 
 interface Emoji {

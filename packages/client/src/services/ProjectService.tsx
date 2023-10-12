@@ -107,6 +107,7 @@ export default class Projects {
   }
 
   static share(projectId: string, data: ProjectShareData) {
+    console.log('log data ',data)
     const headers = {
       Accepts: "application/json",
       "Content-type": "application/json",
@@ -116,7 +117,9 @@ export default class Projects {
       headers: new Headers(headers),
       credentials: "include",
       body: JSON.stringify(data),
+     
     }).then((response) => {
+      console.log('afficher body: ', JSON.stringify(data))
       if (response.status === 200 || response.status === 400) {
         return response.json();
       } else if (response.status === 401) {

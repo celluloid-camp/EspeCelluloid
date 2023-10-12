@@ -127,7 +127,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <div className={classes.centerVerticalement}>
+        {/* <div className={classes.centerVerticalement}>
           <EmotionOntologyPicker
             position={position}
             emotion={emotion}
@@ -135,14 +135,26 @@ const AnnotationEditorComponent: React.FC<Props> = ({
             perf={performance_mode}
             emotionDetected={emotionDetected}
           />
-        </div>
+        </div> */}
         <>
-          <TransparentInput
+     
+          {/* <TransparentInput
             text={text}
             error={error}
             onChange={onTextChange}
             placeholder={t('annotation.contentPlaceholder')}
+          /> */}
+          <EmotionOntologyPicker
+            text={text}
+            error={error}
+            onTextChange={onTextChange}
+            position={position}
+            emotion={emotion}
+            onEmotionChange={onEmotionChange}
+            perf={performance_mode}
+            emotionDetected={emotionDetected}
           />
+        
         </>
         <div className={classes.timeline}>
           <TimingControl

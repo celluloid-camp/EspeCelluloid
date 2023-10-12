@@ -6,16 +6,24 @@ import getFirstConcepts, {
 import addAnnotation from '../../api/Annotation';
 import { UserRecord } from '@celluloid/types';
 import EmotionsPalette from './EmotionsPalette';
-
+import TransparentInput from '../TransparentInput';
+import { useTranslation } from 'react-i18next';
 interface Props {
   perf: boolean;
   position: number;
   emotion?: string;
   emotionDetected: string;
+  text:string;
+  error?: string;
+  onTextChange(text: string):void;
   onEmotionChange(emotion: string): void;
+
 }
 
 interface State {
+  text: string;
+  error: string;
+
   concept: string;
   concept1: string;
   concept2: string;
@@ -36,12 +44,16 @@ const ontologyStyles: React.CSSProperties = {
   maxWidth: '30px',
   fontFamily: 'sans-serif',
   fontSize: '20px',
-  color: '#CECECE',
+  // color: 'inherit',
   fontWeight: 'bold',
   width: '30px',
   display: 'inline',
   paddingLeft: '10px',
+  color:'#333',
+  backgroundColor: 'transparent',
 };
+
+
 
 let globalConcept = 'concept';
 let firstConcept = globalConcept;
@@ -104,6 +116,8 @@ export default class EmotionOntologyPicker extends React.Component<
     super(props);
 
     this.state = {
+      text:'',
+      error:'',
       concept: globalConcept,
       concept1: 'concept 2',
       concept2: 'concept 3',
@@ -125,6 +139,7 @@ export default class EmotionOntologyPicker extends React.Component<
     this.handleChange4 = this.handleChange4.bind(this);
     this.handleChange5 = this.handleChange5.bind(this);
     this.handleChange6 = this.handleChange6.bind(this);
+   
     // this.handleEmoji = this.handleEmoji.bind(this);
   }
 
@@ -141,6 +156,8 @@ export default class EmotionOntologyPicker extends React.Component<
     sixConcept = e.target.value;
     console.log(' button 1', globalConcept);
   }
+ 
+
   handleChange1(e: any) {
     this.setState({ concept1: e.target.value });
     const conc1 = getSubConcepts(e.target.value);
@@ -201,7 +218,8 @@ export default class EmotionOntologyPicker extends React.Component<
 
   render() {
     const { onEmotionChange, position } = this.props;
-
+    const { onTextChange, text } = this.props;
+    // const { t } = useTranslation();
     return (
       <div>
         <div style={ontologyStyles}>
@@ -246,14 +264,27 @@ export default class EmotionOntologyPicker extends React.Component<
           ) : (
             <></>
           )}
-
+           </div>
+        <div style={{ display: 'flex' }}>
+        <div style={{ width: '60%', marginRight: '10px', flex:1}}>
+          <TransparentInput
+            text={this.props.text}
+            error={this.props.error}
+            onChange={onTextChange}
+            placeholder={'put your comment'}
+           
+          />
+         </div>
+         <div  style={{ width: '40%', flex:1}}>
           <EmotionsPalette
             emotion={this.props.emotion}
             onEmotionChange={onEmotionChange}
             position={position}
             emotionDetected={this.props.emotionDetected}
           />
+          </div>
         </div>
+       
       </div>
     );
   }
