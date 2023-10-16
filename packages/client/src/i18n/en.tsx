@@ -139,6 +139,7 @@ export default {
     performance: 'Performance',
     autoDetect: 'Automatic detection',
     semiAutoDetect: 'Emoji Recommendation',
+    semiAutoDetectOnlyMe: 'Emoji Recommendation (Only Me)',
     analyze: 'Analyze',
     sequencing: 'Sequencing',
     shared: 'Share',

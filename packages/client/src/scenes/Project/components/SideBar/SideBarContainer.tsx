@@ -25,6 +25,7 @@ import {
   playerSwitchSequencing,
   playerSwitchAutoDetection,
   playerSwitchSemiAutoDetection,
+  playerSwitchSemiAutoDetectionMe,
 } from '../../../../actions/PlayerActions';
 
 interface Props {
@@ -41,6 +42,7 @@ interface Props {
   performance_mode: boolean;
   autoDetection_mode: boolean;
   semiAutoDetection_mode: boolean;
+  semiAutoDetectionMe_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   ownAnnotations: boolean;
@@ -60,6 +62,7 @@ interface Props {
   // Auto Detection
   onClickSwitchAutoDetection(): void;
   onClickSwitchSemiAutoDetection(): void;
+  onClickSwitchSemiAutoDetectionMe(): void;
 
   onClickSwitchOwnAnnotations(): void;
   onChangeAnnotationShowingMode(
@@ -80,6 +83,7 @@ const mapStateToProps = (state: AppState) => ({
   performance_mode: state.project.player.performance_mode,
   autoDetection_mode: state.project.player.autoDetection_mode,
   semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
+  semiAutoDetectionMe_mode: state.project.player.semiAutoDetectionMe_mode,
   sequencing: state.project.player.sequencing,
   annotations: state.project.video.annotations,
   ownAnnotations: state.project.details.ownAnnotations,
@@ -106,6 +110,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onClickSwitchSemiAutoDetection: () =>
     dispatch(playerSwitchSemiAutoDetection()) &&
     dispatch(triggerCancelAnnotation()),
+
+  onClickSwitchSemiAutoDetectionMe: () =>
+    dispatch(playerSwitchSemiAutoDetectionMe()) &&
+    dispatch(triggerCancelAnnotation()),
+
   onClickSwitchOwnAnnotations: () =>
     dispatch(switchOwnAnnotations()) && dispatch(triggerCancelAnnotation()),
   onChangeAnnotationShowingMode: (
