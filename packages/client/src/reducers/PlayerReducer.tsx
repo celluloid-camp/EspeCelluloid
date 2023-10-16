@@ -6,6 +6,7 @@ const initialState = {
   performance_mode: false,
   autoDetection_mode: false,
   semiAutoDetection_mode: false,
+  semiAutoDetectionMe_mode: false,
   seeking: false,
   sequencing: false,
 } as PlayerState;
@@ -38,22 +39,48 @@ export default (
       };
 
     case ActionType.PLAYER_SWITCH_AUTO_DETECTION:
-      return {
-        ...state,
-        semiAutoDetection_mode: !state.autoDetection_mode
-          ? false
-          : state.semiAutoDetection_mode,
-        autoDetection_mode: !state.autoDetection_mode,
-      };
+      if (state.autoDetection_mode)
+        return {
+          ...state,
+          semiAutoDetection_mode: false,
+          semiAutoDetectionMe_mode: false,
+          autoDetection_mode: false,
+        };
+      else
+        return {
+          ...state,
+          autoDetection_mode: true,
+        };
 
     case ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION:
-      return {
-        ...state,
-        autoDetection_mode: !state.semiAutoDetection_mode
-          ? false
-          : state.autoDetection_mode,
-        semiAutoDetection_mode: !state.semiAutoDetection_mode,
-      };
+      if (state.semiAutoDetection_mode)
+        return {
+          ...state,
+          semiAutoDetectionMe_mode: false,
+          semiAutoDetection_mode: false,
+        };
+      else
+        return {
+          ...state,
+          autoDetection_mode: true,
+          semiAutoDetectionMe_mode: false,
+          semiAutoDetection_mode: true,
+        };
+
+    case ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION_ME:
+      if (state.semiAutoDetectionMe_mode)
+        return {
+          ...state,
+          semiAutoDetection_mode: false,
+          semiAutoDetectionMe_mode: false,
+        };
+      else
+        return {
+          ...state,
+          autoDetection_mode: true,
+          semiAutoDetection_mode: false,
+          semiAutoDetectionMe_mode: true,
+        };
 
     default:
       return state;

@@ -5,18 +5,13 @@ import {
   ProjectGraphRecord,
   SigninErrors,
   TagData,
-  UserRecord
+  UserRecord,
 } from '@celluloid/types';
 import * as SigninDialog from 'components/Signin';
 import { RouterState } from 'connected-react-router';
 import { PeertubeVideoInfo } from './YoutubeTypes';
 
-
-export type AnnotationShowingMode
-  = 'All'
-  | 'Nothing'
-  | 'Own'
-  ;
+export type AnnotationShowingMode = 'All' | 'Nothing' | 'Own';
 export interface SigninState {
   loading: boolean;
   dialog: SigninDialog.SigninState;
@@ -63,6 +58,7 @@ export interface PlayerState {
   performance_mode: boolean;
   autoDetection_mode: boolean;
   semiAutoDetection_mode: boolean;
+  semiAutoDetectionMe_mode: boolean;
   sequencing: boolean;
 }
 
@@ -76,19 +72,19 @@ export enum SharingStatus {
   OPEN,
   ERROR,
   LOADING,
-  CLOSED
+  CLOSED,
 }
 
 export enum ComponentStatus {
   LOADING,
   ERROR,
-  READY
+  READY,
 }
 
 export interface HomeState {
   errors: {
-    projects?: string,
-    video?: string,
+    projects?: string;
+    video?: string;
     createProject?: string;
   };
   projects: ProjectGraphRecord[];

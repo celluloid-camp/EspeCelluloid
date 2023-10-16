@@ -84,6 +84,7 @@ interface Props extends WithStyles<typeof styles> {
   performance_mode: boolean;
   autoDetection_mode: boolean;
   semiAutoDetection_mode: boolean;
+  semiAutoDetectionMe_mode: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   ownAnnotations: boolean;
@@ -101,6 +102,7 @@ interface Props extends WithStyles<typeof styles> {
   onClickSwitchSequencing(): void;
   onClickSwitchAutoDetection(): void; //Auto Detect
   onClickSwitchSemiAutoDetection(): void;
+  onClickSwitchSemiAutoDetectionMe(): void;
   onChangeAnnotationShowingMode(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void;
@@ -122,6 +124,7 @@ const SideBarComponenent: React.FC<Props> = ({
   performance_mode,
   autoDetection_mode,
   semiAutoDetection_mode,
+  semiAutoDetectionMe_mode,
   sequencing,
   annotations,
   ownAnnotations,
@@ -133,6 +136,7 @@ const SideBarComponenent: React.FC<Props> = ({
   onClickSwitchPlayerMode,
   onClickSwitchAutoDetection,
   onClickSwitchSemiAutoDetection,
+  onClickSwitchSemiAutoDetectionMe,
   onChangeAnnotationShowingMode,
   onClickSwitchOwnAnnotations,
 
@@ -249,6 +253,18 @@ const SideBarComponenent: React.FC<Props> = ({
                 loading={false}
                 onChange={() => {
                   onClickSwitchSemiAutoDetection();
+                  if (sequencing === true) {
+                    onClickSwitchSequencing();
+                  }
+                }}
+              />
+
+              <LabeledProgressSwitch
+                label={t('project.semiAutoDetectOnlyMe')}
+                checked={semiAutoDetectionMe_mode}
+                loading={false}
+                onChange={() => {
+                  onClickSwitchSemiAutoDetectionMe();
                   if (sequencing === true) {
                     onClickSwitchSequencing();
                   }

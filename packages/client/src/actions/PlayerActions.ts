@@ -17,3 +17,6 @@ export const playerSwitchAutoDetection = () =>
 
 export const playerSwitchSemiAutoDetection = () =>
   createEmptyAction(ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION);
+
+export const playerSwitchSemiAutoDetectionMe = () =>
+  createEmptyAction(ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION_ME);
