@@ -110,6 +110,7 @@ export function joinProject(
   projectId: string,
   transaction?: Knex.Transaction
 ) {
+ 
   return withTransaction(database("UserToProject"), transaction).insert({
     userId,
     projectId,

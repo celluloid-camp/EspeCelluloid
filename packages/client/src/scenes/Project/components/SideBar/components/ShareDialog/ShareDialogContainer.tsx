@@ -57,7 +57,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 function pass() {
-  return passwordGenerator(6, false, /[\w\d]/);
+  return passwordGenerator(2, false, /[\w\d]/);
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -80,7 +80,8 @@ const SharedDialogContainer: React.FC<Props> = ({
   classes,
 }) => {
   const { t } = useTranslation();
-  const [sharePassword] = useState(`${pass()}-${pass()}`);
+  // const [sharePassword] = useState(`${pass()}-${pass()}`);
+  const [sharePassword] = useState(`${pass()}`);
 
   return (
     <Dialog

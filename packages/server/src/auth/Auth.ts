@@ -55,11 +55,12 @@ const signStudentUp: VerifyFunctionWithRequest = (
   done
 ) => {
   const { shareCode } = req.body;
-
   const parts = shareCode.split("-");
-  const sharePassword = parts.slice(-2).join("-");
-  const shareName = parts.slice(0, -1).slice(0, -1).join("-");
-
+   console.log(' lol: ', parts)
+  // const sharePassword = parts.slice(-2).join("-");
+  const sharePassword = parts.slice(1).join("-");
+  // const shareName = parts.slice(0, -1).slice(0, -1).join("-");
+  const shareName = parts.slice(0, -1).join("-");
   return ProjectStore.selectOneByShareName(shareName)
     .then((result) => {
       if (result) {

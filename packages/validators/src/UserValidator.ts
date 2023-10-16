@@ -123,6 +123,6 @@ export function validateStudentSignup(payload: StudentSignupData) {
     result.success = false;
     result.errors.password = 'MissingPassword';
   }
-
+  console.log('log result in validation func, ',result)
   return result;
 }

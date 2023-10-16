@@ -66,6 +66,7 @@ export default class {
       credentials: "include",
       body: JSON.stringify(data),
     }).then((response) => {
+      console.log('this is my data ', data)
       if (response.status === 201) {
         return response.json();
       } else if (response.status === 400) {

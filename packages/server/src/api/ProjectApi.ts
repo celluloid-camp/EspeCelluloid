@@ -137,7 +137,7 @@ router.get("/:projectId/members", (req, res) => {
 
 router.put("/:projectId/share", isTeacher, isProjectOwner, (req, res) => {
   const projectId = req.params.projectId;
-  console.log('in share api: ', req.body)
+  console.log('in share apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: ', req.body)
   ProjectStore.shareById(projectId, req.body)
     .then(() => ProjectStore.selectOne(projectId, req.user as UserRecord))
     .then((project) => res.status(200).json(project))

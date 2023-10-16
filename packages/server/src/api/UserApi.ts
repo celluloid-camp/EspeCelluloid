@@ -26,6 +26,7 @@ const router = Router();
 
 router.post("/student-signup", (req, res, next) => {
   const payload = req.body;
+  // console.log(' backend signup ', payload)
   const result = validateStudentSignup(payload);
 
 

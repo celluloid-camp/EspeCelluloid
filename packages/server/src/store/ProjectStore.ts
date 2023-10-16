@@ -122,6 +122,7 @@ export function selectAll(user: UserRecord):Promise<ProjectRecord[]> {
 }
 
 export function selectOneByShareName(shareName: string) {
+  console.log('dans projectstore: ', shareName)
   return database.first("*").from("Project").where("shareName", shareName);
 }
 
