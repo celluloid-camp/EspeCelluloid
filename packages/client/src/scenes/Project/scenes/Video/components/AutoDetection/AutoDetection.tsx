@@ -16,6 +16,8 @@ import styles from './styles';
 import { AnnotationData } from '@celluloid/types';
 import AnnotationService from 'services/AnnotationService';
 
+const modelPath = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+
 interface Props extends WithStyles<typeof styles> {
   positionFloored: number;
   // position: number;
@@ -122,9 +124,6 @@ export const AutoDetection = ({
   useEffect(() => {
     const loadModels = async () => {
       setIsLoading(true);
-
-      const modelPath =
-        'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
 
       try {
         await Promise.all([
