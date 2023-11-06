@@ -142,6 +142,7 @@ const ProjectThumbnail: React.FC<Props> = ({
 
   const onClick = () => {
     // navigate(`/projects/${project.id}`);
+    console.log('test ........................................')
     window.location.assign(`/projects/${project.id}`)
   };
 

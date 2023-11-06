@@ -10,6 +10,7 @@ import TransparentInput from '../TransparentInput';
 import { useTranslation } from 'react-i18next';
 interface Props {
   perf: boolean;
+  sequencing:boolean;
   position: number;
   emotion?: string;
   emotionDetected: string;
@@ -223,7 +224,7 @@ export default class EmotionOntologyPicker extends React.Component<
     return (
       <div>
         <div style={ontologyStyles}>
-          {!this.props.perf ? (
+          {!this.props.perf && this.props.sequencing ?(
             <>
               <select value={this.state.concept} onChange={this.handleChange}>
                 {options.map((option) => (

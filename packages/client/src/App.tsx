@@ -8,6 +8,7 @@ import React from "react";
 import Home from "scenes/Home";
 import Project from "scenes/Project";
 import ShareGuide from "scenes/ShareGuide";
+import ProjectStatics from "scenes/ProjectStatics";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import ResetScroll from "components/ResetScroll";
@@ -88,6 +89,7 @@ const Content = () => {
                       element={<TermsAndConditions />}
                     />
                     <Route path="/projects/:projectId" element={<Project />} />
+                    <Route path="/projectstat/:projectId" element={<ProjectStatics/>} />
                     <Route path="/shares/:projectId" element={<ShareGuide />} />
                   </Routes>
                 </BrowserRouter>

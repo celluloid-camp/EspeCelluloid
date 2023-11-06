@@ -19,6 +19,7 @@ interface Props {
   projectId: string;
   annotation?: AnnotationRecord;
   performance_mode: boolean;
+  sequencing:boolean;
   emotionDetected: string;
   video: {
     position: number;
@@ -46,6 +47,7 @@ function init({
   annotation,
   video,
   performance_mode,
+  sequencing,
   semiAutoDetect,
 }: Props): State {
   if (annotation) {
@@ -77,6 +79,7 @@ const mapStateToProps = (state: AppState) => ({
   error: state.project.video.annotationError,
   annotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
+  sequencing: state.project.player.sequencing,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -192,6 +195,7 @@ export default connect(
           {...annotation}
           user={this.props.user}
           performance_mode={this.props.performance_mode}
+          sequencing={this.props.sequencing}
           onCheckPauseChange={onCheckPauseChange}
           onTimingChange={onTimingChange}
           onClickSave={onClickSave}

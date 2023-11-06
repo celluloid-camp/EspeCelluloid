@@ -11,6 +11,7 @@ import {
   ListItemText,
   ListSubheader,
   Theme,
+  Button,
   WithStyles,
   withStyles,
   Typography,
@@ -109,6 +110,7 @@ interface Props extends WithStyles<typeof styles> {
   onClickSwitchOwnAnnotations(): void;
 }
 
+
 const SideBarComponenent: React.FC<Props> = ({
   user,
   project,
@@ -144,6 +146,11 @@ const SideBarComponenent: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation();
   console.log(' dans sidebar les annotations:', annotations[0]);
+  const onClickStatic = () => {
+    // navigate(`/projects/${project.id}`);
+    console.log('test ........................................')
+    window.location.assign(`/projectstat/${project.id}`)
+  };
   return (
     <>
       <div className="Component-wrapper-504">
@@ -210,6 +217,19 @@ const SideBarComponenent: React.FC<Props> = ({
               }}
             />
           )} */}
+               {user && (
+            <LabeledProgressSwitch
+              label={'Ontology'}
+              checked={sequencing}
+              loading={false}
+              onChange={() => {
+                onClickSwitchSequencing();
+                // if (performance_mode === true) {
+                //   onClickSwitchPlayerMode();
+                // }
+              }}
+            />
+          )}
           <LabeledProgressSwitch
             label={t('project.analyze')}
             checked={!performance_mode}
@@ -325,6 +345,23 @@ const SideBarComponenent: React.FC<Props> = ({
           project={project}
           buttonName={t('project.exportButton')}
         />
+        {/* <div  >
+        <button color="primary" type="button">Statistiques</button>
+      </div> */}
+      <Button
+      variant="contained"
+      color="primary"
+      onClick={() => onClickStatic()}
+      >
+      Statistiques
+       </Button>
+      </div>
+      <div className={classes.chips}>
+        {/* <Statics
+          annotations={annotations}
+          project={project}
+          buttonName={'Statics'}
+        /> */}
       </div>
       {/*{((user && !isOwner(project, user)) && (user && !isMember(project, user))
       && (user && !isAdmin(user)) && project.shared) &&

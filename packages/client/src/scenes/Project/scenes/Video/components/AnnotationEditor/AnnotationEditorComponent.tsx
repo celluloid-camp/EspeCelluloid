@@ -44,6 +44,7 @@ interface Props extends WithStyles<typeof styles> {
   error?: string;
   ontology?: string[];
   performance_mode: boolean;
+  sequencing:boolean;
   emotionDetected: string;
   onTextChange(text: string): void;
   onEmotionChange(emotion: string): void;
@@ -104,6 +105,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   error,
   projectId,
   performance_mode,
+  sequencing,
   onCheckPauseChange,
   onTimingChange,
   onTextChange,
@@ -152,6 +154,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
             emotion={emotion}
             onEmotionChange={onEmotionChange}
             perf={performance_mode}
+            sequencing={sequencing}
             emotionDetected={emotionDetected}
           />
         
