@@ -1,12 +1,74 @@
 *{
+    margin: 0;
+    padding: 0;
     box-sizing:border-box;
+    scroll-behavior: smooth;
 }
-.container{
+.app{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
+.container{
+
+
+  width: calc(50% - 20px); /* Adjust to your desired width and spacing */
+
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px; /* Add margin between chart boxes */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+
+  /* border: 2px solid #ccc;
+  border-radius: 8px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
+  
+}
+.pieContainer{
+    width: calc(33% - 20px); /* Adjust to your desired width and spacing */
+
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px; /* Add margin between chart boxes */
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  
+}
+.container h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color:#6E6E6E;
+  }
+.pieContainer h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color:#6E6E6E;
+  }
 .card{
-    padding:1%;
+    /* padding:1%; */
+    background-color: #f7f7f7;
+
+  /* color: #fff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 4px;
     flex: 1 0 50%;
-    height: 50vh;
+    height: 50vh; */
+    /* width:20vh;  */
 }
+.spacer {
+    width: 100%; /* Set the width to 100% to occupy the entire line */
+    height: 20px; /* Adjust the height to control the space between lines */
+  }
