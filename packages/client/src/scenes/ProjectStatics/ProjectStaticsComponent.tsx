@@ -1,4 +1,5 @@
-import { ProjectGraphRecord } from '@celluloid/types';
+import { ProjectGraphRecord, AnnotationRecord } from '@celluloid/types';
+import {calcEmotion, calcAnnotationType,calcJugement} from './calculate'
 import {
   Grid,
   MuiThemeProvider,
@@ -15,18 +16,26 @@ import SideBar from '../Project/components/SideBar';
 import { styles } from '../Project/ProjectStyles';
 import 'chart.js/auto';
 import {Chart, ArcElement} from 'chart.js'
-
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { EmptyAction } from 'types/ActionTypes';
+import { AppState } from 'types/StateTypes';
 import { Bar , Doughnut, Pie} from 'react-chartjs-2';
+import {
+  listAnnotationsThunk,
+  triggerBlurAnnotation,
+} from 'actions/AnnotationsActions';
 import './style.css'
+import Project from 'scenes/Project';
+import { project } from 'ramda';
 Chart.register(ArcElement);
 
 
 interface Props extends WithStyles<typeof styles> {
   project?: ProjectGraphRecord;
+  annotations?: AnnotationRecord[];
 
 }
-
-
 const labels=['Happy', 'Laugh', 'Smile', 'Sad', 'Surprise', 'Angry', 'Disgusted', 'Fearful', 'Empathy', 'ItsStrange'] ;
 const data= {
   labels: labels,
@@ -47,11 +56,11 @@ const Doughnutdata= {
   }],
 }
 const Piedata= {
-  labels: ['Automatique', 'SA', 'SA moi uniquement','Commentaire','Emojis'],
+  labels: ['Automatique', 'SA','Commentaire','Emojis'],
   datasets: [{
      label: "Modes",
-     data: [80, 56,43,5,17],
-     backgroundColor:['#772F67','#9C2162','#D03454','#FF6F50','#FFCA3E']
+     data: [80, 56,5,17],
+     backgroundColor:['#772F67','#9C2162','#D03454','#FF6F50']
   }],
 }
 const Ontologydata= {
@@ -80,9 +89,7 @@ const Doubledata= {
     barPercentage: 0.5,
     backgroundColor:['#0B9A8D']
 
- },
- 
-  
+ }, 
 ],
 }
 const options= { 
@@ -90,12 +97,15 @@ const options= {
   maintainAspectRatio: false
 }
 
-
-export default withStyles(styles)(({
+export default 
+  withStyles(styles)(({
   project,
   classes,
-}: Props) => (
- 
+  annotations
+
+}: Props) => {
+  console.log('misu ', annotations)
+     return(
     <div className={classes.root}>
         {project &&
         <div>
@@ -104,11 +114,12 @@ export default withStyles(styles)(({
       </Typography>
       </div>
         }
+       
       <div className="app">
 
             <div className="container">
             <h2>Fréquence de chaque émotion</h2>
-              <Bar data={data} className="card" /> 
+              <Bar data={calcEmotion(annotations)} className="card" /> 
             </div>
             <div className="container">
             <h2>Fréquence de chaque émotion en mode déclaratif et automatique</h2>
@@ -118,7 +129,7 @@ export default withStyles(styles)(({
          
             <div className="pieContainer">
             <h2>Résultats des jugements</h2>
-              <Doughnut data={Doughnutdata} className="card"/> 
+              <Doughnut data={calcJugement(annotations)} className="card"/> 
             </div>
             <div className="pieContainer">
             <h2>Résultats des annotations sémantiques</h2>
@@ -126,9 +137,10 @@ export default withStyles(styles)(({
             </div>
             <div className="pieContainer">
             <h2>Les types des annotations</h2>
-              <Pie data={Piedata} className="card" /> 
+              <Pie data={calcAnnotationType(annotations)} className="card" /> 
             </div>
           </div>
-
+          <div className="spacer"></div> 
           </div>
-  ));
+          
+      )});

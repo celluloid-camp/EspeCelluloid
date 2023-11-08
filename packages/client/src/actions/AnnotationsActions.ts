@@ -63,6 +63,15 @@ export const listAnnotationsThunk =
       .catch((error) => dispatch(failListAnnotations(error)));
   };
 
+  export const listAnnotationsThunkGeneral =
+  (projectId: string) =>
+  (dispatch: Dispatch): AsyncAction<AnnotationRecord[], string> => {
+    dispatch(triggerListAnnotationsLoading());
+    return AnnotationService.list(projectId)
+      .then((annotations) => dispatch(succeedListAnnotations(annotations)))
+      .catch((error) => dispatch(failListAnnotations(error)));
+  };
+
 export const createAnnotationThunk =
   (projectId: string, data: AnnotationData) =>
   (dispatch: Dispatch): AsyncAction<AnnotationRecord, string> => {
