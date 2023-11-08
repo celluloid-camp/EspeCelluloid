@@ -1,6 +1,6 @@
 
-import { ProjectGraphRecord, AnnotationRecord } from '@celluloid/types';
-import { ifElse } from 'ramda';
+import { AnnotationRecord } from '@celluloid/types';
+
 
 
 
@@ -34,16 +34,16 @@ export function calcEmotion( annotations?:AnnotationRecord [] ){
       } else if(annotation.emotion==='angry'){
       angry++
       }
-      else if(annotation.emotion==='disgusted'){
+      else if(annotation.emotion==='Disgust'){
         disgusted++
         }
       else if(annotation.emotion==='fearful'){
           fearful++
           }
-      else if(annotation.emotion==='empathy'){
+      else if(annotation.emotion==='Empathy'){
             empathy++
             }
-       else if(annotation.emotion==='itsstrange'){
+       else if(annotation.emotion==='ItsStrange'){
               itsStrange++
               }
       }
@@ -72,7 +72,7 @@ export function calcAnnotationType( annotations?:AnnotationRecord [] ){
   let emoji=0;
 
   annotations?.map( (annotation: AnnotationRecord) => {
-    if (annotation.emotion){
+
       if(annotation.text){
         comment++
      }else if(annotation.autoDetect){
@@ -82,10 +82,6 @@ export function calcAnnotationType( annotations?:AnnotationRecord [] ){
       }else if(annotation.emotion!==null && !annotation.autoDetect && !annotation.semiAutoDetect){
         emoji++
        }
-   
-      
-    }
-  
   })
 
 
