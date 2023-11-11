@@ -5,7 +5,7 @@ import { AnnotationRecord } from '@celluloid/types';
 
 
 export function calcEmotion( annotations?:AnnotationRecord [] ){
-    const labels=['Happy', 'Laugh', 'Smile', 'Sad', 'Surprise', 'Angry', 'Disgusted', 'Fearful', 'Empathy', 'ItsStrange'] ;
+    const labels=['Happy', 'Laugh', 'Smile', 'Sad', 'Surprise', 'Angry', 'Disgusted', 'Fear', 'Empathy', 'ItsStrange'] ;
     let happy=0;
     let laugh=0;
     let smile=0;
@@ -24,7 +24,7 @@ export function calcEmotion( annotations?:AnnotationRecord [] ){
         }else if(annotation.emotion==='Laugh'){
            laugh++
         }
-        else if(annotation.emotion==='smile'){
+        else if(annotation.emotion==='Smile'){
           smile++
        }
        else if(annotation.emotion==='sad'){
@@ -62,6 +62,127 @@ export function calcEmotion( annotations?:AnnotationRecord [] ){
       }],
     }
     return data
+}
+export function calcEmotionByMode( annotations?:AnnotationRecord [] ){
+  const labels=['Happy', 'Laugh', 'Smile', 'Sad', 'Surprise', 'Angry', 'Disgusted', 'Fear', 'Empathy', 'ItsStrange'] ;
+  let happy=0;
+  let laugh=0;
+  let smile=0;
+  let sad=0;
+  let surprise=0;
+  let angry=0;
+  let disgusted=0;
+  let fearful=0;
+  let empathy=0;
+  let itsStrange=0;
+  let happyAut=0;
+  let laughAut=0;
+  let smileAut=0;
+  let sadAut=0;
+  let surpriseAut=0;
+  let angryAut=0;
+  let disgustedAut=0;
+  let fearfulAut=0;
+  let empathyAut=0;
+  let itsStrangeAut=0;
+  annotations?.map( (annotation: AnnotationRecord) => {
+    if (annotation.emotion){
+     
+      if(annotation.emotion==='happy'){
+        if(annotation.autoDetect|| annotation.semiAutoDetect){
+          happyAut++
+        }else{
+          happy++
+        }
+        
+      }else if(annotation.emotion==='Laugh'){
+        if(annotation.autoDetect|| annotation.semiAutoDetect){
+          laughAut++
+        }else{
+          laugh++
+        }
+      }
+      else if(annotation.emotion==='Smile'){
+        if(annotation.autoDetect|| annotation.semiAutoDetect){
+          smileAut++
+        }else{
+          smile++
+        }
+     }
+     else if(annotation.emotion==='sad'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        sadAut++
+      }else{
+        sad++
+      }
+     } else if(annotation.emotion==='surprised'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        surpriseAut++
+      }else{
+        surprise++
+      }
+    } else if(annotation.emotion==='angry'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        angryAut++
+      }else{
+        angry++
+      }
+    }
+    else if(annotation.emotion==='Disgust'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        disgustedAut++
+      }else{
+        disgusted++
+      }
+      }
+    else if(annotation.emotion==='fearful'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        fearfulAut++
+      }else{
+        fearful++
+      }
+        }
+    else if(annotation.emotion==='Empathy'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        empathyAut++
+      }else{
+        empathy++
+      }
+          }
+     else if(annotation.emotion==='ItsStrange'){
+      if(annotation.autoDetect|| annotation.semiAutoDetect){
+        itsStrangeAut++
+      }else{
+        itsStrange++
+      }
+            }
+    }
+  
+  })
+
+
+  let data= {
+    labels: labels,
+    datasets: [
+    {
+       label: "automatique",
+       data: [happyAut,laughAut, smileAut, sadAut,surpriseAut, angryAut,disgustedAut,fearfulAut, empathyAut, itsStrangeAut],
+       maxBarThickness: 30,
+       barPercentage: 0.5,
+       backgroundColor:['#D5255E']
+   
+    },
+    {
+      label: "déclaratif",
+      data: [happy,laugh, smile, sad,surprise, angry,disgusted,fearful, empathy, itsStrange],
+      maxBarThickness: 30,
+      barPercentage: 0.5,
+      backgroundColor:['#0B9A8D']
+  
+   }, 
+  ],
+  }
+  return data
 }
 
 export function calcAnnotationType( annotations?:AnnotationRecord [] ){

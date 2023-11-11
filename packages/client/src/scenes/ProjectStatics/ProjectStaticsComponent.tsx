@@ -1,5 +1,5 @@
 import { ProjectGraphRecord, AnnotationRecord } from '@celluloid/types';
-import {calcEmotion, calcAnnotationType,calcJugement} from './calculate'
+import {calcEmotion, calcAnnotationType,calcJugement, calcEmotionByMode} from './calculate'
 import {
   Grid,
   MuiThemeProvider,
@@ -8,18 +8,9 @@ import {
   Typography,
   Divider
 } from '@material-ui/core';
-import ProjectSummary from 'components/ProjectSummary';
-import * as React from 'react';
-import { Dark } from 'utils/ThemeUtils';
-
-import SideBar from '../Project/components/SideBar';
 import { styles } from '../Project/ProjectStyles';
 import 'chart.js/auto';
 import {Chart, ArcElement} from 'chart.js'
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { EmptyAction } from 'types/ActionTypes';
-import { AppState } from 'types/StateTypes';
 import { Bar , Doughnut, Pie} from 'react-chartjs-2';
 import {
   listAnnotationsThunk,
@@ -123,7 +114,7 @@ export default
             </div>
             <div className="container">
             <h2>Fréquence de chaque émotion en mode déclaratif et automatique</h2>
-              <Bar data={Doubledata} className="card" /> 
+              <Bar data={calcEmotionByMode(annotations)} className="card" /> 
             </div>
             <div className="spacer"></div> 
          
