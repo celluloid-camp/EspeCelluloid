@@ -1,5 +1,7 @@
 import { ProjectGraphRecord, AnnotationRecord } from '@celluloid/types';
-import {calcEmotion, calcAnnotationType,calcJugement, calcEmotionByMode} from './calculate'
+import { ChartData, ChartDataset } from 'chart.js/auto';
+import React, { useState, useEffect } from 'react';
+import {calcEmotion, calcAnnotationType,calcJugement, calcEmotionByMode,calcOntologyType} from './calculate'
 import {
   Grid,
   MuiThemeProvider,
@@ -12,13 +14,8 @@ import { styles } from '../Project/ProjectStyles';
 import 'chart.js/auto';
 import {Chart, ArcElement} from 'chart.js'
 import { Bar , Doughnut, Pie} from 'react-chartjs-2';
-import {
-  listAnnotationsThunk,
-  triggerBlurAnnotation,
-} from 'actions/AnnotationsActions';
 import './style.css'
-import Project from 'scenes/Project';
-import { project } from 'ramda';
+
 Chart.register(ArcElement);
 
 
@@ -88,6 +85,21 @@ const options= {
   maintainAspectRatio: false
 }
 
+
+  // const [chartData, setChartData] = useState<ChartData<'doughnut', number[], MyDataset>>();
+
+
+  // useEffect(() => {
+  //   calcOntologyType().then(dataset => {
+  //     // Assuming dataset has the structure you need for Chart.js
+  //     setChartData({
+  //       datasets: dataset
+  //     });
+  //   }).catch((error :string)=> {
+  //     // Handle errors
+  //     console.error('Error fetching data:', error);
+  //   });
+  // }, []);
 export default 
   withStyles(styles)(({
   project,
@@ -95,7 +107,7 @@ export default
   annotations
 
 }: Props) => {
-  console.log('misu ', annotations)
+
      return(
     <div className={classes.root}>
         {project &&
@@ -124,7 +136,7 @@ export default
             </div>
             <div className="pieContainer">
             <h2>Résultats des annotations sémantiques</h2>
-              <Doughnut data={Ontologydata} className="card"/> 
+              <Doughnut data= {Ontologydata} className="card"/> 
             </div>
             <div className="pieContainer">
             <h2>Les types des annotations</h2>
@@ -132,6 +144,6 @@ export default
             </div>
           </div>
           <div className="spacer"></div> 
-          </div>
+      </div>
           
       )});

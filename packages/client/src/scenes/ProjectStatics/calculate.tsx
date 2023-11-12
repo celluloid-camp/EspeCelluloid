@@ -1,7 +1,7 @@
 
 import { AnnotationRecord } from '@celluloid/types';
-
-
+import { getConcept } from '../Project/scenes/Video/api/Annotation';
+import AnnotationService from 'services/AnnotationService';
 
 
 export function calcEmotion( annotations?:AnnotationRecord [] ){
@@ -244,4 +244,46 @@ export function calcJugement( annotations?:AnnotationRecord [] ){
     }],
   }
   return data
+}
+
+export async function calcOntologyType( projectid?: string ){
+
+  let staging=0;
+  let acting=0;
+  let dramaturgy=0;
+  const data= {
+    labels: ['Staging', 'Dramaturgy', 'Acting'],
+    datasets: [{
+       label: "Ontologie",
+       data: [staging, dramaturgy,acting],
+        backgroundColor:['#034D44','#077368','#62BEB6']
+    }],
+  }
+  if(projectid){
+    let annotations: AnnotationRecord[] = await AnnotationService.list(projectid);
+    await Promise.all(
+      annotations.map(async (item: AnnotationRecord) => {
+        // console.log('item ', item.user.username);
+        let res = await getConcept(item.id);
+        //  console.log('list des concept',res)
+        let ontology = res[0];
+         console.log('print ontology ',ontology)
+        if (ontology === undefined || ontology === '') {
+          ontology = '';
+          //  console.log('dkhlna khawti')
+        } else {
+          let superClasses = res[1];
+          console.log(' item ',superClasses)
+  
+        }
+        return data
+      
+      })
+    ).then(data=> {return data}).catch(error => {
+        // Handle any errors that occurred during fetching the data
+        console.error('Error fetching data:', error);
+    });
+  }else{
+    return data
+  }
 }
