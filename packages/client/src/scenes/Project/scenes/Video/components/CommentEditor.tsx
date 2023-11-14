@@ -133,7 +133,7 @@ const CommentEditor: React.FC<Props> = ({
 
   return (
     <div className={classes.root}>
-      <UserAvatar user={user} small={true} />
+      {/* <UserAvatar user={user} small={true} />
       <div className={classes.content}>
         <TransparentInput
           unpadded={true}
@@ -169,7 +169,7 @@ const CommentEditor: React.FC<Props> = ({
             <AddIcon fontSize="small" />
           </IconButton>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

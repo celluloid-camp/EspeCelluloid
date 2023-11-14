@@ -44,7 +44,7 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '😮',
-    value: 'Surprise',
+    value: 'surprised',
   },
   {
     label: '😄',
@@ -56,11 +56,11 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '😠',
-    value: 'Angry',
+    value: 'angry',
   },
   {
     label: '☹️',
-    value: 'Sad',
+    value: 'sad',
   },
   {
     label: '🥰',
@@ -72,11 +72,11 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '😨',
-    value: 'Fear',
+    value: 'fearful',
   },
   {
     label: '🤮',
-    value: 'Disgust',
+    value: 'disgusted',
   },
   {
     label: '🤔',

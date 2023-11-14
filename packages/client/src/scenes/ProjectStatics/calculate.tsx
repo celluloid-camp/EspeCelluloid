@@ -34,7 +34,7 @@ export function calcEmotion( annotations?:AnnotationRecord [] ){
       } else if(annotation.emotion==='angry'){
       angry++
       }
-      else if(annotation.emotion==='Disgust'){
+      else if(annotation.emotion==='disgusted'){
         disgusted++
         }
       else if(annotation.emotion==='fearful'){
@@ -128,7 +128,7 @@ export function calcEmotionByMode( annotations?:AnnotationRecord [] ){
         angry++
       }
     }
-    else if(annotation.emotion==='Disgust'){
+    else if(annotation.emotion==='disgusted'){
       if(annotation.autoDetect|| annotation.semiAutoDetect){
         disgustedAut++
       }else{
