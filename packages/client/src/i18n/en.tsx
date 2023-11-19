@@ -8,6 +8,7 @@ export default {
   },
 
   home: {
+  
     title: 'Learning together with a video',
     description:
       'Share a PeerTube video with your students,' +
@@ -26,6 +27,7 @@ export default {
   },
 
   about: {
+    logo:'E-spect@tor',
     title: 'About',
     intro: {
       prefix: '',

@@ -204,6 +204,17 @@ export default connect(
           this.props.requestSeek(value);
         }
       }
+      // else{
+      //   if(this.state.position!==0 && pause && player){
+      //     this.setState({
+      //       playing: false,
+      //     });
+      //     player.seekTo(value, 'seconds');
+      //     // this.props.requestSeek(value);
+
+      //     this.props.requestSeek(value);
+      //   }
+      // }
       // else {
       //   if (player) {
       //     this.setState({

@@ -33,9 +33,9 @@ export const About: React.FC = () => {
           {t("about.title")}
         </Typography>
         <Typography variant="subtitle1" gutterBottom={true}>
-          {t("about.intro.prefix")}
-          <b>e-spect@teur</b>
-          {t("about.intro.suffix")}
+          {/* {t("about.intro.prefix")} */}
+          <b> {t("about.logo")}</b>
+          {/* {t("about.intro.suffix")} */}
         </Typography>
         <Typography variant="subtitle1" gutterBottom={true}>
           {t("about.support")}

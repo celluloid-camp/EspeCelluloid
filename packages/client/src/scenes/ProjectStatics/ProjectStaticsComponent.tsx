@@ -15,7 +15,7 @@ import 'chart.js/auto';
 import {Chart, ArcElement} from 'chart.js'
 import { Bar , Doughnut, Pie} from 'react-chartjs-2';
 import './style.css'
-
+import { useTable , useFilters, Column } from 'react-table';
 Chart.register(ArcElement);
 
 
@@ -24,6 +24,12 @@ interface Props extends WithStyles<typeof styles> {
   annotations?: AnnotationRecord[];
 
 }
+
+
+ 
+
+
+
 const labels=['Happy', 'Laugh', 'Smile', 'Sad', 'Surprise', 'Angry', 'Disgusted', 'Fearful', 'Empathy', 'ItsStrange'] ;
 const data= {
   labels: labels,
@@ -100,6 +106,11 @@ const options= {
   //     console.error('Error fetching data:', error);
   //   });
   // }, []);
+  interface Data {
+    name: string;
+    age: number;
+    city: string;
+  }
 export default 
   withStyles(styles)(({
   project,
@@ -107,6 +118,58 @@ export default
   annotations
 
 }: Props) => {
+  // const data = React.useMemo(
+  //   () => [
+  //     { name: 'John Doe', age: 30, city: 'New York' },
+  //     { name: 'Jane Doe', age: 25, city: 'San Francisco' },
+  //     { name: 'Bob Smith', age: 35, city: 'Los Angeles' },
+  //     // Add more data as needed
+  //   ],
+  //   []
+  // );
+
+  // const columns = React.useMemo(
+  //   () => [
+  //     {
+  //       Header: 'Name',
+  //       accessor: 'name',
+  //       Filter: DefaultColumnFilter, // Add a custom filter function
+  //     },
+  //     {
+  //       Header: 'Age',
+  //       accessor: 'age',
+  //       Filter: DefaultColumnFilter,
+  //     },
+  //     {
+  //       Header: 'City',
+  //       accessor: 'city',
+  //       Filter: DefaultColumnFilter,
+  //     },
+  //   ],
+  //   []
+  // );
+
+  // const DefaultColumnFilter = ({ column: { filterValue, setFilter } }) => (
+  //   <input
+  //     value={filterValue || ''}
+  //     onChange={(e) => setFilter(e.target.value)}
+  //     placeholder={`Search ${column.Header.toLowerCase()}`}
+  //   />
+  // );
+
+  // const {
+  //   getTableProps,
+  //   getTableBodyProps,
+  //   headerGroups,
+  //   rows,
+  //   prepareRow,
+  //   state,
+  // } = useTable(
+  //   { columns, data },
+  //   useFilters, // Add the useFilters hook
+  //   usePagination
+  // );
+
 
      return(
     <div className={classes.root}>
@@ -144,6 +207,33 @@ export default
             </div>
           </div>
           <div className="spacer"></div> 
+
+          {/* <div>
+        <h2>Data Table with Filters</h2>
+        <table {...getTableProps()} style={{ width: '100%' }}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div> */}
       </div>
           
       )});

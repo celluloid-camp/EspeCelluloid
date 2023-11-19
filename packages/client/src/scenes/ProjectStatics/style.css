@@ -57,18 +57,70 @@
     color:#6E6E6E;
   }
 .card{
-    /* padding:1%; */
     background-color: #f7f7f7;
-
-  /* color: #fff;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 4px;
-    flex: 1 0 50%;
-    height: 50vh; */
-    /* width:20vh;  */
 }
 .spacer {
     width: 100%; /* Set the width to 100% to occupy the entire line */
     height: 20px; /* Adjust the height to control the space between lines */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Filter input styling */
+  div.rt-th > input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 0;
+  }
+  
+  /* Pagination styling */
+  div.react-paginate {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .react-paginate ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .react-paginate li {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .react-paginate li a {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+  }
+  
+  .react-paginate li a:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Highlight selected page */
+  .react-paginate li.react-paginate__page--selected a {
+    background-color: #007bff;
+    color: #fff;
   }

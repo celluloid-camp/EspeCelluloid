@@ -63,12 +63,8 @@ const emojisArray: Emoji[] = [
     value: 'sad',
   },
   {
-    label: '🥰',
+    label: '🥹',
     value: 'Empathy',
-  },
-  {
-    label: '😍',
-    value: 'iLove',
   },
   {
     label: '😨',

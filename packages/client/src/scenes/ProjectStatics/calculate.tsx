@@ -221,7 +221,7 @@ export function calcJugement( annotations?:AnnotationRecord [] ){
  
   let iLike=0;
   let iDontLike=0;
- 
+  let itsStrange=0;
 
   annotations?.map( (annotation: AnnotationRecord) => {
     if (annotation.emotion){
@@ -230,17 +230,18 @@ export function calcJugement( annotations?:AnnotationRecord [] ){
         iLike++
       }else if(annotation.emotion==='iDontLike'){
          iDontLike++
-      }
-    
-    }
-  
+      }else if(annotation.emotion==='ItsStrange'){
+        itsStrange++
+        console.log('nb stag ', itsStrange)
+        }
+    }   
   })
-  const data= {
-    labels: ['iLike', 'iDontLike'],
+  let data= {
+    labels: ['iLike', 'iDontLike','itsStrange'],
     datasets: [{
        label: "Jugements",
-       data: [iLike, iDontLike],
-       backgroundColor:['#0075A4','#D8D8D8']
+       data: [iLike, iDontLike, itsStrange],
+       backgroundColor:['#87ccdb','#58508d','#fd878a' ]
     }],
   }
   return data

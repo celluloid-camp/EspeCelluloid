@@ -68,7 +68,7 @@ function init({
         startTime: video.position,
         stopTime: maxAnnotationDuration(video.position, video.duration),
         semiAutoDetect,
-        pause: false,
+        pause: true,
       },
     } as State;
   }

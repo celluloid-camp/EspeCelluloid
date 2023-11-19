@@ -8,6 +8,7 @@ export default {
   },
 
   home: {
+    logo:'E-spect@teur',
     title: 'Apprendre ensemble avec une vidéo',
     description:
       'Partagez une vidéo PeerTube avec vos élèves, vos' +
@@ -27,6 +28,7 @@ export default {
   },
 
   about: {
+    logo:'E-spect@teur',
     title: 'À propos',
     intro: {
       prefix: 'Le développement de la plateforme ',

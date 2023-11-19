@@ -117,7 +117,7 @@ const MenuComponent: React.FC<Props> = ({
         <Toolbar>
           <div className={classes.grow}>
             <Button component={getButtonLink("/")} className={classes.homeLink}>
-            <b>{`E-spect@teur`}</b>
+            <b> {t("about.logo")} </b>
               {/* <svg width="180" height="40">
                 <g id="surface1">
                   <path
