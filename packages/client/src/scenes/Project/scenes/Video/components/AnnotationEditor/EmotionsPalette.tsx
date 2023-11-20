@@ -213,8 +213,17 @@ const EmotionsPalette = ({
         );
 
         const emotionsMapped: Emoji[] = mapEmotionToEmoji(emotions);
+        const iLike={
+          label: '👍',
+          value: 'iLike',
+        }
+        const iDontLike=
+        {
+          label: '👎',
+          value: 'iDontLike',
+        }
         console.log('Semi Auto Mapped Emotions ', emotionsMapped);
-
+        
         if (!emotionsMapped.length) {
           const neutralEmoji = emojisArray.find(
             (emoji) => emoji.value === 'Neutral'
@@ -222,8 +231,19 @@ const EmotionsPalette = ({
 
           if (neutralEmoji) emotionsMapped.push(neutralEmoji);
         }
+        if(!((emotionsMapped.find(emotion=> emotion.value===iDontLike.value)) ) ){
+          
+          emotionsMapped.unshift(iDontLike)
+          setEmojis(emotionsMapped);
+        }
+        if(!(emotionsMapped.find(emotion=> emotion.value===iLike.value))){
+          emotionsMapped.unshift(iLike)
+          setEmojis(emotionsMapped);
 
-        setEmojis(emotionsMapped);
+        }
+
+
+       
       } catch (e) {
         console.log(e);
       }
