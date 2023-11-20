@@ -217,7 +217,7 @@ const SideBarComponenent: React.FC<Props> = ({
               }}
             />
           )} */}
-               {user && (
+               {/* {user && (
             <LabeledProgressSwitch
               label={'Ontology'}
               checked={sequencing}
@@ -229,13 +229,13 @@ const SideBarComponenent: React.FC<Props> = ({
                 // }
               }}
             />
-          )}
+          )} */}
           <LabeledProgressSwitch
             label={t('project.analyze')}
             checked={!performance_mode}
             loading={false}
             onChange={() => {
-              if (performance_mode === false && sequencing === true) {
+              if (performance_mode === false) {
                 onClickSwitchSequencing();
               }
               onClickSwitchPlayerMode();

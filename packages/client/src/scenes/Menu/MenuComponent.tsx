@@ -157,7 +157,7 @@ const MenuComponent: React.FC<Props> = ({
             )}
           </Popper>
           <Button component={getButtonLink("/About")}>{t("menu.about")}</Button>
-          <Button component={getButtonLink("/Tutorial")}>{'Tutorial'}</Button>
+          <Button component={getButtonLink("/Tutorial")}>{t("menu.tutorial")}</Button>
           <SigninBar
             user={user}
             onClickLogin={onClickLogin}

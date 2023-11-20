@@ -5,6 +5,7 @@ export default {
     legalNotice: 'Legal notice',
     termsAndConditions: 'Terms & Conditions',
     about: 'about',
+    tutorial:'tutorial',
   },
 
   home: {
@@ -25,7 +26,9 @@ export default {
     publicProjects: 'Public projects',
     emptySearchResult: 'No matching projects',
   },
-
+  tutorial:{
+    title:'Tutorial'
+  },
   about: {
     logo:'E-spect@tor',
     title: 'About',

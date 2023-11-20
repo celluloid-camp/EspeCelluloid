@@ -5,6 +5,7 @@ export default {
     legalNotice: 'Mention légales',
     termsAndConditions: "Conditions Générales d'Utilisation",
     about: 'à propos',
+    tutorial:'tutorial'
   },
 
   home: {
@@ -27,6 +28,9 @@ export default {
     emptySearchResult: 'Aucun projet ne correspond à votre recherche',
   },
 
+  tutorial:{
+    title:'Tutorial'
+  },
   about: {
     logo:'E-spect@teur',
     title: 'À propos',

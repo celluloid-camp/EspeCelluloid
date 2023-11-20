@@ -224,7 +224,7 @@ export default class EmotionOntologyPicker extends React.Component<
     return (
       <div>
         <div style={ontologyStyles}>
-          {!this.props.perf && this.props.sequencing ?(
+          {!this.props.perf ?(
             <>
               <select value={this.state.concept} onChange={this.handleChange}>
                 {options.map((option) => (
