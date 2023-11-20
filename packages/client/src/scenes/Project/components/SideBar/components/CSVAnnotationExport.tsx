@@ -103,8 +103,9 @@ export default (class extends React.Component<Props, State> {
               }
               let ontologyData = ontology;
               let textData = item.text !== '' ? item.text : 'none';
-              data +=
-                project.shareName +
+              if(!(item.startTime===0 && item.stopTime===0)){
+                data +=
+                project.title +
                 '    , ' +
                 item.startTime +
                 '   , ' +
@@ -131,6 +132,8 @@ export default (class extends React.Component<Props, State> {
                 relationConcept +
                 '\n';
 
+              }
+              
               this.setState((prevState) => ({ ...prevState, dat: data }));
 
               return this.state;
@@ -145,12 +148,12 @@ export default (class extends React.Component<Props, State> {
           if ((window.navigator as any).msSaveOrOpenBlob) {
             (window.navigator as any).msSaveBlob(
               blob,
-              'annotations_CSV_' + project.shareName
+              'annotations_CSV_' + project.title
             );
           } else {
             var elem = window.document.createElement('a');
             elem.href = window.URL.createObjectURL(blob);
-            elem.download = 'annotations_' + project.shareName + '.csv';
+            elem.download = 'annotations_' + project.title + '.csv';
             document.body.appendChild(elem);
             elem.click();
             document.body.removeChild(elem);
