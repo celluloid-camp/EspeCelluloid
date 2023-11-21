@@ -75,7 +75,7 @@ const emojisArray: Emoji[] = [
   },
 ];
 
-const OFFSET = 20;
+const OFFSET = 10;
 
 const EmotionsPalette = ({
   position,
