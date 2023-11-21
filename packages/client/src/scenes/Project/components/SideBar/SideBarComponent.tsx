@@ -101,7 +101,7 @@ interface Props extends WithStyles<typeof styles> {
   onClickDelete(projectId: string): AsyncAction<null, string>;
   onClickSwitchPlayerMode(): void;
   onClickSwitchSequencing(): void;
-  onClickSwitchAutoDetection(): void; //Auto Detect
+  onClickSwitchAutoDetection(): void;
   onClickSwitchSemiAutoDetection(): void;
   onClickSwitchSemiAutoDetectionMe(): void;
   onChangeAnnotationShowingMode(
@@ -109,7 +109,6 @@ interface Props extends WithStyles<typeof styles> {
   ): void;
   onClickSwitchOwnAnnotations(): void;
 }
-
 
 const SideBarComponenent: React.FC<Props> = ({
   user,
@@ -145,11 +144,10 @@ const SideBarComponenent: React.FC<Props> = ({
   classes,
 }: Props) => {
   const { t } = useTranslation();
-  console.log(' dans sidebar les annotations:', annotations[0]);
   const onClickStatic = () => {
     // navigate(`/projects/${project.id}`);
-    console.log('test ........................................')
-    window.location.assign(`/projectstat/${project.id}`)
+    console.log('test ........................................');
+    window.location.assign(`/projectstat/${project.id}`);
   };
   return (
     <>
@@ -217,7 +215,7 @@ const SideBarComponenent: React.FC<Props> = ({
               }}
             />
           )} */}
-               {/* {user && (
+          {/* {user && (
             <LabeledProgressSwitch
               label={'Ontology'}
               checked={sequencing}
@@ -348,13 +346,13 @@ const SideBarComponenent: React.FC<Props> = ({
         {/* <div  >
         <button color="primary" type="button">Statistiques</button>
       </div> */}
-      <Button
-      variant="contained"
-      color="primary"
-      onClick={() => onClickStatic()}
-      >
-      Statistiques
-       </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onClickStatic()}
+        >
+          Statistiques
+        </Button>
       </div>
       <div className={classes.chips}>
         {/* <Statics
