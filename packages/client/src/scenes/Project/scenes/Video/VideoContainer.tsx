@@ -203,6 +203,13 @@ export default connect(
 
           this.props.requestSeek(value);
         }
+      }else{
+        if(value===0 && player && pause){
+
+          this.setState({
+            playing: false,
+          });
+        }
       }
       // else{
       //   if(this.state.position!==0 && pause && player){
