@@ -11,7 +11,6 @@ interface EmotionsPaletteProps {
   emotion?: string;
   emotionDetected: string;
   onEmotionChange(emotion: string | undefined): void;
-
 }
 
 interface Emoji {
@@ -26,10 +25,6 @@ interface EmotionCount {
 }
 
 const emojisArray: Emoji[] = [
-  // {
-  //   label: 'Emotions & Judgements',
-  //   value: '',
-  // },
   {
     label: '👍',
     value: 'iLike',
@@ -40,7 +35,7 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '😐',
-    value: 'Neutral',
+    value: 'neutral',
   },
   {
     label: '😮',
@@ -48,11 +43,11 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '😄',
-    value: 'Smile',
+    value: 'smile',
   },
   {
     label: '😂',
-    value: 'Laugh',
+    value: 'laugh',
   },
   {
     label: '😠',
@@ -64,7 +59,7 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '🥹',
-    value: 'Empathy',
+    value: 'empathy',
   },
   {
     label: '😨',
@@ -76,11 +71,11 @@ const emojisArray: Emoji[] = [
   },
   {
     label: '🤔',
-    value: 'ItsStrange',
+    value: 'itsStrange',
   },
 ];
 
-const OFFSET = 10;
+const OFFSET = 20;
 
 const EmotionsPalette = ({
   position,
@@ -100,42 +95,42 @@ const EmotionsPalette = ({
     const emojis = (() => {
       switch (emotionDetected) {
         case 'neutral':
-          return [emojisArray.find((emoji) => emoji.value === 'Neutral')];
+          return [emojisArray.find((emoji) => emoji.value === 'neutral')];
         case 'happy':
           return [
-            emojisArray.find((emoji) => emoji.value === 'Laugh'),
-            emojisArray.find((emoji) => emoji.value === 'Smile'),
+            emojisArray.find((emoji) => emoji.value === 'laugh'),
+            emojisArray.find((emoji) => emoji.value === 'smile'),
           ];
         case 'surprised':
           return [
-            emojisArray.find((emoji) => emoji.value === 'Surprise'),
-            emojisArray.find((emoji) => emoji.value === 'Fear'),
+            emojisArray.find((emoji) => emoji.value === 'surprised'),
+            emojisArray.find((emoji) => emoji.value === 'fearful'),
           ];
         case 'fearful':
           return [
-            emojisArray.find((emoji) => emoji.value === 'Surprise'),
-            emojisArray.find((emoji) => emoji.value === 'Fear'),
+            emojisArray.find((emoji) => emoji.value === 'surprised'),
+            emojisArray.find((emoji) => emoji.value === 'fearful'),
           ];
         case 'angry':
           return [
-            emojisArray.find((emoji) => emoji.value === 'Angry'),
-            emojisArray.find((emoji) => emoji.value === 'Sad'),
-            emojisArray.find((emoji) => emoji.value === 'Disgust'),
+            emojisArray.find((emoji) => emoji.value === 'angry'),
+            emojisArray.find((emoji) => emoji.value === 'sad'),
+            emojisArray.find((emoji) => emoji.value === 'disgusted'),
           ];
         case 'disgusted':
           return [
-            emojisArray.find((emoji) => emoji.value === 'Angry'),
-            emojisArray.find((emoji) => emoji.value === 'Sad'),
-            emojisArray.find((emoji) => emoji.value === 'Disgust'),
+            emojisArray.find((emoji) => emoji.value === 'angry'),
+            emojisArray.find((emoji) => emoji.value === 'sad'),
+            emojisArray.find((emoji) => emoji.value === 'disgusted'),
           ];
         case 'sad':
           return [
-            emojisArray.find((emoji) => emoji.value === 'Angry'),
-            emojisArray.find((emoji) => emoji.value === 'Sad'),
-            emojisArray.find((emoji) => emoji.value === 'Disgust'),
+            emojisArray.find((emoji) => emoji.value === 'angry'),
+            emojisArray.find((emoji) => emoji.value === 'sad'),
+            emojisArray.find((emoji) => emoji.value === 'disgusted'),
           ];
         default:
-          return [emojisArray.find((emoji) => emoji.value === 'Neutral')];
+          return [emojisArray.find((emoji) => emoji.value === 'neutral')];
       }
     })().filter((item): item is Emoji => item !== undefined);
 
@@ -143,28 +138,28 @@ const EmotionsPalette = ({
   };
 
   const addMappedEmojis = (slots: number = 4, emojisMapped: Emoji[]) => {
-    const prevEmojis = emojis.filter(
+    const initEmojis = [emojisArray[0], emojisArray[1]]; //Always add Like/Dislike
+
+    let prevEmojis = emojis.filter(
       (prevEmoji) =>
-        !emojisMapped.some((emoji) => prevEmoji.value === emoji.value)
+        !emojisMapped.some((emoji) => prevEmoji.value === emoji.value) &&
+        !initEmojis.some((emoji) => prevEmoji.value === emoji.value)
     );
 
     const availableSlots = slots - prevEmojis.length;
 
-    if (emojisMapped.length <= availableSlots)
-      setEmojis([...emojisMapped, ...prevEmojis]);
-    else {
-      setEmojis([
-        ...emojisMapped,
-        ...prevEmojis.slice(0, slots - emojisMapped.length),
-      ]);
-    }
+    if (emojisMapped.length > availableSlots)
+      prevEmojis = prevEmojis.slice(0, slots - emojisMapped.length);
+
+    setEmojis([...initEmojis, ...emojisMapped, ...prevEmojis]);
   };
 
+  // Update position ref
   useEffect(() => {
     startPositionRef.current = position;
   }, [position]);
 
-  // Only Me
+  // Only Me Detection
   useEffect(() => {
     if (semiAutoDetectMe) setEmojis([]);
   }, [semiAutoDetectMe]);
@@ -176,6 +171,7 @@ const EmotionsPalette = ({
     }
   }, [semiAutoDetectMe, emotionDetected, projectId]);
 
+  // Others Detection/No Detection
   useEffect(() => {
     const mapEmotionToEmoji = (emotions: EmotionCount[]): Emoji[] => {
       const mapCallback = (emotionCount: EmotionCount): any => {
@@ -213,17 +209,7 @@ const EmotionsPalette = ({
         );
 
         const emotionsMapped: Emoji[] = mapEmotionToEmoji(emotions);
-        const iLike={
-          label: '👍',
-          value: 'iLike',
-        }
-        const iDontLike=
-        {
-          label: '👎',
-          value: 'iDontLike',
-        }
-        console.log('Semi Auto Mapped Emotions ', emotionsMapped);
-        
+
         if (!emotionsMapped.length) {
           const neutralEmoji = emojisArray.find(
             (emoji) => emoji.value === 'Neutral'
@@ -231,19 +217,15 @@ const EmotionsPalette = ({
 
           if (neutralEmoji) emotionsMapped.push(neutralEmoji);
         }
-        if(!((emotionsMapped.find(emotion=> emotion.value===iDontLike.value)) ) ){
-          
-          emotionsMapped.unshift(iDontLike)
-          setEmojis(emotionsMapped);
-        }
-        if(!(emotionsMapped.find(emotion=> emotion.value===iLike.value))){
-          emotionsMapped.unshift(iLike)
-          setEmojis(emotionsMapped);
 
-        }
+        // Always add like and dislike
+        if (!emotionsMapped.find((emotion) => emotion.value === 'iDontLike'))
+          emotionsMapped.unshift(emojisArray[1]);
 
+        if (!emotionsMapped.find((emotion) => emotion.value === 'iLike'))
+          emotionsMapped.unshift(emojisArray[0]);
 
-       
+        setEmojis(emotionsMapped);
       } catch (e) {
         console.log(e);
       }
@@ -265,6 +247,7 @@ const EmotionsPalette = ({
     };
   }, [semiAutoDetect, semiAutoDetectMe, projectId]);
 
+  // UI Code
   const handleHover = (index: number) => {
     setHoveredComponent(index);
   };
