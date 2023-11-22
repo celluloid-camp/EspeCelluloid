@@ -1,9 +1,6 @@
 import 'rc-slider/assets/index.css';
 import {
   Button,
-  Checkbox,
-  createStyles,
-  FormControlLabel,
   IconButton,
   Theme,
   Typography,
@@ -44,7 +41,7 @@ interface Props extends WithStyles<typeof styles> {
   error?: string;
   ontology?: string[];
   performance_mode: boolean;
-  sequencing:boolean;
+  sequencing: boolean;
   emotionDetected: string;
   onTextChange(text: string): void;
   onEmotionChange(emotion: string): void;
@@ -139,7 +136,6 @@ const AnnotationEditorComponent: React.FC<Props> = ({
           />
         </div> */}
         <>
-     
           {/* <TransparentInput
             text={text}
             error={error}
@@ -157,7 +153,6 @@ const AnnotationEditorComponent: React.FC<Props> = ({
             sequencing={sequencing}
             emotionDetected={emotionDetected}
           />
-        
         </>
         <div className={classes.timeline}>
           <TimingControl

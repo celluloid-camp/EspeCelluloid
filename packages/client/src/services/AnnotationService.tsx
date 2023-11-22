@@ -2,7 +2,7 @@ import { AnnotationData } from '@celluloid/types';
 
 import * as Constants from './Constants';
 
-export default class {
+class AnnotationService {
   static list(projectId: string, queryString = {}) {
     const headers = {
       Accepts: 'application/json',
@@ -121,3 +121,5 @@ export default class {
     });
   }
 }
+
+export default AnnotationService;

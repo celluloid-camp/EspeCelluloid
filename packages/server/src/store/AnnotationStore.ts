@@ -5,18 +5,23 @@ import { database, getExactlyOne } from '../backends/Database';
 import * as ProjectStore from './ProjectStore';
 
 interface QueryString {
+  onlyMe: boolean;
   startTime: number;
   stopTime: number;
   limit: number;
 }
 
-export function getEmotionCounts(projectId: string, queryString: QueryString) {
-  const { startTime, stopTime, limit } = queryString;
+export function getEmotionCounts(
+  projectId: string,
+  userId: string,
+  queryString: QueryString
+) {
+  const { onlyMe, startTime, stopTime, limit } = queryString;
   const subquery = database('Annotation')
     .max('stopTime as max_stop_time')
     .first();
 
-  return database('Annotation as a')
+  const query = database('Annotation as a')
     .select('emotion', 'autoDetect')
     .count('* as emotion_count')
     .where('projectId', projectId)
@@ -26,6 +31,10 @@ export function getEmotionCounts(projectId: string, queryString: QueryString) {
     .groupBy(['emotion', 'autoDetect'])
     .orderBy('emotion_count', 'desc')
     .limit(limit);
+
+  if (onlyMe) query.andWhere('userId', userId);
+
+  return query;
 }
 
 export function selectByProject(

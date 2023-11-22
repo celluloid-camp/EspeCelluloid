@@ -21,16 +21,19 @@ function fetchComments(annotation: AnnotationRecord, user: UserRecord) {
 }
 
 router.get('/top-emotions', async (req, res) => {
-  //http://localhost:3000/api/projects/:id/annotations/top-emotions?startTime=0&offset=10&limit=5
+  //http://localhost:3000/api/projects/:id/annotations/top-emotions?onlyMe=true&startTime=0&offset=10&limit=5
   // @ts-ignore
   const projectId = req.params.projectId;
+  const onlyMeParamString = req.query.onlyMe as string;
+  const onlyMe = onlyMeParamString === 'true';
   const user = req.user as UserRecord;
   const startTime = Number(req.query.startTime) || 0;
   const stopTime = startTime + Number(req.query.offset) || 0;
   const limit = Number(req.query.limit) || 5;
   try {
     await ProjectStore.selectOne(projectId, user);
-    const results = await AnnotationStore.getEmotionCounts(projectId, {
+    const results = await AnnotationStore.getEmotionCounts(projectId, user.id, {
+      onlyMe,
       startTime,
       stopTime,
       limit,

@@ -9,6 +9,7 @@ node_modules
 # build directories
 /packages/*/build
 /packages/*/dist
+**/tsconfig.tsbuildinfo
 
 # misc
 .DS_Store

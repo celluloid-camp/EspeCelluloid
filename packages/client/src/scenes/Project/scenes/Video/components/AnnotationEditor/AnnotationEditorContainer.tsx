@@ -19,7 +19,7 @@ interface Props {
   projectId: string;
   annotation?: AnnotationRecord;
   performance_mode: boolean;
-  sequencing:boolean;
+  sequencing: boolean;
   emotionDetected: string;
   video: {
     position: number;
