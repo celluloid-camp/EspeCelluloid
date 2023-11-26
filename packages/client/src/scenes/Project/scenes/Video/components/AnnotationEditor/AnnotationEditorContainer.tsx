@@ -26,7 +26,8 @@ interface Props {
     duration: number;
   };
   ontology?: any;
-  semiAutoDetect: boolean;
+  semiAutoAnnotation: boolean;
+  semiAutoAnnotationMe: boolean;
   onSeek(position: number, pause: boolean, seekAhead: boolean): void;
   onCreate(
     projectId: string,
@@ -48,7 +49,8 @@ function init({
   video,
   performance_mode,
   sequencing,
-  semiAutoDetect,
+  semiAutoAnnotation,
+  semiAutoAnnotationMe,
 }: Props): State {
   if (annotation) {
     return {
@@ -67,7 +69,8 @@ function init({
         text: '',
         startTime: video.position,
         stopTime: maxAnnotationDuration(video.position, video.duration),
-        semiAutoDetect,
+        semiAutoAnnotation,
+        semiAutoAnnotationMe,
         pause: true,
       },
     } as State;
@@ -75,7 +78,8 @@ function init({
 }
 
 const mapStateToProps = (state: AppState) => ({
-  semiAutoDetect: state.project.player.semiAutoDetection_mode,
+  semiAutoAnnotation: state.project.player.semiAutoAnnotation,
+  semiAutoAnnotationMe: state.project.player.semiAutoAnnotationMe,
   error: state.project.video.annotationError,
   annotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,

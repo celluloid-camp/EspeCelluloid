@@ -9,7 +9,6 @@ node_modules
 # build directories
 /packages/*/build
 /packages/*/dist
-**/tsconfig.tsbuildinfo
 
 # misc
 .DS_Store
@@ -29,4 +28,5 @@ notes.txt
 
 .data
 # config
+/packages/client/tsconfig.tsbuildinfo
 

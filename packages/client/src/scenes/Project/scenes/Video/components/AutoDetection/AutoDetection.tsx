@@ -103,7 +103,8 @@ export const AutoDetection = ({
             stopTime: startPositionRef.current,
             pause: !playing,
             autoDetect: true,
-            semiAutoDetect: false,
+            semiAutoAnnotation: false,
+            semiAutoAnnotationMe: false,
             emotion,
             ontology: [],
           };

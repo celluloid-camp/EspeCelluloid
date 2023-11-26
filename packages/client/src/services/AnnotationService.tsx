@@ -26,13 +26,13 @@ class AnnotationService {
     });
   }
 
-  static getTopEmotions(projectId: string, queryString = {}) {
+  static getRecommendedEmotions(projectId: string, queryString = {}) {
     const headers = {
       Accepts: 'application/json',
     };
 
     return fetch(
-      `/api/projects/${projectId}/annotations/top-emotions?` +
+      `/api/projects/${projectId}/annotations/Recommended-emotions?` +
         new URLSearchParams(queryString),
       {
         method: 'GET',

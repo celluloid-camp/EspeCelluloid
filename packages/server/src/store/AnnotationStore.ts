@@ -11,30 +11,49 @@ interface QueryString {
   limit: number;
 }
 
-export function getEmotionCounts(
+export function getRecommendedEmojis(
   projectId: string,
   userId: string,
   queryString: QueryString
 ) {
-  const { onlyMe, startTime, stopTime, limit } = queryString;
+  const { startTime, stopTime, onlyMe } = queryString;
+
   const subquery = database('Annotation')
     .max('stopTime as max_stop_time')
     .first();
 
   const query = database('Annotation as a')
-    .select('emotion', 'autoDetect')
-    .count('* as emotion_count')
+    .select('*')
     .where('projectId', projectId)
     .whereNotNull('emotion')
     .andWhere('stopTime', '>=', startTime)
-    .andWhere('startTime', '<=', stopTime === 0 ? subquery : stopTime)
-    .groupBy(['emotion', 'autoDetect'])
-    .orderBy('emotion_count', 'desc')
-    .limit(limit);
+    .andWhere('startTime', '<=', stopTime === startTime ? subquery : stopTime);
 
   if (onlyMe) query.andWhere('userId', userId);
 
   return query;
+}
+
+export function getRecentEmojis(
+  projectId: string,
+  userId: string,
+  queryString: QueryString
+) {
+  const { startTime, stopTime, limit } = queryString;
+
+  const subquery = database('Annotation')
+    .max('stopTime as max_stop_time')
+    .first();
+
+  return database('Annotation as a')
+    .select('emotion')
+    .where('userId', userId)
+    .andWhere('projectId', projectId)
+    .whereNotNull('emotion')
+    .andWhere('stopTime', '>=', startTime)
+    .andWhere('startTime', '<=', stopTime === startTime ? subquery : stopTime)
+    .orderBy('createdAt', 'desc')
+    .limit(limit);
 }
 
 export function selectByProject(
@@ -114,18 +133,6 @@ export function insert(
   user: UserRecord,
   projectId: string
 ) {
-  console.log('inside insert', {
-    text: annotation.text || '',
-    startTime: annotation.startTime,
-    stopTime: annotation.stopTime,
-    pause: annotation.pause,
-    autoDetect: annotation.autoDetect || false,
-    semiAutoDetect: annotation.semiAutoDetect || false,
-    emotion: annotation.emotion || null,
-    userId: user.id,
-    projectId: projectId,
-  });
-
   return database('Annotation')
     .insert({
       text: annotation.text || '',
@@ -133,7 +140,8 @@ export function insert(
       stopTime: annotation.stopTime,
       pause: annotation.pause,
       autoDetect: annotation.autoDetect || false,
-      semiAutoDetect: annotation.semiAutoDetect || false,
+      semiAutoAnnotation: annotation.semiAutoAnnotation || false,
+      semiAutoAnnotationMe: annotation.semiAutoAnnotationMe || false,
       emotion: annotation.emotion || null,
       userId: user.id,
       projectId: projectId,

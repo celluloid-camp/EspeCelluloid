@@ -20,24 +20,84 @@ function fetchComments(annotation: AnnotationRecord, user: UserRecord) {
   );
 }
 
-router.get('/top-emotions', async (req, res) => {
+router.get('/recommended-emotions', async (req, res) => {
   //http://localhost:3000/api/projects/:id/annotations/top-emotions?onlyMe=true&startTime=0&offset=10&limit=5
   // @ts-ignore
   const projectId = req.params.projectId;
-  const onlyMeParamString = req.query.onlyMe as string;
-  const onlyMe = onlyMeParamString === 'true';
+  const onlyMe = (req.query.onlyMe as string) === 'true';
   const user = req.user as UserRecord;
   const startTime = Number(req.query.startTime) || 0;
   const stopTime = startTime + Number(req.query.offset) || 0;
-  const limit = Number(req.query.limit) || 5;
+  const limit = Number(req.query.limit) || 4;
   try {
     await ProjectStore.selectOne(projectId, user);
-    const results = await AnnotationStore.getEmotionCounts(projectId, user.id, {
-      onlyMe,
-      startTime,
-      stopTime,
-      limit,
+    let results = await AnnotationStore.getRecommendedEmojis(
+      projectId,
+      user.id,
+      {
+        onlyMe,
+        startTime,
+        stopTime,
+        limit,
+      }
+    );
+
+    // Suggestion algorithm
+    const weightAutoDetect = {
+      neutral: 0.5,
+      happy: 0.5,
+      surprised: 0.5,
+      sad: 0.2,
+      fearful: 0.2,
+      disgusted: 0.2,
+      angry: 0.2,
+    };
+
+    const emotionCounts = {};
+    const emotionDurations = {};
+    const annotations = results;
+
+    annotations.forEach((annotation) => {
+      const emotion = annotation.emotion;
+      const duration =
+        Math.min(annotation.stopTime, stopTime) -
+        Math.max(annotation.startTime, startTime);
+
+      // Initialize counts and durations if not present
+      emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
+      emotionDurations[emotion] = (emotionDurations[emotion] || 0) + duration;
     });
+
+    const suggestions: {
+      emotion: string;
+      score: number;
+    }[] = [];
+
+    // Calculate a weighted score for each emotion
+    Object.keys(emotionCounts).forEach((emotion) => {
+      const count = emotionCounts[emotion];
+      const duration = emotionDurations[emotion];
+
+      // Check if there's at least one manually entered annotation for this emotion
+      const hasManualAnnotation = annotations.some(
+        (annotation) => annotation.emotion === emotion && !annotation.autoDetect
+      );
+
+      // Adjust weight based on manual entry
+      const weight = hasManualAnnotation
+        ? 1 - (weightAutoDetect[emotion] || 0)
+        : weightAutoDetect[emotion];
+
+      const score = count * weight + duration;
+
+      suggestions.push({ emotion, score });
+    });
+
+    // Sort suggestions by score in descending order
+    suggestions.sort((a, b) => b.score - a.score);
+
+    results = suggestions.slice(0, limit);
+    // .map((suggestion) => suggestion.emotion);
 
     res.status(200).json(results);
     // @ts-ignore
@@ -81,7 +141,6 @@ router.post('/', isProjectOwnerOrCollaborativeMember, (req, res) => {
   const projectId = req.params.projectId;
   const annotation = req.body as AnnotationData;
   const user = req.user as UserRecord;
-  console.log('we are postinf annotation, ', annotation);
   AnnotationStore.insert(annotation, user, projectId)
     .then((result) => fetchComments(result, user))
     .then((result) => {
@@ -100,8 +159,6 @@ router.put(
     const annotationId = req.params.annotationId;
     const updated = req.body;
     const user = req.user as UserRecord;
-
-    console.log('we are updating annotation', updated);
 
     AnnotationStore.selectOne(annotationId, user)
       .then((old: AnnotationRecord) =>

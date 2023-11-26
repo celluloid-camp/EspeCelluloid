@@ -2,7 +2,6 @@ import 'rc-slider/assets/index.css';
 import {
   Button,
   IconButton,
-  Theme,
   Typography,
   WithStyles,
   withStyles,
@@ -12,17 +11,10 @@ import CancelIcon from '@material-ui/icons/Clear';
 import { Range } from 'rc-slider';
 import React from 'react';
 import { formatDuration } from 'utils/DurationUtils';
-import TransparentInput from '../TransparentInput';
 import { sliderRailStyle, sliderTrackStyle } from 'utils/SliderUtils';
-import { useTranslation } from 'react-i18next';
 import EmotionOntologyPicker from './EmotionOntologyPicker';
-import addAnnotation from '../../api/Annotation';
 import { UserRecord } from '@celluloid/types';
 import styles from './styles';
-import getFirstConcepts, {
-  getSubConcepts,
-  getRelation,
-} from '../../api/Concept';
 import { PostAnnotation } from './EmotionOntologyPicker';
 
 const caretStart = require('images/caret-start.png');
@@ -112,8 +104,6 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   emotionDetected,
   classes,
 }: Props) => {
-  const { t } = useTranslation();
-
   const handleStyles = {
     border: 0,
     borderRadius: 0,

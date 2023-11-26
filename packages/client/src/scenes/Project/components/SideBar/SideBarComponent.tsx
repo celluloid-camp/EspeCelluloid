@@ -26,8 +26,8 @@ import VisibilityChip from 'components/VisibilityChip';
 import * as React from 'react';
 import { AsyncAction } from 'types/ActionTypes';
 import { isOwner, isAdmin, canAnnotate } from 'utils/ProjectUtils';
-import CSVAnnotationExport from './components/CSVAnnotationExport';
 import XMLAnnotationExport from './components/XMLAnnotationExport';
+import CSVAnnotationExport from './components/CSVAnnotationExport';
 import ShareCredentials from 'components/ShareCredentials';
 
 import ShareDialog from './components/ShareDialog';
@@ -83,9 +83,9 @@ interface Props extends WithStyles<typeof styles> {
   unshareError?: string;
   deleteError?: string;
   performance_mode: boolean;
-  autoDetection_mode: boolean;
-  semiAutoDetection_mode: boolean;
-  semiAutoDetectionMe_mode: boolean;
+  autoDetect: boolean;
+  semiAutoAnnotation: boolean;
+  semiAutoAnnotationMe: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   ownAnnotations: boolean;
@@ -123,9 +123,9 @@ const SideBarComponenent: React.FC<Props> = ({
   unshareError,
   deleteError,
   performance_mode,
-  autoDetection_mode,
-  semiAutoDetection_mode,
-  semiAutoDetectionMe_mode,
+  autoDetect,
+  semiAutoAnnotation,
+  semiAutoAnnotationMe,
   sequencing,
   annotations,
   ownAnnotations,
@@ -255,7 +255,7 @@ const SideBarComponenent: React.FC<Props> = ({
             <>
               <LabeledProgressSwitch
                 label={t('project.autoDetect')}
-                checked={autoDetection_mode}
+                checked={autoDetect}
                 loading={false}
                 onChange={() => {
                   onClickSwitchAutoDetection();
@@ -267,7 +267,7 @@ const SideBarComponenent: React.FC<Props> = ({
 
               <LabeledProgressSwitch
                 label={t('project.semiAutoDetect')}
-                checked={semiAutoDetection_mode}
+                checked={semiAutoAnnotation}
                 loading={false}
                 onChange={() => {
                   onClickSwitchSemiAutoDetection();
@@ -279,7 +279,7 @@ const SideBarComponenent: React.FC<Props> = ({
 
               <LabeledProgressSwitch
                 label={t('project.semiAutoDetectOnlyMe')}
-                checked={semiAutoDetectionMe_mode}
+                checked={semiAutoAnnotationMe}
                 loading={false}
                 onChange={() => {
                   onClickSwitchSemiAutoDetectionMe();
@@ -334,12 +334,10 @@ const SideBarComponenent: React.FC<Props> = ({
       )}
       <div className={classes.chips}>
         <XMLAnnotationExport
-          annotations={annotations}
           project={project}
           buttonName={t('project.exportButton')}
         />
         <CSVAnnotationExport
-          annotations={annotations}
           project={project}
           buttonName={t('project.exportButton')}
         />

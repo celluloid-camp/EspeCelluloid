@@ -4,9 +4,9 @@ import { PlayerState } from 'types/StateTypes';
 
 const initialState = {
   performance_mode: false,
-  autoDetection_mode: false,
-  semiAutoDetection_mode: false,
-  semiAutoDetectionMe_mode: false,
+  autoDetect: false,
+  semiAutoAnnotation: false,
+  semiAutoAnnotationMe: false,
   seeking: false,
   sequencing: false,
 } as PlayerState;
@@ -39,47 +39,47 @@ export default (
       };
 
     case ActionType.PLAYER_SWITCH_AUTO_DETECTION:
-      if (state.autoDetection_mode)
+      if (state.autoDetect)
         return {
           ...state,
-          semiAutoDetection_mode: false,
-          semiAutoDetectionMe_mode: false,
-          autoDetection_mode: false,
+          semiAutoAnnotation: false,
+          semiAutoAnnotationMe: false,
+          autoDetect: false,
         };
       else
         return {
           ...state,
-          autoDetection_mode: true,
+          autoDetect: true,
         };
 
     case ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION:
-      if (state.semiAutoDetection_mode)
+      if (state.semiAutoAnnotation)
         return {
           ...state,
-          semiAutoDetectionMe_mode: false,
-          semiAutoDetection_mode: false,
+          semiAutoAnnotationMe: false,
+          semiAutoAnnotation: false,
         };
       else
         return {
           ...state,
-          autoDetection_mode: true,
-          semiAutoDetectionMe_mode: false,
-          semiAutoDetection_mode: true,
+          autoDetect: true,
+          semiAutoAnnotationMe: false,
+          semiAutoAnnotation: true,
         };
 
     case ActionType.PLAYER_SWITCH_SEMI_AUTO_DETECTION_ME:
-      if (state.semiAutoDetectionMe_mode)
+      if (state.semiAutoAnnotationMe)
         return {
           ...state,
-          semiAutoDetection_mode: false,
-          semiAutoDetectionMe_mode: false,
+          semiAutoAnnotation: false,
+          semiAutoAnnotationMe: false,
         };
       else
         return {
           ...state,
-          autoDetection_mode: true,
-          semiAutoDetection_mode: false,
-          semiAutoDetectionMe_mode: true,
+          autoDetect: true,
+          semiAutoAnnotation: false,
+          semiAutoAnnotationMe: true,
         };
 
     default:
