@@ -62,11 +62,15 @@ function XMLAnnotationExport({ project, buttonName }: Props) {
     try {
       setIsLoading(true);
 
-      const annotations: AnnotationRecord[] = await AnnotationService.list(
+      let annotations: AnnotationRecord[] = await AnnotationService.list(
         project.id,
         {
           autoDetect: true,
         }
+      );
+
+      annotations = annotations.filter(
+        (annotation) => annotation.startTime !== 0 || annotation.stopTime !== 0
       );
 
       const annotationsXML: AnnotationExport[] = await Promise.all(
