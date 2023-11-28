@@ -2,7 +2,7 @@ import { AnnotationData } from '@celluloid/types';
 
 import * as Constants from './Constants';
 
-export default class {
+class AnnotationService {
   static list(projectId: string, queryString = {}) {
     const headers = {
       Accepts: 'application/json',
@@ -26,13 +26,13 @@ export default class {
     });
   }
 
-  static getTopEmotions(projectId: string, queryString = {}) {
+  static getRecommendedEmotions(projectId: string, queryString = {}) {
     const headers = {
       Accepts: 'application/json',
     };
 
     return fetch(
-      `/api/projects/${projectId}/annotations/top-emotions?` +
+      `/api/projects/${projectId}/annotations/Recommended-emotions?` +
         new URLSearchParams(queryString),
       {
         method: 'GET',
@@ -121,3 +121,5 @@ export default class {
     });
   }
 }
+
+export default AnnotationService;

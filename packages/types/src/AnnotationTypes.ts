@@ -7,7 +7,8 @@ export interface AnnotationData {
   stopTime: number;
   pause: boolean;
   autoDetect: boolean;
-  semiAutoDetect: boolean;
+  semiAutoAnnotation: boolean;
+  semiAutoAnnotationMe: boolean;
   emotion?: string;
   ontology: string[];
 }

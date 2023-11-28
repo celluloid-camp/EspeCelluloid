@@ -56,9 +56,9 @@ export interface PlayerState {
   seeking: boolean;
   seekTarget: number;
   performance_mode: boolean;
-  autoDetection_mode: boolean;
-  semiAutoDetection_mode: boolean;
-  semiAutoDetectionMe_mode: boolean;
+  autoDetect: boolean;
+  semiAutoAnnotation: boolean;
+  semiAutoAnnotationMe: boolean;
   sequencing: boolean;
 }
 

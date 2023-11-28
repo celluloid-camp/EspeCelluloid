@@ -2,26 +2,30 @@
 // Do not touch them, or risk, your modifications being lost.
 
 export enum UserRole {
-  Admin = "Admin",
-  Teacher = "Teacher",
-  Student = "Student",
+  Admin = 'Admin',
+  Teacher = 'Teacher',
+  Student = 'Student',
 }
 
 export enum Table {
-  Annotation = "Annotation",
-  Comment = "Comment",
-  Language = "Language",
-  Project = "Project",
-  Session = "Session",
-  Tag = "Tag",
-  TagToProject = "TagToProject",
-  User = "User",
-  UserToProject = "UserToProject",
+  Annotation = 'Annotation',
+  Comment = 'Comment',
+  Language = 'Language',
+  Project = 'Project',
+  Session = 'Session',
+  Tag = 'Tag',
+  TagToProject = 'TagToProject',
+  User = 'User',
+  UserToProject = 'UserToProject',
 }
 
 export type Annotation = {
   id: string;
   text: string;
+  emotion: string;
+  autoDetect: boolean;
+  semiAutoAnnotation: boolean;
+  semiAutoAnnotationMe: boolean;
   startTime: number;
   stopTime: number;
   pause: boolean;
@@ -94,4 +98,3 @@ export type UserToProject = {
   userId: string;
   projectId: string;
 };
-

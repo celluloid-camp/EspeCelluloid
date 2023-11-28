@@ -40,9 +40,9 @@ interface Props {
   unshareError?: string;
   deleteError?: string;
   performance_mode: boolean;
-  autoDetection_mode: boolean;
-  semiAutoDetection_mode: boolean;
-  semiAutoDetectionMe_mode: boolean;
+  autoDetect: boolean;
+  semiAutoAnnotation: boolean;
+  semiAutoAnnotationMe: boolean;
   sequencing: boolean;
   annotations: AnnotationRecord[];
   ownAnnotations: boolean;
@@ -81,9 +81,9 @@ const mapStateToProps = (state: AppState) => ({
   deleteError: state.project.details.deleteError,
   user: state.user,
   performance_mode: state.project.player.performance_mode,
-  autoDetection_mode: state.project.player.autoDetection_mode,
-  semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
-  semiAutoDetectionMe_mode: state.project.player.semiAutoDetectionMe_mode,
+  autoDetect: state.project.player.autoDetect,
+  semiAutoAnnotation: state.project.player.semiAutoAnnotation,
+  semiAutoAnnotationMe: state.project.player.semiAutoAnnotationMe,
   sequencing: state.project.player.sequencing,
   annotations: state.project.video.annotations,
   ownAnnotations: state.project.details.ownAnnotations,

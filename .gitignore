@@ -28,4 +28,5 @@ notes.txt
 
 .data
 # config
+/packages/client/tsconfig.tsbuildinfo
 

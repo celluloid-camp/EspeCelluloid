@@ -35,8 +35,7 @@ interface Props {
   seeking: boolean;
   focusedAnnotation?: AnnotationRecord;
   performance_mode: boolean;
-  autoDetection_mode: boolean;
-  semiAutoDetection_mode: boolean;
+  autoDetect: boolean;
   sequencing_mode: boolean;
   ownAnnotations: boolean;
   annotationShowingMode: string;
@@ -66,8 +65,7 @@ const mapStateToProps = (state: AppState) => ({
   seeking: state.project.player.seeking,
   focusedAnnotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
-  autoDetection_mode: state.project.player.autoDetection_mode,
-  semiAutoDetection_mode: state.project.player.semiAutoDetection_mode,
+  autoDetect: state.project.player.autoDetect,
   sequencing_mode: state.project.player.sequencing,
   ownAnnotations: state.project.details.ownAnnotations,
   annotationShowingMode: state.project.details.annotationShowingMode,
@@ -365,8 +363,7 @@ export default connect(
             emotionDetected={emotionDetected}
           />
 
-          {(this.props.autoDetection_mode ||
-            this.props.semiAutoDetection_mode) && (
+          {this.props.autoDetect && (
             <AutoDetectionMemo
               positionFloored={positionFloored}
               playing={playing}

@@ -1,11 +1,7 @@
 import 'rc-slider/assets/index.css';
 import {
   Button,
-  Checkbox,
-  createStyles,
-  FormControlLabel,
   IconButton,
-  Theme,
   Typography,
   WithStyles,
   withStyles,
@@ -15,17 +11,10 @@ import CancelIcon from '@material-ui/icons/Clear';
 import { Range } from 'rc-slider';
 import React from 'react';
 import { formatDuration } from 'utils/DurationUtils';
-import TransparentInput from '../TransparentInput';
 import { sliderRailStyle, sliderTrackStyle } from 'utils/SliderUtils';
-import { useTranslation } from 'react-i18next';
 import EmotionOntologyPicker from './EmotionOntologyPicker';
-import addAnnotation from '../../api/Annotation';
 import { UserRecord } from '@celluloid/types';
 import styles from './styles';
-import getFirstConcepts, {
-  getSubConcepts,
-  getRelation,
-} from '../../api/Concept';
 import { PostAnnotation } from './EmotionOntologyPicker';
 
 const caretStart = require('images/caret-start.png');
@@ -44,7 +33,7 @@ interface Props extends WithStyles<typeof styles> {
   error?: string;
   ontology?: string[];
   performance_mode: boolean;
-  sequencing:boolean;
+  sequencing: boolean;
   emotionDetected: string;
   onTextChange(text: string): void;
   onEmotionChange(emotion: string): void;
@@ -115,8 +104,6 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   emotionDetected,
   classes,
 }: Props) => {
-  const { t } = useTranslation();
-
   const handleStyles = {
     border: 0,
     borderRadius: 0,
@@ -139,7 +126,6 @@ const AnnotationEditorComponent: React.FC<Props> = ({
           />
         </div> */}
         <>
-     
           {/* <TransparentInput
             text={text}
             error={error}
@@ -157,7 +143,6 @@ const AnnotationEditorComponent: React.FC<Props> = ({
             sequencing={sequencing}
             emotionDetected={emotionDetected}
           />
-        
         </>
         <div className={classes.timeline}>
           <TimingControl

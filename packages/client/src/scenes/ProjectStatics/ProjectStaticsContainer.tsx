@@ -1,35 +1,35 @@
-import { ProjectGraphRecord, UserRecord, AnnotationRecord } from "@celluloid/types";
-import { clearProject, loadProjectThunk } from "actions/ProjectActions";
+import {
+  ProjectGraphRecord,
+  UserRecord,
+  AnnotationRecord,
+} from '@celluloid/types';
+import { clearProject, loadProjectThunk } from 'actions/ProjectActions';
 
-import React from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { AsyncAction, EmptyAction } from "types/ActionTypes";
-import { AppState } from "types/StateTypes";
-import { useParams } from "react-router-dom";
-import { useDidUpdate } from "rooks";
-import ProjectStaticsComponent from "./ProjectStaticsComponent";
-import { useEffect } from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { AsyncAction, EmptyAction } from 'types/ActionTypes';
+import { AppState } from 'types/StateTypes';
+import { useParams } from 'react-router-dom';
+import { useDidUpdate } from 'rooks';
+import ProjectStaticsComponent from './ProjectStaticsComponent';
+import { useEffect } from 'react';
 import {
   listAnnotationsThunkGeneral,
   triggerBlurAnnotation,
 } from 'actions/AnnotationsActions';
 
-
-
-
-import { SharedLayout } from "scenes/Menu";
+import { SharedLayout } from 'scenes/Menu';
 import 'chart.js/auto';
-import {Chart, ArcElement} from 'chart.js'
+import { Chart, ArcElement } from 'chart.js';
 
-import { Bar , Doughnut, Pie} from 'react-chartjs-2';
-import './style.css'
-import { props } from "ramda";
-import { any } from "prop-types";
+import { Bar, Doughnut, Pie } from 'react-chartjs-2';
+import './style.css';
+import { props } from 'ramda';
+import { any } from 'prop-types';
 Chart.register(ArcElement);
 // Chart.register(Bar);
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
 
 interface Props {
   user?: UserRecord;
@@ -50,7 +50,8 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   loadProject: (projectId: string) => loadProjectThunk(projectId)(dispatch),
-  loadAnnotation: (projectId: string) => listAnnotationsThunkGeneral(projectId)(dispatch),
+  loadAnnotation: (projectId: string) =>
+    listAnnotationsThunkGeneral(projectId)(dispatch),
   clearProject: () => dispatch(clearProject()),
 });
 
@@ -59,15 +60,14 @@ const ProjectStatics: React.FC<Props> = ({
   loadProject,
   loadAnnotation,
   project,
- annotations,
- error,
+  annotations,
+  error,
 }) => {
   let { projectId } = useParams();
-  
+
   const load = () => {
     if (projectId) {
       loadProject(projectId);
-    
     }
   };
   const loadProjectAnnotation = () => {
@@ -79,9 +79,7 @@ const ProjectStatics: React.FC<Props> = ({
   useDidUpdate(() => {
     load();
     loadProjectAnnotation();
-    
   }, [user]);
-
 
   useEffect(() => {
     load();
@@ -90,14 +88,13 @@ const ProjectStatics: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-  
     loadProjectAnnotation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-    return (
-      <SharedLayout>
-      <ProjectStaticsComponent project={project} annotations={annotations} />   
+  return (
+    <SharedLayout>
+      <ProjectStaticsComponent project={project} annotations={annotations} />
     </SharedLayout>
-    );
-  };
-  export default connect(mapStateToProps, mapDispatchToProps) (ProjectStatics);
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectStatics);
