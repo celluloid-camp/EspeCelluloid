@@ -44,12 +44,13 @@ router.post("/student-signup", (req, res, next) => {
         `Failed student signup with username ${payload.username}:`,
         error
       );
-      if (hasConflictedOn(error, "User", "username")) {
-        return res.status(409).json({
-          success: false,
-          errors: { username: "UsernameAlreadyTaken" },
-        });
-      } else if (error.message === "IncorrectProjectPassword") {
+      // if (hasConflictedOn(error, "User", "username")) {
+      //   return res.status(409).json({
+      //     success: false,
+      //     errors: { username: "UsernameAlreadyTaken" },
+      //   });
+      // } else
+       if (error.message === "IncorrectProjectPassword") {
         return res.status(403).send();
       } else {
         return res.status(500).send();
@@ -76,12 +77,13 @@ router.post("/signup", (req, res, next) => {
   return passport.authenticate(SigninStrategy.TEACHER_SIGNUP, (error) => {
     if (error) {
       log.error(`Failed user signup with email ${payload.email}:`, error);
-      if (hasConflictedOn(error, "User", "username")) {
-        return res.status(409).json({
-          success: false,
-          errors: { username: "UsernameAlreadyTaken" },
-        });
-      } else if (hasConflictedOn(error, "User", "email")) {
+      // if (hasConflictedOn(error, "User", "username")) {
+      //   return res.status(409).json({
+      //     success: false,
+      //     errors: { username: "UsernameAlreadyTaken" },
+      //   });
+      // } else 
+      if (hasConflictedOn(error, "User", "email")) {
         return res.status(409).json({
           success: false,
           errors: { email: "EmailAlreadyTaken" },

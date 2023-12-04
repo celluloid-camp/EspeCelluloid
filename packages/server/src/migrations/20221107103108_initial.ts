@@ -14,7 +14,7 @@ export async function up(knex: Knex): Promise<any> {
         .primary()
         .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('email').notNullable().unique();
-      table.string('username').notNullable().unique();
+      table.string('username').notNullable();
       table.string('password').notNullable();
       table.boolean('confirmed').notNullable().defaultTo(false);
       table.text('code');

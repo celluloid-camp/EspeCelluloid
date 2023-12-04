@@ -91,12 +91,13 @@ const signTeacherUp: VerifyFunctionWithRequest = (
 };
 
 const logUserIn: VerifyFunction = (login, password, done) => {
+  console.log('log the login: ', login)
   return UserStore.selectOneByUsernameOrEmail(login)
     .then((user: UserServerRecord) => {
       if (!user) {
         return Promise.resolve(done(new Error("InvalidUser")));
       }
-      if (!bcrypt.compareSync(password, user.password)) {
+      if (user.role !== "Student" && !bcrypt.compareSync(password, user.password)) {
         log.error(`Login failed for user ${user.username}: incorrect password`);
         return Promise.resolve(done(new Error("InvalidUser")));
       }
