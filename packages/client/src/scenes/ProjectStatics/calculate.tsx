@@ -29,9 +29,9 @@ export function calcEmotion(annotations?: AnnotationRecord[]) {
     if (annotation.emotion) {
       if (annotation.emotion === 'happy') {
         happy++;
-      } else if (annotation.emotion === 'Laugh') {
+      } else if (annotation.emotion === 'laugh') {
         laugh++;
-      } else if (annotation.emotion === 'Smile') {
+      } else if (annotation.emotion === 'smile') {
         smile++;
       } else if (annotation.emotion === 'sad') {
         sad++;
@@ -43,9 +43,9 @@ export function calcEmotion(annotations?: AnnotationRecord[]) {
         disgusted++;
       } else if (annotation.emotion === 'fearful') {
         fearful++;
-      } else if (annotation.emotion === 'Empathy') {
+      } else if (annotation.emotion === 'empathy') {
         empathy++;
-      } else if (annotation.emotion === 'ItsStrange') {
+      } else if (annotation.emotion === 'itsStrange') {
         itsStrange++;
       }
     }
@@ -116,13 +116,13 @@ export function calcEmotionByMode(annotations?: AnnotationRecord[]) {
         } else {
           happy++;
         }
-      } else if (annotation.emotion === 'Laugh') {
+      } else if (annotation.emotion === 'laugh') {
         if (annotation.autoDetect || annotation.semiAutoAnnotation) {
           laughAut++;
         } else {
           laugh++;
         }
-      } else if (annotation.emotion === 'Smile') {
+      } else if (annotation.emotion === 'smile') {
         if (annotation.autoDetect || annotation.semiAutoAnnotation) {
           smileAut++;
         } else {
@@ -158,13 +158,13 @@ export function calcEmotionByMode(annotations?: AnnotationRecord[]) {
         } else {
           fearful++;
         }
-      } else if (annotation.emotion === 'Empathy') {
+      } else if (annotation.emotion === 'empathy') {
         if (annotation.autoDetect || annotation.semiAutoAnnotation) {
           empathyAut++;
         } else {
           empathy++;
         }
-      } else if (annotation.emotion === 'ItsStrange') {
+      } else if (annotation.emotion === 'itsStrange') {
         if (annotation.autoDetect || annotation.semiAutoAnnotation) {
           itsStrangeAut++;
         } else {
@@ -264,7 +264,7 @@ export function calcJugement(annotations?: AnnotationRecord[]) {
         iLike++;
       } else if (annotation.emotion === 'iDontLike') {
         iDontLike++;
-      } else if (annotation.emotion === 'ItsStrange') {
+      } else if (annotation.emotion === 'itsStrange') {
         itsStrange++;
         console.log('nb stag ', itsStrange);
       }
