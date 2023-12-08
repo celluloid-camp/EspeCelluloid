@@ -22,7 +22,7 @@ export default {
     newProject: 'new project',
     joinProject: 'join a project',
     searchProject: 'Type anything…',
-    myProjects: 'My projects',
+    myProjects: 'Projects',
     publicProjects: 'Public projects',
     emptySearchResult: 'No matching projects',
   },

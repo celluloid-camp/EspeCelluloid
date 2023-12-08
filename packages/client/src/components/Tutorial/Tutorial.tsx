@@ -15,14 +15,26 @@ export const Tutorial: React.FC = () => {
 
   return (
     <SharedLayout>
-      <div
+     <div
         style={{
           padding: 48,
-          maxWidth: 1024,
           margin: "0 auto",
+          fontStyle: 'revert-layer',
         }}
       >
-     
+        <Typography align='center' variant="h2" gutterBottom={true}     style={{
+                margin: '40px',
+                color: '#0B9A8D',
+              }}>
+          Comment utiliser l'outil E-spectateur?
+        </Typography>
+
+        <Typography  align='center'  variant="h4" gutterBottom={true}>
+        Avec E-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.
+
+        </Typography>
+    
+      
       </div>
     </SharedLayout>
   );
