@@ -104,6 +104,7 @@ export default connect(mapStateToProps)(
           classes,
           performance_mode,
         } = this.props;
+        console.log("afficher position ",position)
         return (
           <Grid
             container={true}
@@ -132,7 +133,7 @@ export default connect(mapStateToProps)(
                 </IconButton> :
                 <></>
               } */}
-               {!playing || !performance_mode ?
+               {!playing || !performance_mode ? 
                 <IconButton
                   color="inherit"
                   onClick={() => onTogglePlayPause()}
