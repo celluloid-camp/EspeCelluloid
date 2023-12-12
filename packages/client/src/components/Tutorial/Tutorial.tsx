@@ -2,7 +2,7 @@ import { Grid, Typography } from "@material-ui/core";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { SharedLayout } from "scenes/Menu";
-
+import './style.css';
 // const logoIcp = require("./images/logo-icp.jpg");
 // const logoFsm = require("./images/logo-fsm.jpg");
 // const logoLp = require("./images/logo-lp.png");
@@ -33,7 +33,9 @@ export const Tutorial: React.FC = () => {
         Avec E-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.
 
         </Typography>
-    
+        <div className="box">
+      {/* Content of the box goes here */}
+    </div>
       
       </div>
     </SharedLayout>
