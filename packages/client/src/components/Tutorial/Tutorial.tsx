@@ -3,7 +3,12 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { SharedLayout } from "scenes/Menu";
 import './style.css';
-const join = require("./images/joinp.png");
+const join = require("./images/newjoin.png");
+const join2 = require("./images/join2.png");
+const join3 = require("./images/join3.png");
+const create = require("./images/create.png");
+const projectcreate = require("./images/projectcreate.png");
+const create2 = require("./images/create2.png");
 // const logoFsm = require("./images/logo-fsm.jpg");
 // const logoLp = require("./images/logo-lp.png");
 // const logoBlog = require("./images/logo_espectateur.png");
@@ -24,7 +29,7 @@ export const Tutorial: React.FC = () => {
       >
         <Typography align='center' variant="h2" gutterBottom={true}     style={{
                 margin: '40px',
-                color:'#6aa84f',
+                color:'#0B9A8D',
               }}>
           Comment utiliser l'outil E-spectateur?
         </Typography>
@@ -41,13 +46,33 @@ export const Tutorial: React.FC = () => {
               <img src={join} alt="Erasmus"/>
           </div>
            <div className="box-column">
-              <img src={join} alt="Erasmus"/>
-        
+              <img src={join2} alt="Erasmus"/>
           </div>
-          </div>
+          <div className="clear-line"></div>
+         
+          <div className="box-row-big">
+         < img src={join3} alt="Erasmus"/>
+        </div>
+       
+       </div>
 
 
-          <div className="vertical-box">Box 2</div>
+       <div className="vertical-box">
+            <p className="box-text"> Si vous souhaitez créer un projet, vous devez:</p>
+          <div className="box-column">
+              <img src={create} alt="Erasmus"/>
+          </div>
+           <div className="box-column">
+              <img src={projectcreate} alt="Erasmus"/>
+          </div>
+          <div className="clear-line"></div>
+         
+          <div className="box-row">
+         < img src={create2} alt="Erasmus"/>
+        </div>
+       
+       </div>
+
           <div  className="vertical-box">Box 3</div>
 
         </div>
