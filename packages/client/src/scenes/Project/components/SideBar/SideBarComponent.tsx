@@ -146,7 +146,7 @@ const SideBarComponenent: React.FC<Props> = ({
   const { t } = useTranslation();
   const onClickStatic = () => {
     // navigate(`/projects/${project.id}`);
-    console.log('test ........................................');
+  
     window.location.assign(`/projectstat/${project.id}`);
   };
   return (
@@ -186,14 +186,14 @@ const SideBarComponenent: React.FC<Props> = ({
       )}
       {user ? (
         <>
-          <LabeledProgressSwitch
+          {/* <LabeledProgressSwitch
             label={t('project.public')}
             checked={project.public}
             loading={setPublicLoading}
             error={setPublicError}
             onChange={() => onClickSetPublic(project.id, !project.public)}
-          />
-          <LabeledProgressSwitch
+          /> */}
+          {/* <LabeledProgressSwitch
             label={t('project.collaborative')}
             checked={project.collaborative}
             loading={setCollaborativeLoading}
@@ -201,7 +201,7 @@ const SideBarComponenent: React.FC<Props> = ({
             onChange={() =>
               onClickSetCollaborative(project.id, !project.collaborative)
             }
-          />
+          /> */}
           {/* {user && (
             <LabeledProgressSwitch
               label={t('project.sequencing')}

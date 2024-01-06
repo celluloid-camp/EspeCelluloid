@@ -14,14 +14,14 @@ body {
   width: calc(100% - 20px); /* Take up 100% width with 20px margin on each side */
   padding:10px;
   flex-wrap: wrap;
-  height: 100vh;
+  height: 105vh;
   box-sizing: border-box;
   justify-content: center;
   background-color: #fff;
   color: #fff;
   text-align: center;
   border-radius: 10px; /* Add border-radius */
-  margin: 20px; /* Adjust margin as needed */
+  margin: 30px; /* Adjust margin as needed */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   overflow: hidden;
   position: relative; 
@@ -29,9 +29,11 @@ body {
 .box-column {
   flex: 1;
   padding: 10px;
-  margin-top: 40px;
+  margin-top: 60px;
+  float: left;
   box-sizing: border-box;
 }
+
 .box-row {
   display: flex;
   flex-direction: column; /* Set direction to column to stack items vertically */
@@ -60,6 +62,7 @@ body {
   }
   .box-text {
     position: absolute;
+    display: flex;
     top: 10px; /* Adjust top position as needed */
     left: 50%;
     color:#0B9A8D;
@@ -68,8 +71,12 @@ body {
     font-weight: bold;
     font-style: italic;
     font-family: Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    align-items: center;
+   
 
   }
+ 
   .clear-line {
     width: 100%;
     height: 0;

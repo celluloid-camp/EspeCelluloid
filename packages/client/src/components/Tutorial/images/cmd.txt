@@ -1,0 +1,32 @@
+sudo docker build . -t especateur -f Dockerfile.webapp
+docker tag espectateur:latest ghcr.io/celluloid-camp/espectateur:latest 
+
+  452  sudo docker push ghcr.io/celluloid-camp/espectateur
+  453  sudo docker login gchr.io/ -u mayalb
+
+
+  459  sudo docker login gchr.io/ -u mayalb -p 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
+  460  sudo docker push ghcr.io/celluloid-camp/espectateur
+  461  echo "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" | docker login ghcr.io -u mayalb --password-stdi
+  sudo echo "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" | docker login ghcr.io -u mayalb --password-stdin
+  463  echo "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" | sudo docker login ghcr.io -u mayalb --password-stdin
+  464  sudo docker push ghcr.io/celluloid-camp/espectateur
+  465  docker build . -t especateur -f Dockerfile.webapp
+  466  yarn start
+  467  yarn build
+  468  yarn start
+  469  ./pycharm.sh 
+  470  yarn start
+  471  ffmpeg -version
+  472  yarn start
+  473  yarn build
+  474  yarn start
+  475  docker build . -t especateur -f Dockerfile.webapp
+  476  sudo docker tag especateur:latest  ghcr.io/celluloid-camp/espectateur:latest 
+  477  sudo docker push ghcr.io/celluloid-camp/espectateur
+  478  ssh celluloid@cchum-kvm-celluloid.in2p3.fr
+  
+  
+  
+  Git: 
+  delete git repo from project: rm -rf .git and then inside the subfolder run git rm --cached . -rf

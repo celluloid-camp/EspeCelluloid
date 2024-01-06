@@ -136,13 +136,13 @@ const HomeContainer: React.FC<Props> = ({
             <Typography variant="h3" color="primary" gutterBottom={true}>
               {t("home.title")}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="subtitle1"
               className={classes.description}
               gutterBottom={true}
             >
               {t("home.description")}
-            </Typography>
+            </Typography> */}
             {/* <Typography
               variant="subtitle1"
               className={classes.tutoriel}

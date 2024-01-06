@@ -52,10 +52,10 @@ const ProjectSummary: React.FC<Props> = ({ project, classes }: Props) => {
           ))}
         </div>
       )}
-      <Typography align="justify" gutterBottom={true} variant="subtitle1">
+      {/* <Typography align="justify" gutterBottom={true} variant="subtitle1">
         <b>{project.description}</b>
-      </Typography>
-      <Typography
+      </Typography> */}
+      {/* <Typography
         align="left"
         gutterBottom={true}
         variant="h4"
@@ -66,7 +66,7 @@ const ProjectSummary: React.FC<Props> = ({ project, classes }: Props) => {
       </Typography>
       <Typography align="justify" gutterBottom={true} variant="subtitle1">
         {project.objective}
-      </Typography>
+      </Typography> */}
       {project.assignments.length > 0 && (
         <>
           <Typography
@@ -87,7 +87,7 @@ const ProjectSummary: React.FC<Props> = ({ project, classes }: Props) => {
           </Typography>
         </>
       )}
-      <Typography
+      {/* <Typography
         align="left"
         gutterBottom={true}
         variant="h4"
@@ -95,7 +95,7 @@ const ProjectSummary: React.FC<Props> = ({ project, classes }: Props) => {
         className={classes.section}
       >
         <Trans i18nKey={"project.URL_title"} />
-      </Typography>
+      </Typography> */}
 
       <Typography align="left" gutterBottom={true} variant="subtitle1">
         <a
