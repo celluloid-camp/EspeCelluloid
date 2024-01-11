@@ -23,6 +23,7 @@ const use4= require("./images/use4.png");
 
 export const Tutorial: React.FC = () => {
   const { t } = useTranslation();
+  const fileUrl = process.env.PUBLIC_URL + '/TUTORIEL.pdf';
 
   return (
     <SharedLayout>
@@ -46,7 +47,7 @@ export const Tutorial: React.FC = () => {
                 color:'#666666',
                
               }}>
-        Vous pouvez télécharger le tutorial en cliquant sur <a href={"./images/TUTORIEL.pdf"} download={"TUTORIEL.pdf"}>Tutorial</a> 
+        Vous pouvez télécharger le tutorial en cliquant sur <a href={fileUrl} download={"TUTORIEL.pdf"}>Tutorial</a> 
         </Typography>
         <Typography  align='center'  variant="h4" gutterBottom={true}>
         Avec e-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.
