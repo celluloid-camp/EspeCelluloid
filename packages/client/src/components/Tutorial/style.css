@@ -33,6 +33,13 @@ body {
   float: left;
   box-sizing: border-box;
 }
+.box-column-specific {
+  flex: 1;
+  padding: 10px;
+  margin-top: 20px;
+  float: left;
+  box-sizing: border-box;
+}
 
 .box-row {
   display: flex;
@@ -67,7 +74,7 @@ body {
     left: 50%;
     color:#0B9A8D;
     transform: translateX(-50%); /* Center the text horizontally */
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bold;
     font-style: italic;
     font-family: Arial, sans-serif;

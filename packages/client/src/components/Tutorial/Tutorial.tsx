@@ -100,10 +100,10 @@ export const Tutorial: React.FC = () => {
           </div>
           <div className="clear-line"></div>
          
-          <div className="box-column">
+          <div className="box-column-specific">
          < img src={use3} alt="Erasmus"/>
         </div>
-        <div className="box-column">
+        <div className="box-column-specific">
          < img src={use4} alt="Erasmus"/>
         </div>
        
