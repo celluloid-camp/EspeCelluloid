@@ -36,7 +36,6 @@ body {
 .box-column-specific {
   flex: 1;
   padding: 10px;
-  margin-top: 20px;
   float: left;
   box-sizing: border-box;
 }
