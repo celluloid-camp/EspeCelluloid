@@ -38,7 +38,7 @@ export const Tutorial: React.FC = () => {
                 color:'#0B9A8D',
                
               }}>
-          Comment utiliser l'outil E-spectateur?  
+          Comment utiliser l'outil e-spectateur?  
         </Typography>
          
         <Typography align='center' variant="h6" gutterBottom={true}    style={{
@@ -46,16 +46,16 @@ export const Tutorial: React.FC = () => {
                 color:'#666666',
                
               }}>
-        Vous pouvez télécharger le tutorial en cliquant sur   <a href={"./images/create.png"} download={"create.png"}>Tutorial</a> 
+        Vous pouvez télécharger le tutorial en cliquant sur   <a href={"./images/TUTORIEL.pdf"} download={"TUTORIEL.pdf"}>Tutorial</a> 
         </Typography>
         <Typography  align='center'  variant="h4" gutterBottom={true}>
-        Avec E-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.
+        Avec e-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.
 
         </Typography>
         <div className="spacer"></div>
         <div className="vertical-container">
          <div className="vertical-box">
-            <p className="box-text">Comment rejoindre E-specta@teur ?</p>
+            <p className="box-text">Comment rejoindre e-specta@teur </p>
           <div className="box-column">
               <img src={join} alt="Erasmus"/>
           </div>
@@ -89,7 +89,7 @@ export const Tutorial: React.FC = () => {
 
          
        <div className="vertical-box">
-            <p className="box-text"> Utiliser E-spectateur
+            <p className="box-text"> Utiliser e-spectateur
            
             </p>
           <div className="box-column">
