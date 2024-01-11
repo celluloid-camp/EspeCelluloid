@@ -46,7 +46,7 @@ export const Tutorial: React.FC = () => {
                 color:'#666666',
                
               }}>
-        Vous pouvez télécharger le tutorial en cliquant sur   <a href={"./images/TUTORIEL.pdf"} download={"TUTORIEL.pdf"}>Tutorial</a> 
+        Vous pouvez télécharger le tutorial en cliquant sur <a href={"./images/TUTORIEL.pdf"} download={"TUTORIEL.pdf"}>Tutorial</a> 
         </Typography>
         <Typography  align='center'  variant="h4" gutterBottom={true}>
         Avec e-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.
