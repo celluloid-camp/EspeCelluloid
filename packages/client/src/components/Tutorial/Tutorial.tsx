@@ -11,8 +11,11 @@ const joinen2 = require("./images/en_join2.png");
 const join3 = require("./images/join3.png");
 const joinen3 = require("./images/en_join3.png");
 const create = require("./images/create.png");
+const createen = require("./images/en_create1.png");
 const projectcreate = require("./images/projectcreate.png");
+const projectcreateen = require("./images/en_create2.png");
 const create2 = require("./images/create2.png");
+const createen2 = require("./images/en_create3.png");
 const logo = require("./images/logo.png");
 const happy= require("./images/sourire.png");
 const use1= require("./images/use1.png");
@@ -32,6 +35,9 @@ export const Tutorial: React.FC = () => {
   const FEJoin1 = i18n.language === 'fr_FR' ? join :joinen;
   const FEJoin2 = i18n.language === 'fr_FR' ? join2 :joinen2;
   const FEJoin3 = i18n.language === 'fr_FR' ? join3 :joinen3;
+  const FECreate1 = i18n.language === 'fr_FR' ? create :createen;
+  const FECreate2 = i18n.language === 'fr_FR' ? projectcreate :projectcreateen;
+  const FECreate3 = i18n.language === 'fr_FR' ? create2 :createen2;
   return (
     <SharedLayout>
      <div
@@ -82,15 +88,15 @@ export const Tutorial: React.FC = () => {
        <div className="vertical-box">
             <p className="box-text"> <Trans i18nKey={"tutorial.create"}/></p>
           <div className="box-column">
-              <img src={create} alt="Erasmus"/>
+              <img src={FECreate1} alt="Erasmus"/>
           </div>
            <div className="box-column">
-              <img src={projectcreate} alt="Erasmus"/>
+              <img src={FECreate2} alt="Erasmus"/>
           </div>
           <div className="clear-line"></div>
          
           <div className="box-row">
-         < img src={create2} alt="Erasmus"/>
+         < img src={FECreate3} alt="Erasmus"/>
         </div>
        
        </div>
