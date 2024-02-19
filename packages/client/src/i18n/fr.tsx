@@ -5,9 +5,17 @@ export default {
     legalNotice: 'Mention légales',
     termsAndConditions: "Conditions Générales d'Utilisation",
     about: 'à propos',
-    tutorial:'tutorial'
+    tutorial:'tutorial',
   },
-
+  tutorial:{
+    title:'Tutorial',
+    head:'Comment utiliser l\'outil e-spectateur?',
+    download:'Vous pouvez télécharger le tutorial en cliquant sur',
+    user:'Avec e-spect@teur, vous pouvez être créateur de projet ou simplement participer à un projet existant.',
+    join:'Comment rejoindre e-specta@teur',
+    create:'Si vous souhaitez créer un projet, vous devez:', 
+    use:'Utiliser e-spectateur'
+  },
   home: {
     logo:'E-spect@teur',
     title: 'Apprendre ensemble avec une vidéo',
@@ -28,9 +36,6 @@ export default {
     emptySearchResult: 'Aucun projet ne correspond à votre recherche',
   },
 
-  tutorial:{
-    title:'Tutorial'
-  },
   about: {
     logo:'E-spect@teur',
     title: 'À propos',

@@ -27,7 +27,13 @@ export default {
     emptySearchResult: 'No matching projects',
   },
   tutorial:{
-    title:'Tutorial'
+    title:'Tutorial',
+    head:'How to use the E-spect@tor tool?',
+    download:'You can download the tutorial by clicking on',
+    user:'With e-spect@tor, you can be a project creator or simply participate in an existing project.',
+    join:'How to join e-specta@tor',
+    create:'If you want to create a project, you must:',
+    use:'Use e-spect@tor'
   },
   about: {
     logo:'E-spect@tor',
