@@ -22,7 +22,10 @@ const use1= require("./images/use1.png");
 const use2= require("./images/use2.png");
 const use3= require("./images/use3.png");
 const use4= require("./images/use4.png");
-
+const useen1= require("./images/en_use1.png");
+const useen2= require("./images/en_use2.png");
+const useen3= require("./images/en_use3.png");
+const useen4= require("./images/en_use4.png");
 // const logoFsm = require("./images/logo-fsm.jpg");
 // const logoLp = require("./images/logo-lp.png");
 // const logoBlog = require("./images/logo_espectateur.png");
@@ -38,6 +41,10 @@ export const Tutorial: React.FC = () => {
   const FECreate1 = i18n.language === 'fr_FR' ? create :createen;
   const FECreate2 = i18n.language === 'fr_FR' ? projectcreate :projectcreateen;
   const FECreate3 = i18n.language === 'fr_FR' ? create2 :createen2;
+  const FEuse1 = i18n.language === 'fr_FR' ? use1 :useen1;
+  const FEuse2 = i18n.language === 'fr_FR' ? use2 :useen2;
+  const FEuse3 = i18n.language === 'fr_FR' ? use3 :useen3;
+  const FEuse4 = i18n.language === 'fr_FR' ? use4 :useen4;
   return (
     <SharedLayout>
      <div
@@ -107,18 +114,18 @@ export const Tutorial: React.FC = () => {
            
             </p>
           <div className="box-column">
-              <img src={use1} alt="Erasmus"/>
+              <img src={FEuse1} alt="Erasmus"/>
           </div>
            <div className="box-column">
-              <img src={use2} alt="Erasmus"/>
+              <img src={FEuse2} alt="Erasmus"/>
           </div>
           <div className="clear-line"></div>
          
           <div className="box-column-specific">
-         < img src={use3} alt="Erasmus"/>
+         < img src={FEuse3} alt="Erasmus"/>
         </div>
         <div className="box-column-specific">
-         < img src={use4} alt="Erasmus"/>
+         < img src={FEuse4} alt="Erasmus"/>
         </div>
        
        </div>
