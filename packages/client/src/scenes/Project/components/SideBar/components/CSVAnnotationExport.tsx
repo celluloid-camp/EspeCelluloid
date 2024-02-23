@@ -61,6 +61,7 @@ function CSVAnnotationExport({ project, buttonName }: Props) {
           } = annotation;
 
           return {
+           
             projectTitle: project.title,
             username,
             text,
@@ -76,13 +77,15 @@ function CSVAnnotationExport({ project, buttonName }: Props) {
             subConcept2: superClasses[1],
             subConcept3: superClasses[2],
             relationConcept,
+            
           };
         })
       );
 
       const csvData = Papa.unparse(annotationsCSV, { header: true });
-      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
-
+      const modifiedCsvData = csvData.replace(/true/g, 'on').replace(/false/g, 'off');
+      const blob = new Blob([modifiedCsvData], { type: 'text/csv;charset=utf-8' });
+      
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = `annotations_${project.title}.csv`;
