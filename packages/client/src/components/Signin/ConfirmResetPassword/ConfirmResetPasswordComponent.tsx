@@ -35,7 +35,11 @@ const ConfirmComponent = ({
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   return (
     <div>
       <TextField
@@ -100,6 +104,28 @@ const ConfirmComponent = ({
         helperText={
           confirmPasswordError ? t("signin.passwordMismatch") : undefined
         }
+      />
+        <TextField
+        margin="dense"
+        fullWidth
+        error={confirmPasswordError ? true : false}
+        label={t("signin.confirmPassword")}
+        type={showConfirmPassword ? 'text' : 'password'}
+        required
+        // value={data.confirmPassword}
+        onChange={(event) => onChange("confirmPassword", event.target.value)}
+        helperText={
+          confirmPasswordError ? t("signin.passwordMismatch") : undefined
+        }
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleConfirmPasswordVisibility}>
+                {showConfirmPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       {errors.server && <DialogError error={errors.server} />}
       <DialogButtons onSubmit={onSubmit} actionName={t("signin.resetAction")} />
