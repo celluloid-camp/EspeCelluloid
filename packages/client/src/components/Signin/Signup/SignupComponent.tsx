@@ -9,6 +9,10 @@ import { useTranslation } from "react-i18next";
 import { AnyAction } from "redux";
 import { Action } from "types/ActionTypes";
 import { PeertubeVideoInfo } from "types/YoutubeTypes";
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 interface Props {
   user?: UserRecord;
@@ -32,6 +36,16 @@ const SignupComponent = ({
   onClickLogin,
 }: Props) => {
   const { t } = useTranslation();
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   return (
     <div>
       {video && user && (
@@ -64,7 +78,30 @@ const SignupComponent = ({
         onChange={(event) => onChange("email", event.target.value)}
         helperText={errors.email}
       />
-      <TextField
+
+       <TextField
+        fullWidth
+        margin="dense"
+        label={t("signin.password")}
+        required
+        value={data.password}
+        type={showPassword ? 'text' : 'password'}
+        error={errors.password ? true : false}
+        onChange={(event) => onChange("password", event.target.value)}
+        helperText={errors && errors.password}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={togglePasswordVisibility}>
+                {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+
+
+      {/* <TextField
         margin="dense"
         fullWidth={true}
         error={errors.password ? true : false}
@@ -74,8 +111,30 @@ const SignupComponent = ({
         required={true}
         onChange={(event) => onChange("password", event.target.value)}
         helperText={errors.password}
+      /> */}
+       <TextField
+        margin="dense"
+        fullWidth
+        error={confirmPasswordError ? true : false}
+        label={t("signin.confirmPassword")}
+        type={showConfirmPassword ? 'text' : 'password'}
+        required
+        // value={data.confirmPassword}
+        onChange={(event) => onChange("confirmPassword", event.target.value)}
+        helperText={
+          confirmPasswordError ? t("signin.passwordMismatch") : undefined
+        }
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleConfirmPasswordVisibility}>
+                {showConfirmPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
-      <TextField
+      {/* <TextField
         margin="dense"
         fullWidth={true}
         error={confirmPasswordError ? true : false}
@@ -86,7 +145,7 @@ const SignupComponent = ({
         helperText={
           confirmPasswordError ? t("signin.passwordMismatch") : undefined
         }
-      />
+      /> */}
       {errors.server && <DialogError error={errors.server} />}
       {!user && (
         <DialogAltButtons
