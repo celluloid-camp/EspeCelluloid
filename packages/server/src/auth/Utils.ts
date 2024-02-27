@@ -122,19 +122,19 @@ export function generateUniqueShareName(title: string, count: number) {
 }
 
 export function sendConfirmationCode(user: TeacherServerRecord) {
-  const subject = `Bienvenue sur Celluloid, ${user.username} !`;
+  const subject = `Bienvenue sur e-spect@teur, ${user.username} !`;
   const text =
     `Bonjour ${user.username},\n\n` +
     `Voici votre code de confirmation : ${user.code}\n\n` +
     `Ce code est valable pendant 1 heure.\n\n` +
     `Veuillez le saisir dans le formulaire prévu à cet effet.\n\n` +
-    `L'équipe Celluloid vous souhaite la bienvenue !`;
+    `L'équipe e-spect@teur vous souhaite la bienvenue !`;
   const html =
     `<h3>Bonjour <b>${user.username},</b></h3>` +
     `<p>Voici votre code de confirmation : <b>${user.code}</b></p>` +
     `<p>Ce code est valable pendant 1 heure.</p>` +
     `<p>Veuillez le saisir dans le formulaire prévu à cet effet.</p>` +
-    `<p><b>L'équipe Celluloid vous souhaite la bienvenue !</b></p>`;
+    `<p><b>L'équipe e-spect@teur vous souhaite la bienvenue !</b></p>`;
 
   return sendMail(user.email, subject, text, html).then(() =>
     Promise.resolve(user)
@@ -144,7 +144,7 @@ export function sendConfirmationCode(user: TeacherServerRecord) {
 export function sendPasswordReset(user: TeacherServerRecord) {
   const subject = `${
     user.username
-    } : réinitialisation de votre mot de passe Celluloid`;
+    } : réinitialisation de votre mot de passe  e-spect@teur`;
   const text =
     `Bonjour ${user.username},\n\n` +
     `Nous avons reçu une demande de réinitialisation de mot de passe ` +
@@ -155,7 +155,7 @@ export function sendPasswordReset(user: TeacherServerRecord) {
     `Si vous n'êtes pas à l'origine de cette demande, ` +
     `veuillez simplement ignorer ce mail.\n\n` +
     `Cordialement,\n\n` +
-    `L'équipe Celluloid`;
+    `L'équipe e-spect@teur`;
   const html =
     `<h3>Bonjour <b>${user.username},</b></h3>` +
     `<p>Nous avons reçu une demande de réinitialisation de mot de passe ` +
@@ -166,7 +166,7 @@ export function sendPasswordReset(user: TeacherServerRecord) {
     `<p><b/>Si vous n'êtes pas à l'origine de cette demande, ` +
     `veuillez simplement ignorer ce mail.</b></p>` +
     `<p>Cordialement,</p>` +
-    `<p><b>L'équipe Celluloid</b></p>`;
+    `<p><b>L'équipe e-spect@teur</b></p>`;
 
   return sendMail(user.email, subject, text, html).then(() =>
     Promise.resolve(user)
