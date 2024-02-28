@@ -26,15 +26,12 @@ const useen1= require("./images/en_use1.png");
 const useen2= require("./images/en_use2.png");
 const useen3= require("./images/en_use3.png");
 const useen4= require("./images/en_use4.png");
-// const logoFsm = require("./images/logo-fsm.jpg");
-// const logoLp = require("./images/logo-lp.png");
-// const logoBlog = require("./images/logo_espectateur.png");
-// const logoHN = require("./images/logo-huma-num.jpg");
 
 
 export const Tutorial: React.FC = () => {
   const { t, i18n } = useTranslation();
   const fileUrl = process.env.PUBLIC_URL + '/TUTORIEL.pdf';
+  const fileUrlEn = process.env.PUBLIC_URL + '/TUTORIELEn.pdf';
   const FEJoin1 = i18n.language === 'fr_FR' ? join :joinen;
   const FEJoin2 = i18n.language === 'fr_FR' ? join2 :joinen2;
   const FEJoin3 = i18n.language === 'fr_FR' ? join3 :joinen3;
@@ -45,6 +42,7 @@ export const Tutorial: React.FC = () => {
   const FEuse2 = i18n.language === 'fr_FR' ? use2 :useen2;
   const FEuse3 = i18n.language === 'fr_FR' ? use3 :useen3;
   const FEuse4 = i18n.language === 'fr_FR' ? use4 :useen4;
+  const tutoFile = i18n.language === 'fr_FR' ? fileUrl :fileUrlEn;
   return (
     <SharedLayout>
      <div
@@ -68,7 +66,7 @@ export const Tutorial: React.FC = () => {
                 color:'#666666',
                
               }}>
-              <Trans i18nKey={"tutorial.download"} /><a href={fileUrl} download={"TUTORIEL.pdf"}> Tutorial</a> 
+              <Trans i18nKey={"tutorial.download"} /><a href={tutoFile} download={"TUTORIEL.pdf"}> Tutorial</a> 
         </Typography>
         <Typography  align='center'  variant="h4" gutterBottom={true}>
             <Trans i18nKey={"tutorial.user"} />   
