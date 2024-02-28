@@ -93,7 +93,7 @@ const ConfirmComponent = ({
         onChange={(event) => onChange("password", event.target.value)}
         helperText={errors && errors.password}
       /> */}
-      <TextField
+      {/* <TextField
         fullWidth={true}
         margin="dense"
         error={confirmPasswordError ? true : false}
@@ -104,7 +104,7 @@ const ConfirmComponent = ({
         helperText={
           confirmPasswordError ? t("signin.passwordMismatch") : undefined
         }
-      />
+      /> */}
         <TextField
         margin="dense"
         fullWidth
