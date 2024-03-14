@@ -115,6 +115,7 @@ export async function up(knex: Knex): Promise<any> {
     table.float('stopTime').notNullable();
     table.boolean('pause').notNullable();
     table.specificType('ontology', 'text[]');
+    table.timestamp('timeStamp').notNullable().defaultTo(knex.fn.now());// create timeStamp
     table
       .uuid('userId')
       .notNullable()

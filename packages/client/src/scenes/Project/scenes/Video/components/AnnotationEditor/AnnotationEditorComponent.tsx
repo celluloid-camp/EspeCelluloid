@@ -35,6 +35,7 @@ interface Props extends WithStyles<typeof styles> {
   performance_mode: boolean;
   sequencing: boolean;
   emotionDetected: string;
+ // timeStamp: Date;
   onTextChange(text: string): void;
   onEmotionChange(emotion: string): void;
   onCheckPauseChange(value: boolean): void;
@@ -88,6 +89,7 @@ const AnnotationEditorComponent: React.FC<Props> = ({
   stopTime,
   pause,
   text,
+  //timeStamp,
   emotion,
   duration,
   position,

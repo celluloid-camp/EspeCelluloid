@@ -103,12 +103,14 @@ export function generateUniqueShareName(title: string, count: number) {
     b.length - a.length;
 
   const construct = (result:string[], str:string) => {
+    console.log('resuult function ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, ', result)
     var res:string[] = []
     if (!!str) {
       if (result.join().length < 6) {
         res = [...result, str];
       }
     }
+    console.log('resu function ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, ', res)
     return res;
   };
 

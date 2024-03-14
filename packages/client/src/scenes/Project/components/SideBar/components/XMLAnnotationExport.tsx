@@ -20,6 +20,7 @@ interface AnnotationExport extends AnnotationData {
   subConcept2: string;
   subConcept3: string;
   relationConcept: string;
+  timeStamp:Date;
 }
 
 function XMLAnnotationExport({ project, buttonName }: Props) {
@@ -89,6 +90,7 @@ function XMLAnnotationExport({ project, buttonName }: Props) {
             startTime,
             stopTime,
             pause,
+            timeStamp,
             user: { username },
           } = annotation;
 
@@ -108,6 +110,7 @@ function XMLAnnotationExport({ project, buttonName }: Props) {
             subConcept2: superClasses[1],
             subConcept3: superClasses[2],
             relationConcept,
+            timeStamp,
           };
         })
       );

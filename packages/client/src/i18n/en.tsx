@@ -35,6 +35,10 @@ export default {
     create:'If you want to create a project, you must:',
     use:'Use e-spect@tor'
   },
+  static:{
+    dataLabel:'number of reactions',
+    title: 'Result of the annotations of ', 
+  },
   about: {
     logo:'E-spect@tor',
     title: 'About',
@@ -188,7 +192,7 @@ export default {
         'This code will be available on the project page.' +
         ' To reset it, just reshare the project.',
     },
-
+  
     share: {
       dialog: {
         description: 'To open printable instructions in a new widow ',

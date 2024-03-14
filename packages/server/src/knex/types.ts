@@ -31,6 +31,7 @@ export type Annotation = {
   pause: boolean;
   userId: string;
   projectId: string;
+  timeStamp:Date;
 };
 
 export type Comment = {

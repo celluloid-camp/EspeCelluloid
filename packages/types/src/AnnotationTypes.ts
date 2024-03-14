@@ -11,6 +11,7 @@ export interface AnnotationData {
   semiAutoAnnotationMe: boolean;
   emotion?: string;
   ontology: string[];
+  
 }
 
 export interface AnnotationRecord extends AnnotationData {
@@ -19,4 +20,5 @@ export interface AnnotationRecord extends AnnotationData {
   id: string;
   user: UserRecord;
   comments: CommentRecord[];
+  timeStamp: Date;
 }

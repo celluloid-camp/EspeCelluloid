@@ -16,6 +16,10 @@ export default {
     create:'Si vous souhaitez créer un projet, vous devez:', 
     use:'Utiliser e-spectateur'
   },
+  static:{
+    dataLabel:'nombre de réaction',
+    title: 'Résultat des annotations de la pièce ', 
+  },
   home: {
     logo:'E-spect@teur',
     title: 'Apprendre ensemble avec une vidéo',
@@ -195,7 +199,7 @@ export default {
         ' Vous pouvez le réinitialiser en partageant' +
         ' à nouveau le projet.',
     },
-
+ 
     share: {
       dialog: {
         description:

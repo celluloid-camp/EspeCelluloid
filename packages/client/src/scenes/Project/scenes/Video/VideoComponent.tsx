@@ -297,8 +297,10 @@ export default connect(
                     {!editing &&
                       Array.from(visibleAnnotations.values()).map(
                         (annotation) => (
+                         
                           <Grow appear={true} in={!editing} key={annotation.id}>
                             <div>
+                            
                               <AnnotationContent
                                 project={project}
                                 focused={annotation.id === focusedAnnotationId}

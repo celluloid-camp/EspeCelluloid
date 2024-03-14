@@ -134,6 +134,7 @@ export function insert(
   projectId: string
 ) {
   return database('Annotation')
+  
     .insert({
       text: annotation.text || '',
       startTime: annotation.startTime,
@@ -145,6 +146,7 @@ export function insert(
       emotion: annotation.emotion || null,
       userId: user.id,
       projectId: projectId,
+      timeStamp: database.raw("NOW()"),
     })
     .returning('id')
     .then(getExactlyOne)

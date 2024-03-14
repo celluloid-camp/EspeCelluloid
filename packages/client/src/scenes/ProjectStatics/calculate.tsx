@@ -1,7 +1,7 @@
 import { AnnotationRecord } from '@celluloid/types';
 import { getConcept } from '../Project/scenes/Video/api/Annotation';
 import AnnotationService from 'services/AnnotationService';
-
+import { Trans } from "react-i18next";
 export function calcEmotion(annotations?: AnnotationRecord[]) {
   const labels = [
     'Happy',
@@ -55,7 +55,7 @@ export function calcEmotion(annotations?: AnnotationRecord[]) {
     labels: labels,
     datasets: [
       {
-        label: 'nombre de réaction',
+        label:'nombre de réaction'  ,
         data: [
           happy,
           laugh,

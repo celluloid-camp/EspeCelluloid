@@ -1,4 +1,6 @@
 import { ProjectGraphRecord, AnnotationRecord } from '@celluloid/types';
+import { useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 import { ChartData, ChartDataset } from 'chart.js/auto';
 import React, { useState, useEffect } from 'react';
 import {
@@ -41,37 +43,38 @@ const labels = [
   'Empathy',
   'ItsStrange',
 ];
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'nombre de réaction',
-      data: [20, 14, 24, 40, 30, 35, 4, 15, 4, 9],
-      maxBarThickness: 30,
-      backgroundColor: ['#0B9A8D'],
-    },
-  ],
-};
-const Doughnutdata = {
-  labels: ['iLike', 'iDontLike'],
-  datasets: [
-    {
-      label: 'Jugements',
-      data: [20, 12],
-      backgroundColor: ['#0075A4', '#D8D8D8'],
-    },
-  ],
-};
-const Piedata = {
-  labels: ['Automatique', 'SA', 'Commentaire', 'Emojis'],
-  datasets: [
-    {
-      label: 'Modes',
-      data: [80, 56, 5, 17],
-      backgroundColor: ['#772F67', '#9C2162', '#D03454', '#FF6F50'],
-    },
-  ],
-};
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: <Trans i18nKey={"static.dataLabel"}/>,
+//       data: [20, 14, 24, 40, 30, 35, 4, 15, 4, 9],
+//       maxBarThickness: 30,
+//       backgroundColor: ['#0B9A8D'],
+//     },
+//   ],
+// };
+// const Doughnutdata = {
+//   labels: ['iLike', 'iDontLike'],
+//   datasets: [
+//     {
+//       label: 'Jugements',
+//       data: [20, 12],
+//       backgroundColor: ['#0075A4', '#D8D8D8'],
+//     },
+//   ],
+// };
+// const Piedata = {
+//   labels: ['Automatique', 'SA', 'Commentaire', 'Emojis'],
+//   datasets: [
+//     {
+//       label: 'Modes',
+//       data: [80, 56, 5, 17],
+//       backgroundColor: ['#772F67', '#9C2162', '#D03454', '#FF6F50'],
+//     },
+//   ],
+// };
 const Ontologydata = {
   labels: ['Staging', 'Dramaturgy', 'Acting'],
   datasets: [
@@ -82,102 +85,38 @@ const Ontologydata = {
     },
   ],
 };
-const Doubledata = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'automatique',
-      data: [20, 12, 8, 40, 30, 35, 4, 15, 0, 0],
-      maxBarThickness: 30,
-      barPercentage: 0.5,
-      backgroundColor: ['#D5255E'],
-    },
-    {
-      label: 'déclaratif',
-      data: [2, 11, 24, 50, 40, 3, 14, 5, 4, 9],
-      maxBarThickness: 30,
-      barPercentage: 0.5,
-      backgroundColor: ['#0B9A8D'],
-    },
-  ],
-};
-const options = {
-  responsive: false,
-  maintainAspectRatio: false,
-};
+// const Doubledata = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: 'automatique',
+//       data: [20, 12, 8, 40, 30, 35, 4, 15, 0, 0],
+//       maxBarThickness: 30,
+//       barPercentage: 0.5,
+//       backgroundColor: ['#D5255E'],
+//     },
+//     {
+//       label: 'déclaratif',
+//       data: [2, 11, 24, 50, 40, 3, 14, 5, 4, 9],
+//       maxBarThickness: 30,
+//       barPercentage: 0.5,
+//       backgroundColor: ['#0B9A8D'],
+//     },
+//   ],
+// };
+// const options = {
+//   responsive: false,
+//   maintainAspectRatio: false,
+// };
 
-// const [chartData, setChartData] = useState<ChartData<'doughnut', number[], MyDataset>>();
-
-// useEffect(() => {
-//   calcOntologyType().then(dataset => {
-//     // Assuming dataset has the structure you need for Chart.js
-//     setChartData({
-//       datasets: dataset
-//     });
-//   }).catch((error :string)=> {
-//     // Handle errors
-//     console.error('Error fetching data:', error);
-//   });
-// }, []);
-interface Data {
-  name: string;
-  age: number;
-  city: string;
-}
+// interface Data {
+//   name: string;
+//   age: number;
+//   city: string;
+// }
 export default withStyles(styles)(
   ({ project, classes, annotations }: Props) => {
-    // const data = React.useMemo(
-    //   () => [
-    //     { name: 'John Doe', age: 30, city: 'New York' },
-    //     { name: 'Jane Doe', age: 25, city: 'San Francisco' },
-    //     { name: 'Bob Smith', age: 35, city: 'Los Angeles' },
-    //     // Add more data as needed
-    //   ],
-    //   []
-    // );
-
-    // const columns = React.useMemo(
-    //   () => [
-    //     {
-    //       Header: 'Name',
-    //       accessor: 'name',
-    //       Filter: DefaultColumnFilter, // Add a custom filter function
-    //     },
-    //     {
-    //       Header: 'Age',
-    //       accessor: 'age',
-    //       Filter: DefaultColumnFilter,
-    //     },
-    //     {
-    //       Header: 'City',
-    //       accessor: 'city',
-    //       Filter: DefaultColumnFilter,
-    //     },
-    //   ],
-    //   []
-    // );
-
-    // const DefaultColumnFilter = ({ column: { filterValue, setFilter } }) => (
-    //   <input
-    //     value={filterValue || ''}
-    //     onChange={(e) => setFilter(e.target.value)}
-    //     placeholder={`Search ${column.Header.toLowerCase()}`}
-    //   />
-    // );
-
-    // const {
-    //   getTableProps,
-    //   getTableBodyProps,
-    //   headerGroups,
-    //   rows,
-    //   prepareRow,
-    //   state,
-    // } = useTable(
-    //   { columns, data },
-    //   useFilters, // Add the useFilters hook
-    //   usePagination
-    // );
-
+    const { t, i18n } = useTranslation();
     return (
       <div className={classes.root}>
         {project && (
@@ -192,7 +131,9 @@ export default withStyles(styles)(
               variant="h3"
               gutterBottom={true}
             >
-              Résultat des annotations de la pièce {project.title}
+               {/* {t("static.title")} */}
+              <Trans i18nKey={"static.title"} /> 
+             {project.title}
             </Typography>
           </div>
         )}
@@ -224,33 +165,6 @@ export default withStyles(styles)(
           </div>
         </div>
         <div className="spacer"></div>
-
-        {/* <div>
-        <h2>Data Table with Filters</h2>
-        <table {...getTableProps()} style={{ width: '100%' }}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div> */}
       </div>
     );
   }

@@ -71,6 +71,7 @@ function init({
         stopTime: maxAnnotationDuration(video.position, video.duration),
         semiAutoAnnotation,
         semiAutoAnnotationMe,
+      
         pause: true,
       },
     } as State;
@@ -84,6 +85,7 @@ const mapStateToProps = (state: AppState) => ({
   annotation: state.project.video.focusedAnnotation,
   performance_mode: state.project.player.performance_mode,
   sequencing: state.project.player.sequencing,
+  
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -210,6 +212,7 @@ export default connect(
           position={video.position}
           projectId={projectId}
           emotionDetected={emotionDetected}
+        
         />
       );
     }

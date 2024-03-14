@@ -55,6 +55,7 @@ const signStudentUp: VerifyFunctionWithRequest = (
   done
 ) => {
   const { shareCode } = req.body;
+  console.log(' shareCode ', shareCode)
   const parts = shareCode.split("-");
    console.log(' lol: ', parts)
   // const sharePassword = parts.slice(-2).join("-");

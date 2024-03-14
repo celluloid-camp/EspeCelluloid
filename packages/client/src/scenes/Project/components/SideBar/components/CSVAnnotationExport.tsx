@@ -49,6 +49,7 @@ function CSVAnnotationExport({ project, buttonName }: Props) {
           const relationConcept = response[2];
 
           const {
+            timeStamp,
             text,
             emotion,
             autoDetect,
@@ -63,6 +64,7 @@ function CSVAnnotationExport({ project, buttonName }: Props) {
           return {
            
             projectTitle: project.title,
+            timeStamp,
             username,
             text,
             ontology,
